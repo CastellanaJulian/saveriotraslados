@@ -16,9 +16,11 @@ export const sitio = {
   zonaCompleta: "CABA y Gran Buenos Aires",
   // Punto de referencia para ordenar resultados de búsqueda de direcciones (centro de CABA).
   base: { lat: -34.6037, lon: -58.3816 },
-  telefono: "11 5107-7099",
-  telefonoLink: "+5491151077099",
-  whatsapp: "5491151077099",
+  // TEMPORAL (2026-11-15): WhatsApp de Julian para medir las consultas; él se las pasa a su papá.
+  // El del negocio es 11 5107-7099 (+5491151077099). Volver a ese antes de crear el Perfil de Google.
+  telefono: "11 5801-7970",
+  telefonoLink: "+5491158017970",
+  whatsapp: "5491158017970",
   // Equipo de choferes. Se muestran en el bloque "Nuestros choferes".
   // foto: archivo en /public (null = sin foto).
   choferes: [{ nombre: "Javier Castellana", foto: "/javier-castellana.jpg" as string | null }],

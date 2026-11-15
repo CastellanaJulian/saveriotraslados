@@ -110,13 +110,13 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
   - El precio siempre es **aproximado, sujeto a confirmación**. Nunca decir "precio cerrado".
   - El cotizador no calcula solo: se elige origen y destino y se toca **"Ver precio"**.
   - Tarifas de referencia en una sección aparte ("Tarifas aproximadas"), no debajo del buscador.
-  - WhatsApp real: +54 9 11 5107-7099.
+  - WhatsApp del negocio: +54 9 11 5107-7099. **Temporalmente el sitio usa el de Julian (+54 9 11 5801-7970)** para medir consultas; volver al del negocio antes de cargar el Perfil de Google (mismo teléfono en todos lados).
   - Tarifas reales: $1.500/km; Ezeiza ↔ CABA $80.000; Aeroparque ↔ CABA $30.000 (fijas solo si el otro extremo está dentro de CABA, polígono en `tarifas.ts`; desde el Gran Buenos Aires se cobra por km). Recargo nocturno y regreso en vacío quedan desactivados hasta que Julian los defina; el mínimo de $15.000 es de ejemplo.
 - SEO: metadatos por página, JSON-LD (WebSite con nombre del sitio, LocalBusiness con logo/imagen/zonas/sameAs, TaxiService, FAQPage, BreadcrumbList), sitemap con fecha, robots, imagen OG general y una por destino (`traslados/[slug]/opengraph-image.tsx`), párrafo descriptivo bajo el h1, "Otros traslados" al pie de cada destino (enlaces internos), `GOOGLE_SITE_VERIFICATION` opcional. Perfiles oficiales van en `sitio.redes` (sameAs).
 - Páginas de destino (2026-11-15): Ezeiza, Aeroparque, Aeropuerto San Fernando, Pilar, Tigre, Luján, La Plata, Mar del Plata, Rosario (Julian confirmó que hace todas). km medidos con ORS desde el centro de CABA; minutos con margen de tránsito. `traslado` opcional en `rutas.ts` para títulos tipo "Traslado al Aeropuerto de San Fernando". San Fernando está en `otrosAeropuertos` (tarifas.ts): se cobra por km pero pide hora de vuelo.
 - Dirección del negocio: **no se publica**, es negocio con zona de servicio (Julian, 2026-11-15). En JSON-LD solo región; en el Perfil de Google, zona de servicio con dirección oculta.
 - Dominio en Vercel: www.saveriotraslados.com.ar es el de producción y el dominio sin www redirige a www (canonical y sitemap usan www, vía VERCEL_PROJECT_PRODUCTION_URL). Cuando el DNS funcione: redirigir saveriotraslados-gold.vercel.app al dominio.
-- Header (2026-11-15): logo, links Ezeiza / Aeroparque / Tarifas (desde md) y píldora blanca "WhatsApp 11 5107-7099" (en celu solo "WhatsApp").
+- Header (2026-11-15): logo, links Ezeiza / Aeroparque / Tarifas (desde md) y píldora blanca "WhatsApp" + teléfono (en celu solo "WhatsApp").
 - Choferes: foto, nombre, auto y link "Escribir por WhatsApp". Sin chips de condiciones (Julian: repetían info). Se eliminó `sitio.condiciones`.
 - Animación al bajar: clase `.aparecer` (CSS scroll-driven, sin JS; respeta "reducir movimiento").
 - Reseñas: `sitio.resenas` vacío = no se muestra la sección. Nunca inventar reseñas.
