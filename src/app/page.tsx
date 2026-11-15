@@ -1,11 +1,13 @@
 import { Cotizador } from "@/components/Cotizador";
 import { Chofer, Preguntas, Resenas, Tarifas, ViajesSeguros } from "@/components/Bloques";
 import { frecuentes } from "@/lib/frecuentes";
-import { faqsGenerales, JsonLd, jsonLdFaq, jsonLdNegocio } from "@/lib/seo";
+import { faqsGenerales, JsonLd, jsonLdFaq, jsonLdNegocio, jsonLdSitio } from "@/lib/seo";
+import { sitio } from "@/config/sitio";
 
 export default function Inicio() {
   return (
     <>
+      <JsonLd data={jsonLdSitio()} />
       <JsonLd data={jsonLdNegocio()} />
       <JsonLd data={jsonLdFaq(faqsGenerales)} />
 
@@ -14,6 +16,10 @@ export default function Inicio() {
           <h1 className="mt-2 text-[2.6rem] font-extrabold leading-[1.02] tracking-[-0.04em] sm:text-6xl">
             Traslados a Ezeiza, Aeroparque y el interior
           </h1>
+          <p className="mt-5 max-w-md text-[17px] leading-relaxed text-apagado">
+            Viajes desde {sitio.zonaCompleta} a los aeropuertos, La Plata, Mar del Plata, Rosario y otras ciudades, en{" "}
+            {sitio.auto.modelo} para hasta {sitio.auto.pasajeros} pasajeros. Cotizás acá y reservás por WhatsApp.
+          </p>
         </div>
         <div className="lg:row-span-2">
           <Cotizador />

@@ -5,7 +5,6 @@
 // para no afectar la velocidad de la página. Mientras carga, o si falla, se ve el recorrido en SVG.
 
 import { useEffect, useRef, useState } from "react";
-import "maplibre-gl/dist/maplibre-gl.css";
 
 const ESTILO = "https://tiles.openfreemap.org/styles/positron";
 
@@ -18,8 +17,9 @@ export function MapaRuta({ coords }: { coords: [number, number][] }) {
     let mapa: import("maplibre-gl").Map | undefined;
     let cancelado = false;
 
-    import("maplibre-gl")
-      .then(({ Map, Marker, LngLatBounds, setWorkerUrl }) => {
+    // El CSS del mapa también se carga recién acá, para no frenar la primera carga de la página.
+    Promise.all([import("maplibre-gl"), import("maplibre-gl/dist/maplibre-gl.css")])
+      .then(([{ Map, Marker, LngLatBounds, setWorkerUrl }]) => {
         if (cancelado || !contenedor.current) return;
         // Worker servido desde /public (lo copia scripts/copiar-worker-mapa.mjs al instalar).
         setWorkerUrl("/maplibre/worker.mjs");

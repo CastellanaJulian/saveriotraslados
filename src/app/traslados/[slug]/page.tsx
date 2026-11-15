@@ -4,8 +4,8 @@ import { notFound } from "next/navigation";
 import { rutas, rutaPorSlug } from "@/config/rutas";
 import { sitio } from "@/config/sitio";
 import { Cotizador } from "@/components/Cotizador";
-import { Chofer, Preguntas, Resenas, ViajesSeguros } from "@/components/Bloques";
-import { aFrecuente, precioReferencia } from "@/lib/frecuentes";
+import { Chofer, Preguntas, Resenas, Tarifas, ViajesSeguros } from "@/components/Bloques";
+import { aFrecuente, frecuentes, precioReferencia } from "@/lib/frecuentes";
 import { formatoDuracion, formatoPrecio } from "@/lib/cotizar";
 import { JsonLd, jsonLdFaq } from "@/lib/seo";
 
@@ -110,6 +110,7 @@ export default async function PaginaRuta({ params }: PageProps<"/traslados/[slug
         <ViajesSeguros />
         <Resenas />
         <Preguntas faqs={r.faqs} />
+        <Tarifas items={frecuentes.filter((f) => f.slug !== r.slug)} titulo="Otros traslados" />
       </div>
     </>
   );

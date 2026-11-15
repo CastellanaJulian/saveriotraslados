@@ -31,7 +31,13 @@ export function jsonLdNegocio() {
     "@type": "LocalBusiness",
     "@id": `${sitio.url}/#negocio`,
     name: sitio.nombre,
+    alternateName: "Saverio",
+    description:
+      "Traslados a Ezeiza, Aeroparque y viajes de media distancia desde CABA y Gran Buenos Aires, en Chevrolet Spin para hasta 4 pasajeros.",
     url: sitio.url,
+    logo: `${sitio.url}/apple-icon`,
+    image: [`${sitio.url}/opengraph-image`, ...sitio.choferes.flatMap((c) => (c.foto ? [`${sitio.url}${c.foto}`] : []))],
+    ...(sitio.redes.length ? { sameAs: sitio.redes } : {}),
     telephone: sitio.telefonoLink,
     priceRange: "$$",
     paymentAccepted: "Efectivo, transferencia, Mercado Pago, tarjeta de crédito, tarjeta de débito",
@@ -42,7 +48,10 @@ export function jsonLdNegocio() {
       addressCountry: "AR",
     },
     geo: { "@type": "GeoCoordinates", latitude: sitio.base.lat, longitude: sitio.base.lon },
-    areaServed: {
+    areaServed: [
+      { "@type": "City", name: "Ciudad Autónoma de Buenos Aires" },
+      { "@type": "AdministrativeArea", name: "Gran Buenos Aires" },
+      {
       "@type": "GeoCircle",
       geoMidpoint: {
         "@type": "GeoCoordinates",
@@ -50,13 +59,28 @@ export function jsonLdNegocio() {
         longitude: sitio.base.lon,
       },
       geoRadius: 45000,
-    },
+      },
+    ],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
       opens: "00:00",
       closes: "23:59",
     },
+  };
+}
+
+// Nombre del sitio en los resultados de Google (en vez de la URL).
+export function jsonLdSitio() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${sitio.url}/#sitio`,
+    name: sitio.nombre,
+    alternateName: ["Saverio", "saveriotraslados.com.ar"],
+    url: sitio.url,
+    inLanguage: "es-AR",
+    publisher: { "@id": `${sitio.url}/#negocio` },
   };
 }
 

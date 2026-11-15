@@ -7,16 +7,36 @@ import { linkWhatsApp } from "@/lib/whatsapp";
 export function Encabezado() {
   return (
     <header className="bg-tinta text-white">
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6">
+      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="text-[17px] font-extrabold tracking-tight">
           {sitio.nombre}
         </Link>
-        <nav className="flex items-center gap-5 text-sm">
-          <a href={`tel:${sitio.telefonoLink}`} className="hidden sm:inline">
-            {sitio.telefono}
-          </a>
-          <a href={linkWhatsApp("Hola, quiero consultar por un viaje.")} target="_blank" rel="noopener" className="font-medium">
-            WhatsApp
+        <nav className="flex items-center gap-6 text-sm">
+          <ul className="hidden items-center gap-6 text-white/80 md:flex">
+            <li>
+              <Link href="/traslados/aeropuerto-ezeiza" className="hover:text-white">
+                Ezeiza
+              </Link>
+            </li>
+            <li>
+              <Link href="/traslados/aeroparque" className="hover:text-white">
+                Aeroparque
+              </Link>
+            </li>
+            <li>
+              <Link href="/#tarifas" className="hover:text-white">
+                Tarifas
+              </Link>
+            </li>
+          </ul>
+          <a
+            href={linkWhatsApp("Hola, quiero consultar por un viaje.")}
+            target="_blank"
+            rel="noopener"
+            className="flex h-9 items-center rounded-full bg-white px-4 font-semibold text-tinta hover:bg-white/90"
+          >
+            <span className="hidden sm:inline">WhatsApp {sitio.telefono}</span>
+            <span className="sm:hidden">WhatsApp</span>
           </a>
         </nav>
       </div>

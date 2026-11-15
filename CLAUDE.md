@@ -100,7 +100,7 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
   - Resultado: precio + datos de reserva en la misma tarjeta (nombre, valijas, comentarios; si es aeropuerto: número de vuelo opcional y hora en que sale/aterriza el vuelo, obligatoria). El botón "Reservar" abre WhatsApp directo. Link secundario "Solo quiero consultar por WhatsApp".
   - El sentido del aeropuerto (ida/vuelta) se detecta en `aeropuertoDe()` de `lib/cotizar.ts`, con cualquier tarifa.
 - Sección "Viajes seguros": seguro para pasajeros, choferes con licencia profesional, vehículos 0 km (confirmado por Julian).
-- Pagos: se acepta cualquier medio de pago; con tarjeta en cuotas puede haber interés.
+- Pagos: se acepta cualquier medio de pago; con tarjeta (en cuotas o no) puede haber interés.
 - Cambios pedidos por Julian (2026-11-15):
   - Zona de servicio: todo CABA y Gran Buenos Aires (no acotar a "Zona Sur").
   - Choferes: bloque "Nuestros choferes"; hoy Javier Castellana (`sitio.choferes`). En el resultado no se nombra chofer: "Te confirmamos chofer, auto y patente".
@@ -112,7 +112,11 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
   - Tarifas de referencia en una sección aparte ("Tarifas aproximadas"), no debajo del buscador.
   - WhatsApp real: +54 9 11 5107-7099.
   - Tarifas reales: $1.500/km; Ezeiza ↔ CABA $80.000; Aeroparque ↔ CABA $30.000 (fijas solo si el otro extremo está dentro de CABA, polígono en `tarifas.ts`; desde el Gran Buenos Aires se cobra por km). Recargo nocturno y regreso en vacío quedan desactivados hasta que Julian los defina; el mínimo de $15.000 es de ejemplo.
-- SEO: metadatos por página, JSON-LD (LocalBusiness, TaxiService, FAQPage, BreadcrumbList), sitemap, robots, imagen OG.
+- SEO: metadatos por página, JSON-LD (WebSite con nombre del sitio, LocalBusiness con logo/imagen/zonas/sameAs, TaxiService, FAQPage, BreadcrumbList), sitemap con fecha, robots, imagen OG general y una por destino (`traslados/[slug]/opengraph-image.tsx`), párrafo descriptivo bajo el h1, "Otros traslados" al pie de cada destino (enlaces internos), `GOOGLE_SITE_VERIFICATION` opcional. Perfiles oficiales van en `sitio.redes` (sameAs).
+- Dominio en Vercel: www.saveriotraslados.com.ar es el de producción y el dominio sin www redirige a www (canonical y sitemap usan www, vía VERCEL_PROJECT_PRODUCTION_URL). Cuando el DNS funcione: redirigir saveriotraslados-gold.vercel.app al dominio.
+- Header (2026-11-15): logo, links Ezeiza / Aeroparque / Tarifas (desde md) y píldora blanca "WhatsApp 11 5107-7099" (en celu solo "WhatsApp").
+- Choferes: foto, nombre, auto y link "Escribir por WhatsApp". Sin chips de condiciones (Julian: repetían info). Se eliminó `sitio.condiciones`.
+- Animación al bajar: clase `.aparecer` (CSS scroll-driven, sin JS; respeta "reducir movimiento").
 - Reseñas: `sitio.resenas` vacío = no se muestra la sección. Nunca inventar reseñas.
 
 ## Preguntas abiertas

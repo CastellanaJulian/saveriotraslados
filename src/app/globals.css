@@ -20,3 +20,30 @@ body {
   background: #ffffff;
   color: var(--color-tinta);
 }
+
+/* Aparición sutil al bajar. Solo CSS (scroll-driven animations): sin JavaScript,
+   no afecta la velocidad. Navegadores sin soporte o con "reducir movimiento" lo ven fijo. */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @supports (animation-timeline: view()) {
+    .aparecer {
+      animation: aparecer ease-out both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
+}

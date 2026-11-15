@@ -29,17 +29,12 @@ export const sitio = {
     pasajeros: 4,
     valijas: 4, // EJEMPLO: confirmar cuántas entran
   },
-  // EJEMPLO: confirmar cada punto. Solo publicar lo que sea cierto.
-  condiciones: [
-    "Te confirmamos el precio por WhatsApp",
-    "Peajes incluidos",
-    "Si el vuelo se atrasa, la espera no se cobra",
-    "Solo factura C",
-    "Vuelos de madrugada",
-  ],
-  // Se acepta cualquier medio de pago; con tarjeta en cuotas puede haber interés.
+  // Se acepta cualquier medio de pago; con tarjeta (en cuotas o no) puede haber interés.
   pagos: "Aceptamos todos los medios de pago: efectivo, transferencia, Mercado Pago y tarjetas.",
-  pagosNota: "Con tarjeta en cuotas puede haber interés.",
+  pagosNota: "Con tarjeta puede haber interés.",
+  // Perfiles oficiales (Perfil de Empresa de Google, Instagram, Facebook). Se publican en los
+  // datos estructurados (sameAs) para que Google relacione todo con el mismo negocio.
+  redes: [] as string[],
   // Reseñas reales de Google. Vacío = la sección no se muestra. Nunca inventar reseñas.
   resenas: [] as { texto: string; autor: string; fecha: string }[],
 } as const;

@@ -3,13 +3,14 @@ import Link from "next/link";
 import { sitio } from "@/config/sitio";
 import type { Frecuente } from "./Cotizador";
 import { Icono, type NombreIcono } from "./Icono";
+import { linkWhatsApp } from "@/lib/whatsapp";
 
 // Bloques de la home y de las páginas de ruta. Sin títulos de marketing:
 // cada bloque se entiende por su contenido.
 
 export function Chofer() {
   return (
-    <section aria-labelledby="choferes" className="grid gap-6 sm:grid-cols-[200px_1fr] sm:items-center">
+    <section aria-labelledby="choferes" className="aparecer grid gap-6 sm:grid-cols-[200px_1fr] sm:items-center">
       {sitio.choferes.map((c) =>
         c.foto ? (
           <Image
@@ -35,15 +36,14 @@ export function Chofer() {
         <p className="mt-1 text-[15px] text-apagado">
           {sitio.auto.modelo} · hasta {sitio.auto.pasajeros} pasajeros · {sitio.auto.valijas} valijas grandes
         </p>
-        <ul className="mt-4 flex flex-wrap gap-2">
-          {sitio.condiciones.map((c) => (
-            <li key={c} className="rounded-full bg-gris px-3 py-1.5 text-sm">
-              {c}
-            </li>
-          ))}
-          <li className="rounded-full bg-gris px-3 py-1.5 text-sm">Todos los medios de pago</li>
-        </ul>
-        <p className="mt-3 text-sm text-apagado">{sitio.pagosNota}</p>
+        <a
+          href={linkWhatsApp("Hola, quiero consultar por un viaje.")}
+          target="_blank"
+          rel="noopener"
+          className="mt-4 inline-block text-[15px] font-semibold underline underline-offset-4"
+        >
+          Escribir por WhatsApp
+        </a>
       </div>
     </section>
   );
@@ -52,7 +52,7 @@ export function Chofer() {
 export function Resenas() {
   if (!sitio.resenas.length) return null;
   return (
-    <section aria-label="Reseñas de pasajeros" className="grid gap-3 sm:grid-cols-2">
+    <section aria-label="Reseñas de pasajeros" className="aparecer grid gap-3 sm:grid-cols-2">
       {sitio.resenas.map((r) => (
         <figure key={r.autor + r.fecha} className="rounded-2xl border border-linea p-5">
           <blockquote className="text-[15px] leading-relaxed">{r.texto}</blockquote>
@@ -67,7 +67,7 @@ export function Resenas() {
 
 export function Preguntas({ faqs }: { faqs: { pregunta: string; respuesta: string }[] }) {
   return (
-    <section aria-label="Preguntas frecuentes" className="divide-y divide-linea border-y border-linea">
+    <section id="preguntas" aria-label="Preguntas frecuentes" className="aparecer scroll-mt-6 divide-y divide-linea border-y border-linea">
       {faqs.map((f) => (
         <details key={f.pregunta} className="group py-4">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[17px] font-medium">
@@ -84,15 +84,15 @@ export function Preguntas({ faqs }: { faqs: { pregunta: string; respuesta: strin
 }
 
 // Tarifas aproximadas: separadas del buscador, con link a la página de cada destino.
-export function Tarifas({ items }: { items: Frecuente[] }) {
+export function Tarifas({ items, titulo = "Tarifas aproximadas" }: { items: Frecuente[]; titulo?: string }) {
   return (
-    <section aria-labelledby="tarifas">
-      <h2 id="tarifas" className="text-2xl font-extrabold tracking-tight">
-        Tarifas aproximadas
+    <section aria-labelledby="tarifas" className="aparecer">
+      <h2 id="tarifas" className="scroll-mt-6 text-2xl font-extrabold tracking-tight">
+        {titulo}
       </h2>
       <ul className="mt-4 divide-y divide-linea border-y border-linea">
         {items.map((f) => (
-          <li key={f.slug}>
+          <li key={f.slug} className="aparecer">
             <Link href={`/traslados/${f.slug}`} className="flex items-center gap-4 py-4 hover:bg-gris">
               <span className="flex-1">
                 <span className="block text-[17px] font-medium">{f.titulo}</span>
@@ -119,13 +119,13 @@ const seguridad: { icono: NombreIcono; texto: string }[] = [
 
 export function ViajesSeguros() {
   return (
-    <section aria-labelledby="seguros">
+    <section aria-labelledby="seguros" className="aparecer">
       <h2 id="seguros" className="text-2xl font-extrabold tracking-tight">
         Viajes seguros
       </h2>
       <ul className="mt-4 grid gap-3 sm:grid-cols-3">
         {seguridad.map((s) => (
-          <li key={s.texto} className="flex items-center gap-3 rounded-2xl bg-gris p-4">
+          <li key={s.texto} className="aparecer flex items-center gap-3 rounded-2xl bg-gris p-4">
             <span className="grid size-11 shrink-0 place-items-center rounded-full bg-taxi-suave text-taxi-texto">
               <Icono nombre={s.icono} className="size-6" />
             </span>

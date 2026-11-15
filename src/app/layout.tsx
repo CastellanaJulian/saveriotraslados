@@ -11,7 +11,7 @@ const descripcion = `Traslados a Ezeiza, Aeroparque y viajes de media distancia 
 export const metadata: Metadata = {
   metadataBase: new URL(sitio.url),
   title: {
-    default: `${sitio.nombre} | Traslados a Ezeiza, Aeroparque y el interior`,
+    default: `Traslados a Ezeiza, Aeroparque y viajes | ${sitio.nombre}`,
     template: `%s | ${sitio.nombre}`,
   },
   description: descripcion,
@@ -24,6 +24,9 @@ export const metadata: Metadata = {
     description: descripcion,
   },
   formatDetection: { telephone: false },
+  applicationName: sitio.nombre,
+  // Search Console: si se verifica por etiqueta HTML, cargar el código en Vercel como GOOGLE_SITE_VERIFICATION.
+  ...(process.env.GOOGLE_SITE_VERIFICATION ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } } : {}),
 };
 
 export const viewport: Viewport = {
