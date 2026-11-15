@@ -84,15 +84,7 @@ export function Preguntas({ faqs }: { faqs: { pregunta: string; respuesta: strin
 }
 
 // Tarifas aproximadas: separadas del buscador, con link a la página de cada destino.
-export function Tarifas({
-  items,
-  titulo = "Tarifas aproximadas",
-  nota = "Precios de referencia desde CABA con peajes incluidos, sujetos a confirmación.",
-}: {
-  items: Frecuente[];
-  titulo?: string;
-  nota?: string;
-}) {
+export function Tarifas({ items, titulo = "Tarifas aproximadas" }: { items: Frecuente[]; titulo?: string }) {
   return (
     <section aria-labelledby="tarifas" className="aparecer">
       <h2 id="tarifas" className="scroll-mt-6 text-2xl font-extrabold tracking-tight">
@@ -111,7 +103,9 @@ export function Tarifas({
           </li>
         ))}
       </ul>
-      <p className="mt-3 text-sm text-apagado">{nota}</p>
+      <p className="mt-3 text-sm text-apagado">
+        Precios de referencia desde CABA con peajes incluidos, sujetos a confirmación.
+      </p>
     </section>
   );
 }

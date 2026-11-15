@@ -193,14 +193,8 @@ function CampoLugar({
 
 // ---------- Cotizador ----------
 
-export function Cotizador({
-  origenInicial = null,
-  destinoInicial = null,
-}: {
-  origenInicial?: Lugar | null;
-  destinoInicial?: Lugar | null;
-}) {
-  const [origen, setOrigen] = useState<Lugar | null>(origenInicial);
+export function Cotizador({ destinoInicial = null }: { destinoInicial?: Lugar | null }) {
+  const [origen, setOrigen] = useState<Lugar | null>(null);
   const [destino, setDestino] = useState<Lugar | null>(destinoInicial);
   const [dia, setDia] = useState("");
   const [hora, setHora] = useState("");
