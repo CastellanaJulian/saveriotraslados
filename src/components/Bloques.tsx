@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { sitio } from "@/config/sitio";
 import type { Frecuente } from "./Cotizador";
+import { Icono, type NombreIcono } from "./Icono";
 
 // Bloques de la home y de las páginas de ruta. Sin títulos de marketing:
 // cada bloque se entiende por su contenido.
@@ -95,6 +96,33 @@ export function Tarifas({ items }: { items: Frecuente[] }) {
       <p className="mt-3 text-sm text-apagado">
         Precios de referencia desde CABA, sujetos a confirmación. Los viajes al interior no incluyen peajes.
       </p>
+    </section>
+  );
+}
+
+// Viajes seguros. ⚠️ Cada punto lo confirmó Julian; mantenerlo actualizado si cambia.
+const seguridad: { icono: NombreIcono; texto: string }[] = [
+  { icono: "escudo", texto: "Vehículo con seguro para pasajeros" },
+  { icono: "licencia", texto: "Choferes con licencia profesional" },
+  { icono: "auto", texto: "Vehículos 0 km" },
+];
+
+export function ViajesSeguros() {
+  return (
+    <section aria-labelledby="seguros">
+      <h2 id="seguros" className="text-2xl font-extrabold tracking-tight">
+        Viajes seguros
+      </h2>
+      <ul className="mt-4 grid gap-3 sm:grid-cols-3">
+        {seguridad.map((s) => (
+          <li key={s.texto} className="flex items-center gap-3 rounded-2xl bg-gris p-4">
+            <span className="grid size-11 shrink-0 place-items-center rounded-full bg-taxi-suave text-taxi-texto">
+              <Icono nombre={s.icono} className="size-6" />
+            </span>
+            <span className="text-[15px] font-medium leading-snug">{s.texto}</span>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

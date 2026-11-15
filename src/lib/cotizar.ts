@@ -33,6 +33,17 @@ export function tarifaFijaPara(origen: Punto, destino: Punto) {
   return undefined;
 }
 
+// Detecta si el viaje va a un aeropuerto (ida) o sale de uno (vuelta), con cualquier tarifa.
+export type Aeropuerto = { nombre: string; sentido: "ida" | "vuelta" };
+export function aeropuertoDe(origen: Punto, destino: Punto): Aeropuerto | null {
+  for (const t of tarifasFijas) {
+    if (!t.aeropuerto) continue;
+    if (distanciaKm(destino, t.lugar) <= t.radioKm) return { nombre: t.nombre, sentido: "ida" };
+    if (distanciaKm(origen, t.lugar) <= t.radioKm) return { nombre: t.nombre, sentido: "vuelta" };
+  }
+  return null;
+}
+
 function esNocturno(fecha?: Date) {
   if (!fecha) return false;
   const h = fecha.getHours();
@@ -47,7 +58,7 @@ export type Cotizacion = {
   precio: number;
   tipo: "fijo" | "km";
   nocturno: boolean;
-  aeropuerto: boolean;
+  aeropuerto: Aeropuerto | null;
   nota: string;
 };
 
@@ -58,7 +69,8 @@ export function cotizar(opts: {
   fecha?: Date;
 }): Cotizacion {
   const fija = tarifaFijaPara(opts.origen, opts.destino);
-  const nocturno = esNocturno(opts.fecha);
+  const nocturno = tarifas.recargoNocturno > 0 && esNocturno(opts.fecha);
+  const aeropuerto = aeropuertoDe(opts.origen, opts.destino);
   const recargo = nocturno ? 1 + tarifas.recargoNocturno : 1;
 
   if (fija) {
@@ -66,7 +78,7 @@ export function cotizar(opts: {
       precio: redondear(fija.precio * recargo),
       tipo: "fijo",
       nocturno,
-      aeropuerto: fija.aeropuerto,
+      aeropuerto,
       nota: "Precio aproximado, sujeto a confirmación. Incluye peaje.",
     };
   }
@@ -77,7 +89,7 @@ export function cotizar(opts: {
     precio: redondear(base * recargo),
     tipo: "km",
     nocturno,
-    aeropuerto: false,
+    aeropuerto,
     nota: "Precio aproximado, sujeto a confirmación. Peajes aparte.",
   };
 }

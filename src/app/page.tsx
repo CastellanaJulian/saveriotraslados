@@ -1,5 +1,5 @@
 import { Cotizador } from "@/components/Cotizador";
-import { Chofer, Preguntas, Resenas, Tarifas } from "@/components/Bloques";
+import { Chofer, Preguntas, Resenas, Tarifas, ViajesSeguros } from "@/components/Bloques";
 import { frecuentes } from "@/lib/frecuentes";
 import { faqsGenerales, JsonLd, jsonLdFaq, jsonLdNegocio } from "@/lib/seo";
 
@@ -23,6 +23,7 @@ export default function Inicio() {
       <div className="mx-auto mt-16 max-w-5xl space-y-16 px-4 sm:px-6">
         <Tarifas items={frecuentes} />
         <Chofer />
+        <ViajesSeguros />
         <Resenas />
         <Preguntas faqs={faqsGenerales} />
       </div>

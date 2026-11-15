@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { rutas, rutaPorSlug } from "@/config/rutas";
 import { sitio } from "@/config/sitio";
 import { Cotizador } from "@/components/Cotizador";
-import { Chofer, Preguntas, Resenas } from "@/components/Bloques";
+import { Chofer, Preguntas, Resenas, ViajesSeguros } from "@/components/Bloques";
 import { aFrecuente, frecuentes, precioReferencia } from "@/lib/frecuentes";
 import { formatoDuracion, formatoPrecio } from "@/lib/cotizar";
 import { JsonLd, jsonLdFaq } from "@/lib/seo";
@@ -108,6 +108,7 @@ export default async function PaginaRuta({ params }: PageProps<"/traslados/[slug
           ))}
         </div>
         <Chofer />
+        <ViajesSeguros />
         <Resenas />
         <Preguntas faqs={r.faqs} />
       </div>

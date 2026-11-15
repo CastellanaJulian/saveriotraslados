@@ -8,6 +8,9 @@ const paths = {
   atras: "m15 6-6 6 6 6",
   ubicacion: "m3 11 18-8-8 18-2-8-8-2Z",
   cerrar: "M6 6l12 12M18 6 6 18",
+  escudo: "M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-3Zm-3 9 2 2 4-4",
+  licencia: "M3 6h18v12H3zM7 10h5M7 14h7M16 10h1",
+  auto: "M4 16v-3l2-5h12l2 5v3H4Zm0 0v3m16-3v3M4 13h16M7.5 14.5h.01M16.5 14.5h.01",
 } as const;
 
 export type NombreIcono = keyof typeof paths;

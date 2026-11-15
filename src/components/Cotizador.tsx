@@ -2,7 +2,7 @@
 
 import { useId, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { sitio } from "@/config/sitio";
-import { cotizar, formatoDuracion, formatoPrecio, type Cotizacion } from "@/lib/cotizar";
+import { cotizar, formatoDuracion, formatoPrecio, type Aeropuerto, type Cotizacion } from "@/lib/cotizar";
 import { formatoFecha, linkWhatsApp, mensajeConsulta, mensajeReserva } from "@/lib/whatsapp";
 import { Icono, type NombreIcono } from "./Icono";
 import { MapaRuta } from "./MapaRuta";
@@ -19,7 +19,7 @@ export type Frecuente = {
 };
 
 type Recorrido = { km: number; minutos: number; coords: [number, number][] };
-type Paso = "form" | "cargando" | "resultado" | "reserva" | "enviado";
+type Paso = "form" | "cargando" | "resultado" | "enviado";
 
 const CLAVE_ULTIMO = "saverio:ultimo-viaje";
 
@@ -201,8 +201,12 @@ export function Cotizador({
 }) {
   const [origen, setOrigen] = useState<Lugar | null>(null);
   const [destino, setDestino] = useState<Lugar | null>(destinoInicial);
-  const [fecha, setFecha] = useState("");
-  const [pasajeros, setPasajeros] = useState(1);
+  const [dia, setDia] = useState("");
+  const [hora, setHora] = useState("");
+  const fecha = dia && hora ? `${dia}T${hora}` : "";
+  // 0 = todavía no eligió. Es obligatorio.
+  const [pasajeros, setPasajeros] = useState(0);
+  const [faltan, setFaltan] = useState<{ dia?: string; hora?: string; pasajeros?: string }>({});
   const [paso, setPaso] = useState<Paso>("form");
   const [recorrido, setRecorrido] = useState<Recorrido | null>(null);
   const [error, setError] = useState("");
@@ -258,6 +262,16 @@ export function Cotizador({
     }
     if (!destino) {
       setAviso("Elegí a dónde vas en la lista de sugerencias o en los destinos de abajo.");
+      return;
+    }
+    const f = {
+      dia: dia ? "" : "Elegí la fecha",
+      hora: hora ? "" : "Elegí la hora",
+      pasajeros: pasajeros ? "" : "Elegí cuántos viajan",
+    };
+    setFaltan(f);
+    if (f.dia || f.hora || f.pasajeros) {
+      setAviso("");
       return;
     }
     setAviso("");
@@ -323,7 +337,7 @@ export function Cotizador({
       : null;
 
   // ---------- Resultado / reserva ----------
-  if ((paso === "resultado" || paso === "reserva" || paso === "enviado") && viaje && recorrido && cotizacion) {
+  if ((paso === "resultado" || paso === "enviado") && viaje && recorrido && cotizacion) {
     return (
       <div ref={raiz} className="scroll-mt-4 overflow-hidden rounded-2xl border border-linea bg-white">
         <div className="relative h-44 sm:h-56">
@@ -376,36 +390,25 @@ export function Cotizador({
           </ul>
 
           {paso === "resultado" && (
-            <div className="mt-6">
-              <button
-                type="button"
-                onClick={() => setPaso("reserva")}
-                className="h-14 w-full rounded-xl bg-taxi text-base font-bold text-tinta hover:bg-taxi-hover"
-              >
-                Reservar
-              </button>
+            <>
+              <FormReserva
+                viaje={viaje}
+                aeropuerto={cotizacion.aeropuerto}
+                pasajeros={pasajeros}
+                onEnviado={() => {
+                  guardarUltimoViaje({ origen: origen!, destino: destino! });
+                  setPaso("enviado");
+                }}
+              />
               <a
                 href={linkWhatsApp(mensajeConsulta(viaje))}
                 target="_blank"
                 rel="noopener"
                 className="mt-4 block text-center text-sm underline underline-offset-4"
               >
-                Consultar por WhatsApp
+                Solo quiero consultar por WhatsApp
               </a>
-            </div>
-          )}
-
-          {paso === "reserva" && (
-            <FormReserva
-              viaje={viaje}
-              aeropuerto={cotizacion.aeropuerto}
-              fecha={fecha}
-              setFecha={setFecha}
-              onEnviado={() => {
-                guardarUltimoViaje({ origen: origen!, destino: destino! });
-                setPaso("enviado");
-              }}
-            />
+            </>
           )}
 
           {paso === "enviado" && (
@@ -447,49 +450,66 @@ export function Cotizador({
       {aviso && <p className="mt-2 text-sm font-medium">{aviso}</p>}
       {error && <p className="mt-2 text-sm text-red-700">{error}</p>}
 
-      <div className="mt-3 flex flex-wrap gap-2">
-        <label className="relative flex h-10 items-center gap-2 rounded-full bg-gris px-4 text-sm font-medium">
-          <Icono nombre="reloj" className="size-4" />
-          <span>{fecha ? formatoFecha(fecha) : "Cuándo"}</span>
+      <div className="mt-3 grid grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] gap-2">
+        <CampoChico etiqueta="Fecha" error={faltan.dia}>
           <input
-            type="datetime-local"
-            value={fecha}
-            onChange={(e) => setFecha(e.target.value)}
-            aria-label="Fecha y hora del viaje"
-            className="absolute inset-0 cursor-pointer opacity-0"
-          />
-        </label>
-        <label className="relative flex h-10 items-center gap-2 rounded-full bg-gris px-4 text-sm font-medium">
-          <Icono nombre="persona" className="size-4" />
-          <span>
-            {pasajeros} {pasajeros === 1 ? "pasajero" : "pasajeros"}
-          </span>
-          <select
-            value={pasajeros}
-            onChange={(e) => setPasajeros(Number(e.target.value))}
-            aria-label="Cantidad de pasajeros"
-            className="absolute inset-0 cursor-pointer opacity-0"
-          >
-            {Array.from({ length: sitio.auto.pasajeros }, (_, i) => i + 1).map((n) => (
-              <option key={n} value={n}>
-                {n}
-              </option>
-            ))}
-          </select>
-        </label>
-        {ultimo && !origen && !destino && (
-          <button
-            type="button"
-            onClick={() => {
-              setOrigen(ultimo.origen);
-              setDestino(ultimo.destino);
+            type="date"
+            value={dia}
+            min={hoy()}
+            onChange={(e) => {
+              setDia(e.target.value);
+              setFaltan((f) => ({ ...f, dia: "" }));
             }}
-            className="flex h-10 items-center rounded-full border border-linea px-4 text-sm font-medium hover:bg-gris"
-          >
-            Repetir: {ultimo.destino.nombre}
-          </button>
-        )}
+            className={claseCampoChico(!!faltan.dia)}
+          />
+        </CampoChico>
+        <CampoChico etiqueta="Hora" error={faltan.hora}>
+          <input
+            type="time"
+            value={hora}
+            onChange={(e) => {
+              setHora(e.target.value);
+              setFaltan((f) => ({ ...f, hora: "" }));
+            }}
+            className={claseCampoChico(!!faltan.hora)}
+          />
+        </CampoChico>
       </div>
+      <div className="mt-2">
+        <CampoChico etiqueta="Pasajeros" error={faltan.pasajeros}>
+          <div className="grid grid-cols-4 gap-2" role="radiogroup" aria-label="Cantidad de pasajeros">
+            {Array.from({ length: sitio.auto.pasajeros }, (_, i) => i + 1).map((n) => (
+              <button
+                key={n}
+                type="button"
+                role="radio"
+                aria-checked={pasajeros === n}
+                onClick={() => {
+                  setPasajeros(n);
+                  setFaltan((f) => ({ ...f, pasajeros: "" }));
+                }}
+                className={`h-12 rounded-xl text-base font-bold ${
+                  pasajeros === n ? "bg-tinta text-white" : "bg-gris text-tinta hover:bg-linea"
+                } ${faltan.pasajeros ? "ring-2 ring-red-600" : ""}`}
+              >
+                {n}
+              </button>
+            ))}
+          </div>
+        </CampoChico>
+      </div>
+      {ultimo && !origen && !destino && (
+        <button
+          type="button"
+          onClick={() => {
+            setOrigen(ultimo.origen);
+            setDestino(ultimo.destino);
+          }}
+          className="mt-3 flex h-10 items-center rounded-full border border-linea px-4 text-sm font-medium hover:bg-gris"
+        >
+          Repetir: {ultimo.destino.nombre}
+        </button>
+      )}
 
       <button
         type="button"
@@ -523,33 +543,44 @@ export function Cotizador({
 }
 
 // ---------- Formulario de reserva ----------
+// Arma el mensaje de WhatsApp con la reserva completa.
 
 function FormReserva(props: {
   viaje: Parameters<typeof mensajeReserva>[0];
-  aeropuerto: boolean;
-  fecha: string;
-  setFecha: (v: string) => void;
+  aeropuerto: Aeropuerto | null;
+  pasajeros: number;
   onEnviado: () => void;
 }) {
   const [nombre, setNombre] = useState("");
-  const [telefono, setTelefono] = useState("");
+  const [valijas, setValijas] = useState(1);
   const [vuelo, setVuelo] = useState("");
+  const [horaVuelo, setHoraVuelo] = useState("");
   const [comentarios, setComentarios] = useState("");
   const [errores, setErrores] = useState<Record<string, string>>({});
+
+  const a = props.aeropuerto;
+  const etiquetaVuelo = a?.sentido === "ida" ? "Sale el vuelo" : "Aterriza el vuelo";
+  const labelVuelo = a?.sentido === "ida" ? "Hora en que sale el vuelo" : "Hora en que aterriza el vuelo";
 
   function enviar(e: React.FormEvent) {
     e.preventDefault();
     const err: Record<string, string> = {};
-    if (!props.fecha) err.fecha = "Elegí fecha y hora";
     if (nombre.trim().length < 2) err.nombre = "Escribí tu nombre";
-    if (telefono.replace(/\D/g, "").length < 8) err.telefono = "Revisá el teléfono";
+    if (a && !horaVuelo) err.horaVuelo = "Completá la hora del vuelo";
     setErrores(err);
     if (Object.keys(err).length) return;
     window.open(
       linkWhatsApp(
         mensajeReserva(
-          { ...props.viaje, fecha: props.fecha },
-          { nombre: nombre.trim(), telefono: telefono.trim(), vuelo: vuelo.trim(), comentarios: comentarios.trim() },
+          props.viaje,
+          {
+            nombre: nombre.trim(),
+            pasajeros: props.pasajeros,
+            valijas: valijas === 4 ? "4 o más" : valijas,
+            vuelo: vuelo.trim(),
+            horaVuelo: a ? `${etiquetaVuelo}: ${horaVuelo} h` : "",
+            comentarios: comentarios.trim(),
+          },
         ),
       ),
       "_blank",
@@ -562,52 +593,88 @@ function FormReserva(props: {
     "h-12 w-full rounded-xl bg-gris px-4 text-base outline-none focus:bg-white focus:ring-2 focus:ring-tinta";
 
   return (
-    <form onSubmit={enviar} noValidate className="mt-6 space-y-3">
-      <Campo etiqueta="Fecha y hora" error={errores.fecha}>
+    <form onSubmit={enviar} noValidate className="mt-6 space-y-3 border-t border-linea pt-5">
+      <Campo etiqueta="Nombre y apellido" error={errores.nombre}>
         <input
-          type="datetime-local"
-          value={props.fecha}
-          onChange={(e) => props.setFecha(e.target.value)}
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+          autoComplete="name"
           className={campo}
         />
       </Campo>
-      <Campo etiqueta="Nombre" error={errores.nombre}>
-        <input value={nombre} onChange={(e) => setNombre(e.target.value)} autoComplete="name" className={campo} />
-      </Campo>
-      <Campo etiqueta="Teléfono" error={errores.telefono}>
-        <input
-          type="tel"
-          value={telefono}
-          onChange={(e) => setTelefono(e.target.value)}
-          autoComplete="tel"
-          placeholder="11 2345-6789"
-          className={campo}
-        />
-      </Campo>
-      {props.aeropuerto && (
+      {a && (
         <Campo etiqueta="Número de vuelo (opcional)">
           <input
             value={vuelo}
-            onChange={(e) => setVuelo(e.target.value)}
+            onChange={(e) => setVuelo(e.target.value.toUpperCase())}
             placeholder="AR 1302"
             className={campo}
           />
         </Campo>
       )}
+      {a && (
+        <Campo etiqueta={labelVuelo} error={errores.horaVuelo}>
+          <input type="time" value={horaVuelo} onChange={(e) => setHoraVuelo(e.target.value)} className={campo} />
+        </Campo>
+      )}
+      {a?.sentido === "ida" && (
+        <p className="text-sm text-apagado">Con el horario del vuelo te confirmamos a qué hora te buscamos.</p>
+      )}
+      <Campo etiqueta="Valijas">
+        <div className="grid grid-cols-5 gap-2" role="radiogroup" aria-label="Cantidad de valijas">
+          {[0, 1, 2, 3, 4].map((n) => (
+            <button
+              key={n}
+              type="button"
+              role="radio"
+              aria-checked={valijas === n}
+              onClick={() => setValijas(n)}
+              className={`h-12 rounded-xl text-base font-bold ${
+                valijas === n ? "bg-tinta text-white" : "bg-gris text-tinta hover:bg-linea"
+              }`}
+            >
+              {n === 4 ? "4+" : n}
+            </button>
+          ))}
+        </div>
+      </Campo>
       <Campo etiqueta="Comentarios (opcional)">
         <textarea
           value={comentarios}
           onChange={(e) => setComentarios(e.target.value)}
           rows={2}
-          placeholder="Valijas, datos para la factura, ida y vuelta…"
+          placeholder="Datos para la factura, ida y vuelta, silla de bebé…"
           className="w-full rounded-xl bg-gris px-4 py-3 text-base outline-none focus:bg-white focus:ring-2 focus:ring-tinta"
         />
       </Campo>
       <button type="submit" className="h-14 w-full rounded-xl bg-taxi text-base font-bold text-tinta hover:bg-taxi-hover">
-        Enviar reserva
+        Reservar
       </button>
-      <p className="text-center text-sm text-apagado">Se abre WhatsApp con todos los datos para confirmar.</p>
+      <p className="text-center text-sm text-apagado">
+        Se abre WhatsApp con la reserva completa. Te confirmamos el precio y el horario por ahí.
+      </p>
     </form>
+  );
+}
+
+function hoy() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+function claseCampoChico(error: boolean) {
+  return `h-12 w-full rounded-xl bg-gris px-3 text-base text-tinta outline-none focus:bg-white focus:ring-2 focus:ring-tinta ${
+    error ? "ring-2 ring-red-600" : ""
+  }`;
+}
+
+function CampoChico({ etiqueta, error, children }: { etiqueta: string; error?: string; children: React.ReactNode }) {
+  return (
+    <label className="block">
+      <span className="mb-1 block text-sm font-medium">{etiqueta}</span>
+      {children}
+      {error && <span className="mt-1 block text-sm text-red-700">{error}</span>}
+    </label>
   );
 }
 

@@ -90,7 +90,11 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 - Configuración editable en `src/config/` (tarifas, datos del sitio, páginas por destino). Valores marcados EJEMPLO.
 - Cotizador: `src/components/Cotizador.tsx` (cliente). APIs: `/api/lugares` (Photon) y `/api/ruta` (ORS con `ORS_API_KEY`, si no OSRM demo).
 - Mapa del resultado: SVG propio con la geometría del recorrido (sin librería de mapas, para no afectar la velocidad).
-- Reserva v1: formulario → abre WhatsApp con todos los datos. Sin base de datos ni pagos online.
+- Reserva v1: sin base de datos ni pagos online. El mensaje de WhatsApp sale con la reserva completa.
+  - Cotizador: origen, destino, **fecha, hora y pasajeros obligatorios** (campos visibles), botón "Ver precio".
+  - Resultado: precio + datos de reserva en la misma tarjeta (nombre, valijas, comentarios; si es aeropuerto: número de vuelo opcional y hora en que sale/aterriza el vuelo, obligatoria). El botón "Reservar" abre WhatsApp directo. Link secundario "Solo quiero consultar por WhatsApp".
+  - El sentido del aeropuerto (ida/vuelta) se detecta en `aeropuertoDe()` de `lib/cotizar.ts`, con cualquier tarifa.
+- Sección "Viajes seguros": seguro para pasajeros, choferes con licencia profesional, vehículos 0 km (confirmado por Julian).
 - Pagos: se acepta cualquier medio de pago; con tarjeta en cuotas puede haber interés.
 - Cambios pedidos por Julian (2026-11-15):
   - Zona de servicio: todo CABA y Gran Buenos Aires (no acotar a "Zona Sur").
