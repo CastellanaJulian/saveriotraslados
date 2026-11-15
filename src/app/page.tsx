@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Cotizador } from "@/components/Cotizador";
 import { Chofer, Preguntas, Resenas, Tarifas, ViajesSeguros } from "@/components/Bloques";
 import { frecuentes } from "@/lib/frecuentes";
@@ -18,7 +19,11 @@ export default function Inicio() {
           </h1>
           <p className="mt-5 max-w-md text-[17px] leading-relaxed text-apagado">
             Viajes desde {sitio.zonaCompleta} a los aeropuertos, La Plata, Mar del Plata, Rosario y otras ciudades, en{" "}
-            {sitio.auto.modelo} para hasta {sitio.auto.pasajeros} pasajeros. Cotizás acá y reservás por WhatsApp.
+            {sitio.auto.modelo} para hasta {sitio.auto.pasajeros} pasajeros. Salimos desde{" "}
+            <Link href="/desde/castelar" className="text-tinta underline underline-offset-4">
+              Castelar
+            </Link>
+            . Cotizás acá y reservás por WhatsApp.
           </p>
         </div>
         <div className="lg:row-span-2">

@@ -44,6 +44,7 @@ export function jsonLdNegocio() {
     currenciesAccepted: "ARS",
     address: {
       "@type": "PostalAddress",
+      addressLocality: "Castelar",
       addressRegion: "Buenos Aires",
       addressCountry: "AR",
     },
@@ -51,6 +52,10 @@ export function jsonLdNegocio() {
     areaServed: [
       { "@type": "City", name: "Ciudad Autónoma de Buenos Aires" },
       { "@type": "AdministrativeArea", name: "Gran Buenos Aires" },
+      { "@type": "Place", name: "Castelar" },
+      { "@type": "Place", name: "Morón" },
+      { "@type": "Place", name: "Haedo" },
+      { "@type": "Place", name: "Ituzaingó" },
       {
       "@type": "GeoCircle",
       geoMidpoint: {

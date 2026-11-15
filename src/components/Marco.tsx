@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { sitio } from "@/config/sitio";
 import { rutas, tituloTraslado } from "@/config/rutas";
+import { origenes } from "@/config/origenes";
 import { linkWhatsApp } from "@/lib/whatsapp";
 
 // Logo provisorio (texto). El logo real se diseña más adelante.
@@ -65,6 +66,13 @@ export function Pie() {
             <li key={r.slug}>
               <Link href={`/traslados/${r.slug}`} className="hover:underline">
                 {tituloTraslado(r)}
+              </Link>
+            </li>
+          ))}
+          {origenes.map((o) => (
+            <li key={o.slug}>
+              <Link href={`/desde/${o.slug}`} className="hover:underline">
+                Traslados desde {o.nombre}
               </Link>
             </li>
           ))}
