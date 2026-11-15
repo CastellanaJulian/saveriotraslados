@@ -7,6 +7,15 @@ export const faqsGenerales = [
       "Ezeiza y Aeroparque tienen una tarifa de referencia desde CABA. El resto de los viajes se calcula por kilómetro recorrido. Todos los precios incluyen peajes. El cotizador te da un precio aproximado y te lo confirmamos por WhatsApp antes del viaje.",
   },
   {
+    pregunta: "¿Es un taxi o un remis?",
+    respuesta:
+      "Es un taxi con licencia de la Ciudad de Buenos Aires y chofer profesional. Lo reservás con anticipación y te confirmamos el precio, el auto y la patente por WhatsApp.",
+  },
+  {
+    pregunta: "¿Cobran recargo de noche?",
+    respuesta: "No. El precio es el mismo a cualquier hora, también en viajes de madrugada.",
+  },
+  {
     pregunta: "¿Hacen factura?",
     respuesta: "Hacemos solo factura C, no emitimos factura A. Pasanos los datos de facturación al reservar.",
   },

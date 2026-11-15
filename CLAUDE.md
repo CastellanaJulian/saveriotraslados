@@ -111,7 +111,7 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
   - El cotizador no calcula solo: se elige origen y destino y se toca **"Ver precio"**.
   - Tarifas de referencia en una sección aparte ("Tarifas aproximadas"), no debajo del buscador.
   - WhatsApp del negocio: +54 9 11 5107-7099. **Temporalmente el sitio usa el de Julian (+54 9 11 5801-7970)** para medir consultas; volver al del negocio antes de cargar el Perfil de Google (mismo teléfono en todos lados).
-  - Tarifas reales: $1.500/km; Ezeiza ↔ CABA $80.000; Aeroparque ↔ CABA $30.000 (fijas solo si el otro extremo está dentro de CABA, polígono en `tarifas.ts`; desde el Gran Buenos Aires se cobra por km). Recargo nocturno y regreso en vacío quedan desactivados hasta que Julian los defina; el mínimo de $15.000 es de ejemplo.
+  - Tarifas reales: $1.500/km; Ezeiza ↔ CABA $80.000; Aeroparque ↔ CABA $30.000 (fijas solo si el otro extremo está dentro de CABA, polígono en `tarifas.ts`; desde el Gran Buenos Aires se cobra por km). Recargo nocturno y regreso en vacío: no se cobran (confirmado). El mínimo de $15.000 sigue de ejemplo.
 - SEO: metadatos por página, JSON-LD (WebSite con nombre del sitio, LocalBusiness con logo/imagen/zonas/sameAs, TaxiService, FAQPage, BreadcrumbList), sitemap con fecha, robots, imagen OG general y una por destino (`traslados/[slug]/opengraph-image.tsx`), párrafo descriptivo bajo el h1, "Otros traslados" al pie de cada destino (enlaces internos), `GOOGLE_SITE_VERIFICATION` opcional. Perfiles oficiales van en `sitio.redes` (sameAs).
 - Páginas de destino (2026-11-15): Ezeiza, Aeroparque, Aeropuerto San Fernando, Pilar, Tigre, Luján, La Plata, Mar del Plata, Rosario (Julian confirmó que hace todas). km medidos con ORS desde el centro de CABA; minutos con margen de tránsito. `traslado` opcional en `rutas.ts` para títulos tipo "Traslado al Aeropuerto de San Fernando". San Fernando está en `otrosAeropuertos` (tarifas.ts): se cobra por km pero pide hora de vuelo.
 - Sale desde Castelar, pero **no se publica** (Julian, 2026-11-15): sin página por zona de salida ni mención en el sitio. El precio siempre se calcula desde donde se busca al pasajero; el acercamiento no se cobra.
@@ -123,6 +123,15 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 - Animación al bajar: clase `.aparecer` (CSS scroll-driven, sin JS; respeta "reducir movimiento").
 - Reseñas: `sitio.resenas` vacío = no se muestra la sección. Nunca inventar reseñas.
 
+## Página /empresas (2026-11-15)
+- Enfocada en traslados corporativos a aeropuertos, hoteles, Terminal de Retiro e interior (pedido de Julian). Reservás vos y viaja otra persona; solo factura C. Sin "cuenta corriente" (no confirmado).
+- Bloques: h1 + párrafo, cotizador, "Viajes que hacemos" (con links a destinos), "Cómo reservar" (4 pasos), tarifas, chofer, seguridad, FAQ propias. JSON-LD Service con BusinessAudience. Link en header ("Empresas") y pie.
+
+## Confirmado por Julian (2026-11-15, segunda tanda)
+- **Taxi con licencia de CABA** (no remis). Se puede usar "taxi" en el sitio; no usar "remis".
+- **Sin recargo nocturno y sin cobro de regreso en vacío** (quedan en 0 y 1 en `tarifas.ts`).
+- Confirmado: espera sin cargo si el vuelo se atrasa, y viajes de madrugada.
+
 ## Perfil de Empresa de Google
 - Creado el 2026-11-15 con el mail personal de Julian, como "Empresa de servicios" con dirección en Castelar (oculta, zona de servicio). Estado: **en verificación**.
 - Teléfono cargado = el del sitio (hoy el de Julian, temporal). Si se cambia, cambiar sitio y perfil juntos.
@@ -130,7 +139,7 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 
 ## Preguntas abiertas
 - ¿Desde qué ciudad/barrio sale?
-- ¿Habilitación actual (taxi/remis) y si cubre viajes fuera de la jurisdicción? (Afecta qué se puede ofrecer y publicar.)
+- ~~¿Habilitación?~~ Taxi con licencia de CABA.
 - ¿Factura (monotributo)? Importante para empresas.
 - Reservas: ¿alcanza con solicitud que llega por WhatsApp/email y él confirma, o se quiere calendario con disponibilidad y seña online?
 - Rutas frecuentes reales y tarifas fijas actuales.

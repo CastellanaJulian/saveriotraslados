@@ -7,12 +7,11 @@ export const tarifas = {
   precioPorKm: 1500,
   // EJEMPLO: precio mínimo por viaje (para viajes muy cortos). Confirmar.
   minimo: 15000,
-  // Opcional: cobrar parte del regreso en vacío en viajes largos.
+  // Regreso en vacío: Julian confirmó que NO se cobra (2026-11-15). Dejar en 1.
   // Desde `kmMediaDistancia` km, el precio por km se multiplica por `factorMediaDistancia`.
-  // 1 = desactivado (se cobra solo el km recorrido).
   kmMediaDistancia: 80,
   factorMediaDistancia: 1,
-  // Opcional: recargo entre las 22 y las 6 (0.15 = 15%). 0 = desactivado.
+  // Recargo nocturno: Julian confirmó que NO se cobra (2026-11-15). Dejar en 0.
   recargoNocturno: 0,
   horaInicioNocturno: 22,
   horaFinNocturno: 6,

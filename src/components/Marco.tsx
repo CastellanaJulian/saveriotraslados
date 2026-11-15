@@ -24,6 +24,11 @@ export function Encabezado() {
               </Link>
             </li>
             <li>
+              <Link href="/empresas" className="hover:text-white">
+                Empresas
+              </Link>
+            </li>
+            <li>
               <Link href="/#tarifas" className="hover:text-white">
                 Tarifas
               </Link>
@@ -68,6 +73,11 @@ export function Pie() {
               </Link>
             </li>
           ))}
+          <li>
+            <Link href="/empresas" className="hover:underline">
+              Traslados para empresas
+            </Link>
+          </li>
         </ul>
         <p className="text-apagado">
           {sitio.pagos} {sitio.pagosNota}
