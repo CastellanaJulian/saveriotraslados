@@ -81,3 +81,8 @@ export const tarifasFijas: {
     aeropuerto: true,
   },
 ];
+
+// Aeropuertos sin tarifa fija (se cobran por km). Sirven para pedir la hora del vuelo al reservar.
+export const otrosAeropuertos: { nombre: string; lugar: Punto; radioKm: number }[] = [
+  { nombre: "Aeropuerto San Fernando", lugar: { lat: -34.4532, lon: -58.5862 }, radioKm: 2 },
+];

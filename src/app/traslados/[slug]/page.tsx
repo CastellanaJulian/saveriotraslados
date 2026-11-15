@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { rutas, rutaPorSlug } from "@/config/rutas";
+import { rutas, rutaPorSlug, tituloTraslado } from "@/config/rutas";
 import { sitio } from "@/config/sitio";
 import { Cotizador } from "@/components/Cotizador";
 import { Chofer, Preguntas, Resenas, Tarifas, ViajesSeguros } from "@/components/Bloques";
@@ -40,7 +40,7 @@ export default async function PaginaRuta({ params }: PageProps<"/traslados/[slug
         data={{
           "@context": "https://schema.org",
           "@type": "TaxiService",
-          name: `Traslado a ${r.destino}`,
+          name: tituloTraslado(r),
           url,
           provider: { "@id": `${sitio.url}/#negocio` },
           areaServed: r.destino,
@@ -58,7 +58,7 @@ export default async function PaginaRuta({ params }: PageProps<"/traslados/[slug
           "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: sitio.nombre, item: sitio.url },
-            { "@type": "ListItem", position: 2, name: `Traslado a ${r.destino}`, item: url },
+            { "@type": "ListItem", position: 2, name: tituloTraslado(r), item: url },
           ],
         }}
       />
@@ -70,10 +70,10 @@ export default async function PaginaRuta({ params }: PageProps<"/traslados/[slug
             <Link href="/" className="hover:underline">
               Inicio
             </Link>{" "}
-            / Traslado a {r.destino}
+            / {tituloTraslado(r)}
           </nav>
           <h1 className="mt-2 text-[2.2rem] font-extrabold leading-[1.02] tracking-[-0.04em] sm:text-[3.4rem]">
-            Traslado a {r.destino}
+            {tituloTraslado(r)}
           </h1>
           <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
             <div>

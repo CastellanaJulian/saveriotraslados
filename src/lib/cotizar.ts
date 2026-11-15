@@ -1,4 +1,4 @@
-import { tarifas, tarifasFijas, zonas, type Punto } from "@/config/tarifas";
+import { otrosAeropuertos, tarifas, tarifasFijas, zonas, type Punto } from "@/config/tarifas";
 
 export function distanciaKm(a: Punto, b: Punto) {
   const R = 6371;
@@ -36,8 +36,8 @@ export function tarifaFijaPara(origen: Punto, destino: Punto) {
 // Detecta si el viaje va a un aeropuerto (ida) o sale de uno (vuelta), con cualquier tarifa.
 export type Aeropuerto = { nombre: string; sentido: "ida" | "vuelta" };
 export function aeropuertoDe(origen: Punto, destino: Punto): Aeropuerto | null {
-  for (const t of tarifasFijas) {
-    if (!t.aeropuerto) continue;
+  const aeropuertos = [...tarifasFijas.filter((t) => t.aeropuerto), ...otrosAeropuertos];
+  for (const t of aeropuertos) {
     if (distanciaKm(destino, t.lugar) <= t.radioKm) return { nombre: t.nombre, sentido: "ida" };
     if (distanciaKm(origen, t.lugar) <= t.radioKm) return { nombre: t.nombre, sentido: "vuelta" };
   }

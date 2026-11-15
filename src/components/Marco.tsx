@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { sitio } from "@/config/sitio";
-import { rutas } from "@/config/rutas";
+import { rutas, tituloTraslado } from "@/config/rutas";
 import { linkWhatsApp } from "@/lib/whatsapp";
 
 // Logo provisorio (texto). El logo real se diseña más adelante.
@@ -64,7 +64,7 @@ export function Pie() {
           {rutas.map((r) => (
             <li key={r.slug}>
               <Link href={`/traslados/${r.slug}`} className="hover:underline">
-                Traslado a {r.destino}
+                {tituloTraslado(r)}
               </Link>
             </li>
           ))}

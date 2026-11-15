@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { rutas, rutaPorSlug } from "@/config/rutas";
+import { rutas, rutaPorSlug, tituloTraslado } from "@/config/rutas";
 import { sitio } from "@/config/sitio";
 import { precioReferencia } from "@/lib/frecuentes";
 import { formatoDuracion, formatoPrecio } from "@/lib/cotizar";
@@ -30,7 +30,7 @@ export default async function Imagen({ params }: { params: Promise<{ slug: strin
         <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 80px" }}>
           <div style={{ color: "#ffc700", fontSize: 38, fontWeight: 700 }}>{sitio.nombre}</div>
           <div style={{ color: "#fff", fontSize: 92, fontWeight: 800, lineHeight: 1.02, marginTop: 18 }}>
-            {`Traslado a ${r.destino}`}
+            {tituloTraslado(r)}
           </div>
           <div style={{ color: "#bdbdbd", fontSize: 40, marginTop: 34, display: "flex" }}>
             {`${r.km} km · ${formatoDuracion(r.minutos)} · ${fijo ? "" : "desde "}${formatoPrecio(precio)} aprox.`}
