@@ -5,7 +5,7 @@ import { rutas, rutaPorSlug } from "@/config/rutas";
 import { sitio } from "@/config/sitio";
 import { Cotizador } from "@/components/Cotizador";
 import { Chofer, Preguntas, Resenas, ViajesSeguros } from "@/components/Bloques";
-import { aFrecuente, frecuentes, precioReferencia } from "@/lib/frecuentes";
+import { aFrecuente, precioReferencia } from "@/lib/frecuentes";
 import { formatoDuracion, formatoPrecio } from "@/lib/cotizar";
 import { JsonLd, jsonLdFaq } from "@/lib/seo";
 
@@ -32,7 +32,6 @@ export default async function PaginaRuta({ params }: PageProps<"/traslados/[slug
   if (!r) notFound();
 
   const { precio, fijo } = precioReferencia(r);
-  const otras = frecuentes.filter((f) => f.lugar.nombre !== r.destinoCompleto);
   const url = `${sitio.url}/traslados/${r.slug}`;
 
   return (
@@ -97,7 +96,7 @@ export default async function PaginaRuta({ params }: PageProps<"/traslados/[slug
           </div>
         </div>
         <div className="lg:row-span-2">
-          <Cotizador frecuentes={otras} destinoInicial={aFrecuente(r).lugar} />
+          <Cotizador destinoInicial={aFrecuente(r).lugar} />
         </div>
       </div>
 

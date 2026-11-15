@@ -6,6 +6,7 @@ import { cotizar, formatoDuracion, formatoPrecio, type Aeropuerto, type Cotizaci
 import { formatoFecha, linkWhatsApp, mensajeConsulta, mensajeReserva } from "@/lib/whatsapp";
 import { Icono, type NombreIcono } from "./Icono";
 import { MapaRuta } from "./MapaRuta";
+import { SelectorFecha, SelectorHora } from "./Selectores";
 
 export type Lugar = { nombre: string; detalle: string; lat: number; lon: number };
 
@@ -192,13 +193,7 @@ function CampoLugar({
 
 // ---------- Cotizador ----------
 
-export function Cotizador({
-  frecuentes,
-  destinoInicial = null,
-}: {
-  frecuentes: Frecuente[];
-  destinoInicial?: Lugar | null;
-}) {
+export function Cotizador({ destinoInicial = null }: { destinoInicial?: Lugar | null }) {
   const [origen, setOrigen] = useState<Lugar | null>(null);
   const [destino, setDestino] = useState<Lugar | null>(destinoInicial);
   const [dia, setDia] = useState("");
@@ -261,7 +256,7 @@ export function Cotizador({
       return;
     }
     if (!destino) {
-      setAviso("Elegí a dónde vas en la lista de sugerencias o en los destinos de abajo.");
+      setAviso("Elegí a dónde vas en la lista de sugerencias.");
       return;
     }
     const f = {
@@ -307,14 +302,6 @@ export function Cotizador({
       () => setUbicando(false),
       { enableHighAccuracy: true, timeout: 10000 },
     );
-  }
-
-  function elegirFrecuente(f: Frecuente) {
-    cambiarDestino(f.lugar);
-    if (!origen) {
-      setAviso("Ahora decinos desde dónde salís.");
-      origenRef.current?.focus();
-    }
   }
 
   function volver() {
@@ -450,29 +437,27 @@ export function Cotizador({
       {aviso && <p className="mt-2 text-sm font-medium">{aviso}</p>}
       {error && <p className="mt-2 text-sm text-red-700">{error}</p>}
 
-      <div className="mt-3 grid grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] gap-2">
-        <CampoChico etiqueta="Fecha" error={faltan.dia}>
-          <input
-            type="date"
-            value={dia}
-            min={hoy()}
-            onChange={(e) => {
-              setDia(e.target.value);
-              setFaltan((f) => ({ ...f, dia: "" }));
-            }}
-            className={claseCampoChico(!!faltan.dia)}
-          />
-        </CampoChico>
-        <CampoChico etiqueta="Hora" error={faltan.hora}>
-          <input
-            type="time"
-            value={hora}
-            onChange={(e) => {
-              setHora(e.target.value);
-              setFaltan((f) => ({ ...f, hora: "" }));
-            }}
-            className={claseCampoChico(!!faltan.hora)}
-          />
+      <div className="mt-3 space-y-2">
+        <CampoChico etiqueta="Cuándo" error={faltan.dia || faltan.hora}>
+          <div className="space-y-2">
+            <SelectorFecha
+              valor={dia}
+              error={!!faltan.dia}
+              onValor={(v) => {
+                setDia(v);
+                setFaltan((f) => ({ ...f, dia: "" }));
+              }}
+            />
+            <SelectorHora
+              valor={hora}
+              dia={dia}
+              error={!!faltan.hora}
+              onValor={(v) => {
+                setHora(v);
+                setFaltan((f) => ({ ...f, hora: "" }));
+              }}
+            />
+          </div>
         </CampoChico>
       </div>
       <div className="mt-2">
@@ -518,26 +503,6 @@ export function Cotizador({
       >
         {paso === "cargando" ? "Calculando…" : "Ver precio"}
       </button>
-
-      <ul className="mt-4">
-        {frecuentes.map((f) => (
-          <li key={f.titulo} className="border-b border-linea last:border-0">
-            <button
-              type="button"
-              onClick={() => elegirFrecuente(f)}
-              className="flex w-full items-center gap-3 py-3 text-left"
-            >
-              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-taxi-suave text-taxi-texto">
-                <Icono nombre={f.icono} className="size-5" />
-              </span>
-              <span className="flex-1">
-                <span className="block text-[15px] font-medium">{f.titulo}</span>
-                <span className="block text-sm text-apagado">{f.detalle}</span>
-              </span>
-            </button>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
@@ -613,9 +578,14 @@ function FormReserva(props: {
         </Campo>
       )}
       {a && (
-        <Campo etiqueta={labelVuelo} error={errores.horaVuelo}>
-          <input type="time" value={horaVuelo} onChange={(e) => setHoraVuelo(e.target.value)} className={campo} />
-        </Campo>
+        <CampoChico etiqueta={labelVuelo} error={errores.horaVuelo}>
+          <SelectorHora
+            valor={horaVuelo}
+            etiqueta={labelVuelo}
+            error={!!errores.horaVuelo}
+            onValor={setHoraVuelo}
+          />
+        </CampoChico>
       )}
       {a?.sentido === "ida" && (
         <p className="text-sm text-apagado">Con el horario del vuelo te confirmamos a qué hora te buscamos.</p>
@@ -657,24 +627,13 @@ function FormReserva(props: {
   );
 }
 
-function hoy() {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-}
-
-function claseCampoChico(error: boolean) {
-  return `h-12 w-full rounded-xl bg-gris px-3 text-base text-tinta outline-none focus:bg-white focus:ring-2 focus:ring-tinta ${
-    error ? "ring-2 ring-red-600" : ""
-  }`;
-}
-
 function CampoChico({ etiqueta, error, children }: { etiqueta: string; error?: string; children: React.ReactNode }) {
   return (
-    <label className="block">
+    <div>
       <span className="mb-1 block text-sm font-medium">{etiqueta}</span>
       {children}
       {error && <span className="mt-1 block text-sm text-red-700">{error}</span>}
-    </label>
+    </div>
   );
 }
 

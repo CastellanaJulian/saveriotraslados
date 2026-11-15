@@ -16,7 +16,7 @@ export default function Inicio() {
           </h1>
         </div>
         <div className="lg:row-span-2">
-          <Cotizador frecuentes={frecuentes} />
+          <Cotizador />
         </div>
       </div>
 
