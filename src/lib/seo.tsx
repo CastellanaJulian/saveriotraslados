@@ -4,11 +4,11 @@ export const faqsGenerales = [
   {
     pregunta: "¿Cómo se calcula el precio?",
     respuesta:
-      "Ezeiza y Aeroparque tienen una tarifa de referencia desde CABA. El resto de los viajes se calcula por kilómetro recorrido. El cotizador te da un precio aproximado y te lo confirmamos por WhatsApp antes del viaje.",
+      "Ezeiza y Aeroparque tienen una tarifa de referencia desde CABA. El resto de los viajes se calcula por kilómetro recorrido. Todos los precios incluyen peajes. El cotizador te da un precio aproximado y te lo confirmamos por WhatsApp antes del viaje.",
   },
   {
     pregunta: "¿Hacen factura?",
-    respuesta: "Sí, factura C. Pasanos los datos de facturación al reservar.",
+    respuesta: "Hacemos solo factura C, no emitimos factura A. Pasanos los datos de facturación al reservar.",
   },
   {
     pregunta: "¿Cómo pago el viaje?",

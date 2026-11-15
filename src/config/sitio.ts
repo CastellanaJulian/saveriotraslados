@@ -32,8 +32,9 @@ export const sitio = {
   // EJEMPLO: confirmar cada punto. Solo publicar lo que sea cierto.
   condiciones: [
     "Te confirmamos el precio por WhatsApp",
+    "Peajes incluidos",
     "Si el vuelo se atrasa, la espera no se cobra",
-    "Factura C",
+    "Solo factura C",
     "Vuelos de madrugada",
   ],
   // Se acepta cualquier medio de pago; con tarjeta en cuotas puede haber interés.

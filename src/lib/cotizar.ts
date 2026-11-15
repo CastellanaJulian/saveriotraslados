@@ -79,7 +79,7 @@ export function cotizar(opts: {
       tipo: "fijo",
       nocturno,
       aeropuerto,
-      nota: "Precio aproximado, sujeto a confirmación. Incluye peaje.",
+      nota: "Precio aproximado, sujeto a confirmación. Incluye peajes.",
     };
   }
 
@@ -90,7 +90,7 @@ export function cotizar(opts: {
     tipo: "km",
     nocturno,
     aeropuerto,
-    nota: "Precio aproximado, sujeto a confirmación. Peajes aparte.",
+    nota: "Precio aproximado, sujeto a confirmación. Incluye peajes.",
   };
 }
 

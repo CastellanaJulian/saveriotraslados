@@ -104,7 +104,7 @@ export function Tarifas({ items }: { items: Frecuente[] }) {
         ))}
       </ul>
       <p className="mt-3 text-sm text-apagado">
-        Precios de referencia desde CABA, sujetos a confirmación. Los viajes al interior no incluyen peajes.
+        Precios de referencia desde CABA con peajes incluidos, sujetos a confirmación.
       </p>
     </section>
   );

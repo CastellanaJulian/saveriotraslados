@@ -30,7 +30,7 @@ export const rutas: Ruta[] = [
     description:
       "Traslado al Aeropuerto de Ezeiza desde CABA y Gran Buenos Aires. Cotizá al instante, Chevrolet Spin para 4 pasajeros, vuelos de madrugada y espera sin cargo si se atrasa el vuelo.",
     intro: [
-      "Te buscamos en tu casa o en la oficina y te dejamos en la terminal que corresponda a tu vuelo. Desde CABA tiene una tarifa de referencia con el peaje incluido; desde el resto del Gran Buenos Aires se calcula por kilómetro. Te confirmamos el precio por WhatsApp.",
+      "Te buscamos en tu casa o en la oficina y te dejamos en la terminal que corresponda a tu vuelo. Desde CABA tiene una tarifa de referencia con el peaje incluido; desde el resto del Gran Buenos Aires se calcula por kilómetro, también con peajes incluidos. Te confirmamos el precio por WhatsApp.",
       "Para vuelos internacionales conviene salir con tres horas de margen. Si salís temprano a la mañana, reservá el día anterior y te confirmamos por WhatsApp con el auto y la patente.",
       "A la vuelta seguimos tu vuelo: si aterriza tarde, la espera no se cobra.",
     ],
@@ -38,7 +38,7 @@ export const rutas: Ruta[] = [
       {
         pregunta: "¿Cuánto sale un traslado a Ezeiza?",
         respuesta:
-          "Desde CABA tiene una tarifa de referencia con peaje incluido. Desde el Gran Buenos Aires se calcula por kilómetro. El cotizador de esta página te muestra el valor aproximado y te lo confirmamos al reservar.",
+          "Desde CABA tiene una tarifa de referencia con peaje incluido. Desde el Gran Buenos Aires se calcula por kilómetro, con peajes incluidos. El cotizador de esta página te muestra el valor aproximado y te lo confirmamos al reservar.",
       },
       {
         pregunta: "¿Qué pasa si mi vuelo se atrasa?",
@@ -65,7 +65,7 @@ export const rutas: Ruta[] = [
       "Traslado a Aeroparque Jorge Newbery desde CABA y Gran Buenos Aires. Cotizá al instante, puntualidad para vuelos de cabotaje y factura C.",
     intro: [
       "Para vuelos de cabotaje y viajes de trabajo que salen temprano. Cotizás antes de viajar y te confirmamos el precio por WhatsApp.",
-      "Si viajás seguido por trabajo, pedí factura y reservá los viajes de ida y vuelta juntos.",
+      "Si viajás seguido por trabajo, pedí factura C (es la única que emitimos) y reservá los viajes de ida y vuelta juntos.",
     ],
     faqs: [
       {
@@ -75,7 +75,7 @@ export const rutas: Ruta[] = [
       },
       {
         pregunta: "¿Hacen factura?",
-        respuesta: "Sí, factura C. Pasanos los datos de facturación al reservar.",
+        respuesta: "Hacemos solo factura C, no emitimos factura A. Pasanos los datos de facturación al reservar.",
       },
     ],
   },
@@ -97,7 +97,7 @@ export const rutas: Ruta[] = [
       {
         pregunta: "¿El precio incluye peajes?",
         respuesta:
-          "Los peajes de Ruta 2 se suman al precio aproximado del cotizador. Te los detallamos al confirmar la reserva.",
+          "Sí. El precio del cotizador ya incluye los peajes de Ruta 2.",
       },
       {
         pregunta: "¿Se puede contratar ida y vuelta?",

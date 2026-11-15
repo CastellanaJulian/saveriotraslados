@@ -20,7 +20,7 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 - **Nombre definido (2026-11-15): "Saverio Traslados".** Usar exactamente este nombre en el sitio, el Perfil de Empresa de Google, Instagram y WhatsApp Business (consistencia de nombre, dirección y teléfono).
   - Por qué: "traslados" cubre aeropuerto, empresas y media distancia; "viajes" compite con agencias de turismo y "remis" implica una habilitación de remis. El nombre real del negocio puede llevar la palabra clave en la ficha de Google; agregarla como relleno está prohibido.
   - No incluir la ciudad en el nombre: va en el contenido de las páginas y en la ficha de Google.
-- **Dominio principal: `saveriotraslados.com.ar`**, con `saveriotraslados.com` redirigiendo con 301. **Pendiente de registrar** (la gestión de dominio, redes y ficha de Google se hace más adelante).
+- **Dominio principal: `saveriotraslados.com.ar`**, con `saveriotraslados.com` redirigiendo con 301. **Comprado en NIC.ar (2026-11-15) y delegado a ns1/ns2.vercel-dns.com; esperando propagación.** (la gestión de dominio, redes y ficha de Google se hace más adelante).
 - Antes de registrar: chequear que no exista otro "Saverio Traslados" en Google Maps ni en Instagram.
 - Chequeo whois del 2026-11-15 (no es reserva, puede cambiar):
   - Libres: `viajessaverio.com.ar`, `saverioviajes.com.ar`, `saveriotraslados.com.ar`, `trasladossaverio.com.ar`, `viajessaverio.com`, `saveriotraslados.com`, `trasladossaverio.com`
@@ -93,7 +93,7 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 - Distancias en producción: OpenRouteService con `ORS_API_KEY` cargada en Vercel (verificado: header `X-Proveedor-Ruta: ors`). Se pide `radiuses: [-1, -1]` porque puntos dentro de predios (Ezeiza) no tienen calle a menos de 350 m. Si ORS falla, respaldo automático a OSRM demo.
 - Favicon: taxi amarillo sobre negro (`src/app/icon.svg`); `apple-icon.tsx` lo convierte a PNG para iPhone.
 - Foto del chofer: `public/javier-castellana.jpg` (461×552; conviene una más grande si la hay).
-- Mapa del resultado: SVG propio con la geometría del recorrido (sin librería de mapas, para no afectar la velocidad).
+- Mapa del resultado: mapa real con MapLibre GL (libre) + teselas OpenFreeMap positron (OSM, sin key). Se importa dinámicamente solo al mostrar el resultado; debajo queda el recorrido en SVG como respaldo. El worker de MapLibre se copia a `public/maplibre/worker.mjs` en `postinstall` (`scripts/copiar-worker-mapa.mjs`, ignorado en git) porque Turbopack no lo resuelve; créditos OSM plegados en el botón "i".
 - Reserva v1: sin base de datos ni pagos online. El mensaje de WhatsApp sale con la reserva completa.
   - Cotizador: origen, destino, **fecha, hora y pasajeros obligatorios** (campos visibles), botón "Ver precio". Sin lista de destinos debajo del buscador (Julian la sacó).
   - Fecha y hora con selectores propios (`components/Selectores.tsx`, estilo app de viajes): calendario con días pasados bloqueados y lista de horarios cada 15 min en 24 h. No usar inputs nativos de fecha/hora (se veían mal y el reloj nativo pide a. m./p. m. según el idioma).
@@ -105,7 +105,8 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
   - Zona de servicio: todo CABA y Gran Buenos Aires (no acotar a "Zona Sur").
   - Choferes: bloque "Nuestros choferes"; hoy Javier Castellana (`sitio.choferes`). En el resultado no se nombra chofer: "Te confirmamos chofer, auto y patente".
   - Auto: hasta 4 pasajeros.
-  - Factura C (monotributo). No afirmar en el sitio que sirve para deducir impuestos.
+  - **Solo factura C** (monotributo): remarcarlo, "no emitimos factura A". No afirmar en el sitio que sirve para deducir impuestos.
+  - **Todos los precios incluyen peajes** (cotizador, tarifas, FAQ, JSON-LD).
   - El precio siempre es **aproximado, sujeto a confirmación**. Nunca decir "precio cerrado".
   - El cotizador no calcula solo: se elige origen y destino y se toca **"Ver precio"**.
   - Tarifas de referencia en una sección aparte ("Tarifas aproximadas"), no debajo del buscador.

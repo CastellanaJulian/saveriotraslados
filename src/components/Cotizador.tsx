@@ -327,7 +327,7 @@ export function Cotizador({ destinoInicial = null }: { destinoInicial?: Lugar | 
   if ((paso === "resultado" || paso === "enviado") && viaje && recorrido && cotizacion) {
     return (
       <div ref={raiz} className="scroll-mt-4 overflow-hidden rounded-2xl border border-linea bg-white">
-        <div className="relative h-44 sm:h-56">
+        <div className="relative h-56 sm:h-64">
           <MapaRuta coords={recorrido.coords} />
           <button
             type="button"
@@ -350,9 +350,9 @@ export function Cotizador({ destinoInicial = null }: { destinoInicial?: Lugar | 
           </p>
 
           <div className="mt-4 rounded-xl bg-taxi-suave px-4 py-3">
-            <div className="flex items-end justify-between gap-3">
+            <div className="flex flex-wrap items-end justify-between gap-x-3">
               <span className="text-4xl font-extrabold tracking-tight">{formatoPrecio(cotizacion.precio)}</span>
-              <span className="pb-1 text-sm text-taxi-texto">
+              <span className="whitespace-nowrap pb-1 text-sm text-taxi-texto">
                 {Math.round(recorrido.km)} km · {formatoDuracion(recorrido.minutos)}
               </span>
             </div>
@@ -613,7 +613,7 @@ function FormReserva(props: {
           value={comentarios}
           onChange={(e) => setComentarios(e.target.value)}
           rows={2}
-          placeholder="Datos para la factura, ida y vuelta, silla de bebé…"
+          placeholder="Datos para la factura C, ida y vuelta, silla de bebé…"
           className="w-full rounded-xl bg-gris px-4 py-3 text-base outline-none focus:bg-white focus:ring-2 focus:ring-tinta"
         />
       </Campo>

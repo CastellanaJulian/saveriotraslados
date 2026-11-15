@@ -48,7 +48,7 @@ export default async function PaginaRuta({ params }: PageProps<"/traslados/[slug
             "@type": "Offer",
             priceCurrency: "ARS",
             price: precio,
-            description: fijo ? "Tarifa de referencia desde CABA, sujeta a confirmación" : `Precio aproximado desde ${sitio.zonaCompleta}, peajes aparte, sujeto a confirmación`,
+            description: fijo ? "Tarifa de referencia desde CABA, peajes incluidos, sujeta a confirmación" : `Precio aproximado desde ${sitio.zonaCompleta}, peajes incluidos, sujeto a confirmación`,
           },
         }}
       />
