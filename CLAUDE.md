@@ -90,6 +90,9 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 - Antes de tocar APIs de Next, leer la doc local en `node_modules/next/dist/docs/` (ver AGENTS.md).
 - Configuración editable en `src/config/` (tarifas, datos del sitio, páginas por destino). Valores marcados EJEMPLO.
 - Cotizador: `src/components/Cotizador.tsx` (cliente). APIs: `/api/lugares` (Photon) y `/api/ruta` (ORS con `ORS_API_KEY`, si no OSRM demo).
+- Distancias en producción: OpenRouteService con `ORS_API_KEY` cargada en Vercel (verificado: header `X-Proveedor-Ruta: ors`). Se pide `radiuses: [-1, -1]` porque puntos dentro de predios (Ezeiza) no tienen calle a menos de 350 m. Si ORS falla, respaldo automático a OSRM demo.
+- Favicon: taxi amarillo sobre negro (`src/app/icon.svg`); `apple-icon.tsx` lo convierte a PNG para iPhone.
+- Foto del chofer: `public/javier-castellana.jpg` (461×552; conviene una más grande si la hay).
 - Mapa del resultado: SVG propio con la geometría del recorrido (sin librería de mapas, para no afectar la velocidad).
 - Reserva v1: sin base de datos ni pagos online. El mensaje de WhatsApp sale con la reserva completa.
   - Cotizador: origen, destino, **fecha, hora y pasajeros obligatorios** (campos visibles), botón "Ver precio". Sin lista de destinos debajo del buscador (Julian la sacó).
