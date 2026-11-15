@@ -65,7 +65,11 @@ export async function GET(request: NextRequest) {
       coords: simplificar(r.coords),
     };
     return Response.json(body, {
-      headers: { "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800" },
+      headers: {
+        "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800",
+        // Para verificar qué servicio respondió (ors en producción, osrm-demo sin key).
+        "X-Proveedor-Ruta": key ? "ors" : "osrm-demo",
+      },
     });
   } catch {
     return Response.json({ error: "No pudimos calcular el recorrido" }, { status: 502 });

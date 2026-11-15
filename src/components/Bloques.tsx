@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { sitio } from "@/config/sitio";
 import type { Frecuente } from "./Cotizador";
@@ -8,11 +9,20 @@ import { Icono, type NombreIcono } from "./Icono";
 
 export function Chofer() {
   return (
-    <section aria-labelledby="choferes" className="grid gap-6 sm:grid-cols-[180px_1fr] sm:items-center">
-      {/* EJEMPLO: reemplazar por foto real del chofer con la Spin (next/image, public/chofer.jpg) */}
-      <div className="grid aspect-square w-32 place-items-center rounded-2xl bg-gris text-sm text-apagado sm:w-full">
-        Foto
-      </div>
+    <section aria-labelledby="choferes" className="grid gap-6 sm:grid-cols-[200px_1fr] sm:items-center">
+      {sitio.choferes.map((c) =>
+        c.foto ? (
+          <Image
+            key={c.nombre}
+            src={c.foto}
+            alt={`${c.nombre}, chofer de ${sitio.nombre}`}
+            width={461}
+            height={552}
+            sizes="(min-width: 640px) 200px, 160px"
+            className="aspect-[5/6] w-40 rounded-2xl object-cover sm:w-full"
+          />
+        ) : null,
+      )}
       <div>
         <h2 id="choferes" className="text-sm text-apagado">
           Nuestros choferes

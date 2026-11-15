@@ -20,7 +20,8 @@ export const sitio = {
   telefonoLink: "+5491151077099",
   whatsapp: "5491151077099",
   // Equipo de choferes. Se muestran en el bloque "Nuestros choferes".
-  choferes: [{ nombre: "Javier Castellana" }],
+  // foto: archivo en /public (null = sin foto).
+  choferes: [{ nombre: "Javier Castellana", foto: "/javier-castellana.jpg" as string | null }],
   auto: {
     modelo: "Chevrolet Spin",
     color: "gris", // EJEMPLO
