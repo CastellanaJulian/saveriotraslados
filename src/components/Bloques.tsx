@@ -1,22 +1,28 @@
+import Link from "next/link";
 import { sitio } from "@/config/sitio";
+import type { Frecuente } from "./Cotizador";
 
 // Bloques de la home y de las páginas de ruta. Sin títulos de marketing:
 // cada bloque se entiende por su contenido.
 
 export function Chofer() {
   return (
-    <section aria-label="Chofer y vehículo" className="grid gap-6 sm:grid-cols-[180px_1fr] sm:items-center">
-      {/* EJEMPLO: reemplazar por foto real de Saverio con la Spin (next/image, public/saverio.jpg) */}
+    <section aria-labelledby="choferes" className="grid gap-6 sm:grid-cols-[180px_1fr] sm:items-center">
+      {/* EJEMPLO: reemplazar por foto real del chofer con la Spin (next/image, public/chofer.jpg) */}
       <div className="grid aspect-square w-32 place-items-center rounded-2xl bg-gris text-sm text-apagado sm:w-full">
         Foto
       </div>
       <div>
-        <p className="text-2xl font-extrabold tracking-tight">{sitio.chofer}</p>
+        <h2 id="choferes" className="text-sm text-apagado">
+          Nuestros choferes
+        </h2>
+        {sitio.choferes.map((c) => (
+          <p key={c.nombre} className="mt-1 text-2xl font-extrabold tracking-tight">
+            {c.nombre}
+          </p>
+        ))}
         <p className="mt-1 text-[15px] text-apagado">
-          {sitio.auto.modelo} {sitio.auto.color} · {sitio.auto.patente}
-        </p>
-        <p className="mt-1 text-[15px] text-apagado">
-          Hasta {sitio.auto.pasajeros} pasajeros · {sitio.auto.valijas} valijas grandes
+          {sitio.auto.modelo} · hasta {sitio.auto.pasajeros} pasajeros · {sitio.auto.valijas} valijas grandes
         </p>
         <ul className="mt-4 flex flex-wrap gap-2">
           {sitio.condiciones.map((c) => (
@@ -62,6 +68,33 @@ export function Preguntas({ faqs }: { faqs: { pregunta: string; respuesta: strin
           <p className="mt-2 text-[15px] leading-relaxed text-apagado">{f.respuesta}</p>
         </details>
       ))}
+    </section>
+  );
+}
+
+// Tarifas aproximadas: separadas del buscador, con link a la página de cada destino.
+export function Tarifas({ items }: { items: Frecuente[] }) {
+  return (
+    <section aria-labelledby="tarifas">
+      <h2 id="tarifas" className="text-2xl font-extrabold tracking-tight">
+        Tarifas aproximadas
+      </h2>
+      <ul className="mt-4 divide-y divide-linea border-y border-linea">
+        {items.map((f) => (
+          <li key={f.slug}>
+            <Link href={`/traslados/${f.slug}`} className="flex items-center gap-4 py-4 hover:bg-gris">
+              <span className="flex-1">
+                <span className="block text-[17px] font-medium">{f.titulo}</span>
+                <span className="block text-sm text-apagado">{f.detalle}</span>
+              </span>
+              <span className="text-[17px] font-bold">{f.precio}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-3 text-sm text-apagado">
+        Precios de referencia desde CABA, sujetos a confirmación. Los viajes al interior no incluyen peajes.
+      </p>
     </section>
   );
 }

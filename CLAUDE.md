@@ -92,6 +92,15 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 - Mapa del resultado: SVG propio con la geometría del recorrido (sin librería de mapas, para no afectar la velocidad).
 - Reserva v1: formulario → abre WhatsApp con todos los datos. Sin base de datos ni pagos online.
 - Pagos: se acepta cualquier medio de pago; con tarjeta en cuotas puede haber interés.
+- Cambios pedidos por Julian (2026-11-15):
+  - Zona de servicio: todo CABA y Gran Buenos Aires (no acotar a "Zona Sur").
+  - Choferes: bloque "Nuestros choferes"; hoy Javier Castellana (`sitio.choferes`). En el resultado no se nombra chofer: "Te confirmamos chofer, auto y patente".
+  - Auto: hasta 4 pasajeros.
+  - Factura C (monotributo). No afirmar en el sitio que sirve para deducir impuestos.
+  - El precio siempre es **aproximado, sujeto a confirmación**. Nunca decir "precio cerrado".
+  - El cotizador no calcula solo: se elige origen y destino y se toca **"Ver precio"**.
+  - Tarifas de referencia en una sección aparte ("Tarifas aproximadas"), no debajo del buscador.
+  - WhatsApp real: +54 9 11 5107-7099.
 - SEO: metadatos por página, JSON-LD (LocalBusiness, TaxiService, FAQPage, BreadcrumbList), sitemap, robots, imagen OG.
 - Reseñas: `sitio.resenas` vacío = no se muestra la sección. Nunca inventar reseñas.
 

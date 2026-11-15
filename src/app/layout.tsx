@@ -6,7 +6,7 @@ import "./globals.css";
 
 const geist = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
 
-const descripcion = `Traslados a Ezeiza, Aeroparque y viajes de media distancia desde ${sitio.zona}. Cotizá al instante, precio cerrado y reserva por WhatsApp.`;
+const descripcion = `Traslados a Ezeiza, Aeroparque y viajes de media distancia desde CABA y Gran Buenos Aires. Cotizá al instante y reservá por WhatsApp.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(sitio.url),

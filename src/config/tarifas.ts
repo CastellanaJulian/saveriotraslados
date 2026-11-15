@@ -28,7 +28,7 @@ export const zonas = {
 
 export type ZonaId = keyof typeof zonas;
 
-// Lugares con precio fijo cuando el otro extremo del viaje está dentro de la zona.
+// Lugares con tarifa de referencia fija cuando el otro extremo del viaje está dentro de la zona.
 export const tarifasFijas: {
   id: string;
   nombre: string;
@@ -42,7 +42,7 @@ export const tarifasFijas: {
   {
     id: "ezeiza",
     nombre: "Aeropuerto Ezeiza",
-    detalle: "Precio fijo desde AMBA",
+    detalle: "Tarifa desde AMBA",
     lugar: { lat: -34.8222, lon: -58.5358 },
     radioKm: 4,
     zona: "amba",
@@ -52,7 +52,7 @@ export const tarifasFijas: {
   {
     id: "aeroparque",
     nombre: "Aeroparque",
-    detalle: "Precio fijo desde AMBA",
+    detalle: "Tarifa desde AMBA",
     lugar: { lat: -34.5592, lon: -58.4156 },
     radioKm: 2,
     zona: "amba",

@@ -14,6 +14,7 @@ export type Frecuente = {
   titulo: string;
   detalle: string;
   precio: string;
+  slug: string;
   icono: NombreIcono;
 };
 
@@ -213,7 +214,7 @@ export function Cotizador({
 
   const pedidoRuta = useRef(0);
 
-  // Cotiza solo cuando están origen y destino. Se llama desde los eventos que los cambian.
+  // Cotiza cuando la persona toca "Ver precio" (no automáticamente al elegir lugares).
   async function calcular(o: Lugar | null, d: Lugar | null) {
     const n = ++pedidoRuta.current;
     setRecorrido(null);
@@ -241,12 +242,26 @@ export function Cotizador({
   function cambiarOrigen(l: Lugar | null) {
     setOrigen(l);
     setAviso("");
-    calcular(l, destino);
+    setError("");
   }
 
   function cambiarDestino(l: Lugar | null) {
     setDestino(l);
-    calcular(origen, l);
+    setError("");
+  }
+
+  function verPrecio() {
+    if (!origen) {
+      setAviso("Elegí desde dónde salís en la lista de sugerencias.");
+      origenRef.current?.focus();
+      return;
+    }
+    if (!destino) {
+      setAviso("Elegí a dónde vas en la lista de sugerencias o en los destinos de abajo.");
+      return;
+    }
+    setAviso("");
+    calcular(origen, destino);
   }
 
   // El precio depende también de la fecha (recargo nocturno).
@@ -356,8 +371,7 @@ export function Cotizador({
               <Icono nombre="check" className="size-5 shrink-0" /> Todos los medios de pago
             </li>
             <li className="flex gap-2">
-              <Icono nombre="check" className="size-5 shrink-0" /> {sitio.chofer} · {sitio.auto.modelo}{" "}
-              {sitio.auto.color} · {sitio.auto.patente}
+              <Icono nombre="check" className="size-5 shrink-0" /> Te confirmamos chofer, auto y patente
             </li>
           </ul>
 
@@ -396,7 +410,7 @@ export function Cotizador({
 
           {paso === "enviado" && (
             <p className="mt-6 rounded-xl bg-gris p-4 text-[15px]">
-              Te abrimos WhatsApp con los datos del viaje. Mandá el mensaje y {sitio.chofer} te confirma la reserva
+              Te abrimos WhatsApp con los datos del viaje. Mandá el mensaje y te confirmamos el precio y la reserva
               por ahí.
             </p>
           )}
@@ -432,7 +446,6 @@ export function Cotizador({
 
       {aviso && <p className="mt-2 text-sm font-medium">{aviso}</p>}
       {error && <p className="mt-2 text-sm text-red-700">{error}</p>}
-      {paso === "cargando" && <p className="mt-2 text-sm text-apagado">Calculando el recorrido…</p>}
 
       <div className="mt-3 flex flex-wrap gap-2">
         <label className="relative flex h-10 items-center gap-2 rounded-full bg-gris px-4 text-sm font-medium">
@@ -470,7 +483,6 @@ export function Cotizador({
             onClick={() => {
               setOrigen(ultimo.origen);
               setDestino(ultimo.destino);
-              calcular(ultimo.origen, ultimo.destino);
             }}
             className="flex h-10 items-center rounded-full border border-linea px-4 text-sm font-medium hover:bg-gris"
           >
@@ -478,6 +490,14 @@ export function Cotizador({
           </button>
         )}
       </div>
+
+      <button
+        type="button"
+        onClick={verPrecio}
+        className="mt-4 h-14 w-full rounded-xl bg-taxi text-base font-bold text-tinta hover:bg-taxi-hover"
+      >
+        {paso === "cargando" ? "Calculando…" : "Ver precio"}
+      </button>
 
       <ul className="mt-4">
         {frecuentes.map((f) => (
@@ -494,7 +514,6 @@ export function Cotizador({
                 <span className="block text-[15px] font-medium">{f.titulo}</span>
                 <span className="block text-sm text-apagado">{f.detalle}</span>
               </span>
-              <span className="text-[15px] font-bold">{f.precio}</span>
             </button>
           </li>
         ))}
@@ -580,7 +599,7 @@ function FormReserva(props: {
           value={comentarios}
           onChange={(e) => setComentarios(e.target.value)}
           rows={2}
-          placeholder="Valijas, factura a nombre de la empresa, ida y vuelta…"
+          placeholder="Valijas, datos para la factura, ida y vuelta…"
           className="w-full rounded-xl bg-gris px-4 py-3 text-base outline-none focus:bg-white focus:ring-2 focus:ring-tinta"
         />
       </Campo>

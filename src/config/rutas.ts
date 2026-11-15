@@ -1,5 +1,5 @@
 // Páginas por destino (SEO). Cada una genera /traslados/[slug].
-// km y minutos son aproximados desde la zona base. ⚠️ Revisar textos y valores con Saverio.
+// km y minutos son aproximados desde el centro de CABA. ⚠️ Revisar textos y valores con Saverio.
 
 import type { Punto } from "./tarifas";
 
@@ -26,11 +26,11 @@ export const rutas: Ruta[] = [
     km: 32,
     minutos: 35,
     tarifaFijaId: "ezeiza",
-    title: "Traslado a Ezeiza con precio fijo",
+    title: "Traslado a Ezeiza desde CABA y Gran Buenos Aires",
     description:
-      "Traslado al Aeropuerto de Ezeiza desde Zona Sur y AMBA con precio cerrado. Chevrolet Spin para 6 pasajeros, vuelos de madrugada y espera sin cargo si se atrasa el vuelo.",
+      "Traslado al Aeropuerto de Ezeiza desde CABA y Gran Buenos Aires. Cotizá al instante, Chevrolet Spin para 4 pasajeros, vuelos de madrugada y espera sin cargo si se atrasa el vuelo.",
     intro: [
-      "Te buscamos en tu casa o en la oficina y te dejamos en la terminal que corresponda a tu vuelo. El precio es fijo desde cualquier punto del AMBA e incluye el peaje.",
+      "Te buscamos en tu casa o en la oficina y te dejamos en la terminal que corresponda a tu vuelo. Tiene una tarifa de referencia desde cualquier punto del AMBA, con el peaje incluido, y te confirmamos el precio por WhatsApp.",
       "Para vuelos internacionales conviene salir con tres horas de margen. Si salís temprano a la mañana, reservá el día anterior y te confirmamos por WhatsApp con el auto y la patente.",
       "A la vuelta seguimos tu vuelo: si aterriza tarde, la espera no se cobra.",
     ],
@@ -38,7 +38,7 @@ export const rutas: Ruta[] = [
       {
         pregunta: "¿Cuánto sale un traslado a Ezeiza?",
         respuesta:
-          "Tiene precio fijo desde cualquier punto del AMBA. El cotizador de esta página te muestra el valor actualizado con peaje incluido.",
+          "Tiene una tarifa de referencia desde cualquier punto del AMBA, con peaje incluido. El cotizador de esta página te muestra el valor aproximado y te lo confirmamos al reservar.",
       },
       {
         pregunta: "¿Qué pasa si mi vuelo se atrasa?",
@@ -48,7 +48,7 @@ export const rutas: Ruta[] = [
       {
         pregunta: "¿Entran las valijas de cuatro personas?",
         respuesta:
-          "Sí. La Chevrolet Spin lleva hasta 6 pasajeros. Para 4 pasajeros con valijas grandes entra cómodo; si son más, avisanos cuántas llevan.",
+          "Viajamos hasta 4 pasajeros en una Chevrolet Spin. Si llevan muchas valijas grandes, avisanos cuántas al reservar.",
       },
     ],
   },
@@ -60,12 +60,12 @@ export const rutas: Ruta[] = [
     km: 28,
     minutos: 40,
     tarifaFijaId: "aeroparque",
-    title: "Traslado a Aeroparque con precio fijo",
+    title: "Traslado a Aeroparque desde CABA y Gran Buenos Aires",
     description:
-      "Traslado a Aeroparque Jorge Newbery desde Zona Sur y AMBA. Precio cerrado, puntualidad para vuelos de cabotaje y factura para tu empresa.",
+      "Traslado a Aeroparque Jorge Newbery desde CABA y Gran Buenos Aires. Cotizá al instante, puntualidad para vuelos de cabotaje y factura C.",
     intro: [
-      "Para vuelos de cabotaje y viajes de trabajo que salen temprano. Precio fijo desde el AMBA, sin sorpresas por tráfico.",
-      "Si viajás seguido por trabajo, pedí factura a nombre de tu empresa y reservá los viajes de ida y vuelta juntos.",
+      "Para vuelos de cabotaje y viajes de trabajo que salen temprano. Cotizás antes de viajar y te confirmamos el precio por WhatsApp.",
+      "Si viajás seguido por trabajo, pedí factura y reservá los viajes de ida y vuelta juntos.",
     ],
     faqs: [
       {
@@ -74,8 +74,8 @@ export const rutas: Ruta[] = [
           "Con un día de anticipación te aseguramos el horario. Para el mismo día escribinos por WhatsApp y te confirmamos disponibilidad.",
       },
       {
-        pregunta: "¿Hacen factura para empresas?",
-        respuesta: "Sí, factura A o B. Pasanos los datos de facturación al reservar.",
+        pregunta: "¿Hacen factura?",
+        respuesta: "Sí, factura C. Pasanos los datos de facturación al reservar.",
       },
     ],
   },
@@ -88,7 +88,7 @@ export const rutas: Ruta[] = [
     minutos: 270,
     title: "Traslado a Mar del Plata en auto particular",
     description:
-      "Viaje de Buenos Aires a Mar del Plata puerta a puerta en Chevrolet Spin para hasta 6 pasajeros. Cotizá el precio al instante y reservá por WhatsApp.",
+      "Viaje de Buenos Aires a Mar del Plata puerta a puerta en Chevrolet Spin para hasta 4 pasajeros. Cotizá el precio al instante y reservá por WhatsApp.",
     intro: [
       "Puerta a puerta por Ruta 2, sin escalas en terminales ni horarios de micro. Son unas cuatro horas y media de viaje, con parada si la necesitás.",
       "Sirve para viajes de trabajo, para llegar con todo el equipaje a la costa o para volver con la familia completa en un solo auto.",
@@ -97,7 +97,7 @@ export const rutas: Ruta[] = [
       {
         pregunta: "¿El precio incluye peajes?",
         respuesta:
-          "Los peajes de Ruta 2 se suman al precio del cotizador. Te los detallamos al confirmar la reserva.",
+          "Los peajes de Ruta 2 se suman al precio aproximado del cotizador. Te los detallamos al confirmar la reserva.",
       },
       {
         pregunta: "¿Se puede contratar ida y vuelta?",
@@ -115,7 +115,7 @@ export const rutas: Ruta[] = [
     minutos: 50,
     title: "Traslado a La Plata",
     description:
-      "Traslado a La Plata desde Zona Sur para reuniones, trámites y viajes de trabajo. Precio cerrado y factura para empresas.",
+      "Traslado a La Plata desde CABA y Gran Buenos Aires para reuniones, trámites y viajes de trabajo. Cotizá al instante y reservá por WhatsApp.",
     intro: [
       "Para reuniones, trámites en organismos provinciales o visitas a clientes. Te llevamos y, si hace falta, te esperamos para la vuelta.",
     ],
@@ -136,7 +136,7 @@ export const rutas: Ruta[] = [
     minutos: 210,
     title: "Traslado a Rosario en auto particular",
     description:
-      "Viaje de Buenos Aires a Rosario puerta a puerta para trabajo o familia. Chevrolet Spin para 6 pasajeros, precio al instante.",
+      "Viaje de Buenos Aires a Rosario puerta a puerta para trabajo o familia. Chevrolet Spin para 4 pasajeros, precio al instante.",
     intro: [
       "Por autopista Buenos Aires–Rosario, unas tres horas y media puerta a puerta. Una opción cómoda para viajes de trabajo de ida y vuelta en el día.",
     ],

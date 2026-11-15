@@ -5,7 +5,11 @@ export const faqsGenerales = [
   {
     pregunta: "¿Cómo se calcula el precio?",
     respuesta:
-      "Los aeropuertos tienen precio fijo desde el AMBA. El resto de los viajes se calcula por kilómetro recorrido. El precio que ves en el cotizador es el que pagás.",
+      "Los aeropuertos tienen una tarifa de referencia desde el AMBA. El resto de los viajes se calcula por kilómetro recorrido. El cotizador te da un precio aproximado y te lo confirmamos por WhatsApp antes del viaje.",
+  },
+  {
+    pregunta: "¿Hacen factura?",
+    respuesta: "Sí, factura C. Pasanos los datos de facturación al reservar.",
   },
   {
     pregunta: "¿Cómo pago el viaje?",
@@ -13,12 +17,12 @@ export const faqsGenerales = [
   },
   {
     pregunta: "¿Cuántas personas y valijas entran?",
-    respuesta: `Viajamos en una ${sitio.auto.modelo} con lugar para ${sitio.auto.pasajeros} pasajeros. Si llevan mucho equipaje, avisanos al reservar.`,
+    respuesta: `Viajamos en una ${sitio.auto.modelo} para hasta ${sitio.auto.pasajeros} pasajeros. Si llevan mucho equipaje, avisanos al reservar.`,
   },
   {
     pregunta: "¿Cómo confirmo la reserva?",
     respuesta:
-      "Completás tus datos en el cotizador y se abre WhatsApp con el viaje cargado. Te confirmamos por ahí con el auto y la patente.",
+      "Completás tus datos en el cotizador y se abre WhatsApp con el viaje cargado. Te confirmamos por ahí el precio, el chofer, el auto y la patente.",
   },
 ];
 

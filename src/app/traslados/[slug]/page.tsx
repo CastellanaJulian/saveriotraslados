@@ -49,7 +49,7 @@ export default async function PaginaRuta({ params }: PageProps<"/traslados/[slug
             "@type": "Offer",
             priceCurrency: "ARS",
             price: precio,
-            description: fijo ? "Precio fijo desde AMBA" : `Desde ${sitio.zonaCompleta}, peajes aparte`,
+            description: fijo ? "Tarifa de referencia desde AMBA, sujeta a confirmación" : `Precio aproximado desde ${sitio.zonaCompleta}, peajes aparte, sujeto a confirmación`,
           },
         }}
       />
@@ -74,11 +74,11 @@ export default async function PaginaRuta({ params }: PageProps<"/traslados/[slug
             / Traslado a {r.destino}
           </nav>
           <h1 className="mt-2 text-[2.2rem] font-extrabold leading-[1.02] tracking-[-0.04em] sm:text-[3.4rem]">
-            Traslado de {sitio.zona} a {r.destino}
+            Traslado a {r.destino}
           </h1>
           <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
             <div>
-              <dt className="text-sm text-apagado">{fijo ? "Precio fijo" : "Desde"}</dt>
+              <dt className="text-sm text-apagado">{fijo ? "Tarifa aprox." : "Desde aprox."}</dt>
               <dd className="whitespace-nowrap text-xl font-extrabold sm:text-2xl">{formatoPrecio(precio)}</dd>
             </div>
             <div>

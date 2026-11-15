@@ -17,8 +17,9 @@ export function aFrecuente(r: Ruta): Frecuente {
   return {
     lugar: { nombre: r.destinoCompleto, detalle: "", lat: r.punto.lat, lon: r.punto.lon },
     titulo: nombre,
-    detalle: fijo ? "Precio fijo desde AMBA" : `${r.km} km · ${formatoDuracion(r.minutos)}`,
+    detalle: `${r.km} km · ${formatoDuracion(r.minutos)}`,
     precio: fijo ? formatoPrecio(precio) : `desde ${formatoPrecio(precio)}`,
+    slug: r.slug,
     icono: fijo ? "avion" : "ruta",
   };
 }
