@@ -8,7 +8,7 @@ export function Encabezado() {
   return (
     <header className="bg-tinta text-white">
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="text-[17px] font-extrabold tracking-tight">
+        <Link href="/" className="whitespace-nowrap text-[17px] font-extrabold tracking-tight">
           {sitio.nombre}
         </Link>
         <nav className="flex items-center gap-6 text-sm">
@@ -33,7 +33,7 @@ export function Encabezado() {
             href={linkWhatsApp("Hola, quiero consultar por un viaje.")}
             target="_blank"
             rel="noopener"
-            className="flex h-9 items-center rounded-full bg-white px-4 font-semibold text-tinta hover:bg-white/90"
+            className="flex h-9 shrink-0 items-center rounded-full bg-white px-4 font-semibold text-tinta hover:bg-white/90"
           >
             <span className="hidden sm:inline">WhatsApp {sitio.telefono}</span>
             <span className="sm:hidden">WhatsApp</span>
