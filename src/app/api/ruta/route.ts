@@ -28,7 +28,7 @@ async function conORS(o: { lat: number; lon: number }, d: { lat: number; lon: nu
     body: JSON.stringify({ coordinates: [[o.lon, o.lat], [d.lon, d.lat]] }),
     signal: AbortSignal.timeout(8000),
   });
-  if (!res.ok) throw new Error("ors " + res.status);
+  if (!res.ok) throw new Error(`ors ${res.status} ${(await res.text()).slice(0, 120)}`);
   const data = await res.json();
   const f = data.features[0];
   return {
@@ -57,8 +57,22 @@ export async function GET(request: NextRequest) {
   if (!o || !d) return Response.json({ error: "Faltan origen o destino" }, { status: 400 });
 
   try {
-    const key = process.env.ORS_API_KEY;
-    const r = key ? await conORS(o, d, key) : await conOSRM(o, d);
+    const key = process.env.ORS_API_KEY?.trim();
+    let r: Recorrido;
+    let proveedor = "osrm-demo";
+    if (key) {
+      try {
+        r = await conORS(o, d, key);
+        proveedor = "ors";
+      } catch (e) {
+        // Si ORS falla (key inválida, cupo agotado, caída), seguimos con el respaldo.
+        console.error("ORS falló, uso OSRM:", e instanceof Error ? e.message : e);
+        proveedor = `osrm-demo (ors falló: ${e instanceof Error ? e.message : "error"})`;
+        r = await conOSRM(o, d);
+      }
+    } else {
+      r = await conOSRM(o, d);
+    }
     const body: Recorrido = {
       km: Math.round(r.km * 10) / 10,
       minutos: Math.round(r.minutos),
@@ -67,8 +81,8 @@ export async function GET(request: NextRequest) {
     return Response.json(body, {
       headers: {
         "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800",
-        // Para verificar qué servicio respondió (ors en producción, osrm-demo sin key).
-        "X-Proveedor-Ruta": key ? "ors" : "osrm-demo",
+        // Para verificar qué servicio respondió (ors en producción).
+        "X-Proveedor-Ruta": proveedor,
       },
     });
   } catch {
