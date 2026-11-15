@@ -25,7 +25,8 @@ async function conORS(o: { lat: number; lon: number }, d: { lat: number; lon: nu
   const res = await fetch("https://api.openrouteservice.org/v2/directions/driving-car/geojson", {
     method: "POST",
     headers: { Authorization: key, "Content-Type": "application/json" },
-    body: JSON.stringify({ coordinates: [[o.lon, o.lat], [d.lon, d.lat]] }),
+    // radiuses -1: busca la calle más cercana sin límite (aeropuertos, barrios cerrados, plazas).
+    body: JSON.stringify({ coordinates: [[o.lon, o.lat], [d.lon, d.lat]], radiuses: [-1, -1] }),
     signal: AbortSignal.timeout(8000),
   });
   if (!res.ok) throw new Error(`ors ${res.status} ${(await res.text()).slice(0, 120)}`);
