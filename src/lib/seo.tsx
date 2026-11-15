@@ -1,11 +1,10 @@
 import { sitio } from "@/config/sitio";
-import { zonas } from "@/config/tarifas";
 
 export const faqsGenerales = [
   {
     pregunta: "¿Cómo se calcula el precio?",
     respuesta:
-      "Los aeropuertos tienen una tarifa de referencia desde el AMBA. El resto de los viajes se calcula por kilómetro recorrido. El cotizador te da un precio aproximado y te lo confirmamos por WhatsApp antes del viaje.",
+      "Ezeiza y Aeroparque tienen una tarifa de referencia desde CABA. El resto de los viajes se calcula por kilómetro recorrido. El cotizador te da un precio aproximado y te lo confirmamos por WhatsApp antes del viaje.",
   },
   {
     pregunta: "¿Hacen factura?",
@@ -47,10 +46,10 @@ export function jsonLdNegocio() {
       "@type": "GeoCircle",
       geoMidpoint: {
         "@type": "GeoCoordinates",
-        latitude: zonas.amba.centro.lat,
-        longitude: zonas.amba.centro.lon,
+        latitude: sitio.base.lat,
+        longitude: sitio.base.lon,
       },
-      geoRadius: zonas.amba.radioKm * 1000,
+      geoRadius: 45000,
     },
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",

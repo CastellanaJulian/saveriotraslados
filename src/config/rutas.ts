@@ -30,7 +30,7 @@ export const rutas: Ruta[] = [
     description:
       "Traslado al Aeropuerto de Ezeiza desde CABA y Gran Buenos Aires. Cotizá al instante, Chevrolet Spin para 4 pasajeros, vuelos de madrugada y espera sin cargo si se atrasa el vuelo.",
     intro: [
-      "Te buscamos en tu casa o en la oficina y te dejamos en la terminal que corresponda a tu vuelo. Tiene una tarifa de referencia desde cualquier punto del AMBA, con el peaje incluido, y te confirmamos el precio por WhatsApp.",
+      "Te buscamos en tu casa o en la oficina y te dejamos en la terminal que corresponda a tu vuelo. Desde CABA tiene una tarifa de referencia con el peaje incluido; desde el resto del Gran Buenos Aires se calcula por kilómetro. Te confirmamos el precio por WhatsApp.",
       "Para vuelos internacionales conviene salir con tres horas de margen. Si salís temprano a la mañana, reservá el día anterior y te confirmamos por WhatsApp con el auto y la patente.",
       "A la vuelta seguimos tu vuelo: si aterriza tarde, la espera no se cobra.",
     ],
@@ -38,7 +38,7 @@ export const rutas: Ruta[] = [
       {
         pregunta: "¿Cuánto sale un traslado a Ezeiza?",
         respuesta:
-          "Tiene una tarifa de referencia desde cualquier punto del AMBA, con peaje incluido. El cotizador de esta página te muestra el valor aproximado y te lo confirmamos al reservar.",
+          "Desde CABA tiene una tarifa de referencia con peaje incluido. Desde el Gran Buenos Aires se calcula por kilómetro. El cotizador de esta página te muestra el valor aproximado y te lo confirmamos al reservar.",
       },
       {
         pregunta: "¿Qué pasa si mi vuelo se atrasa?",

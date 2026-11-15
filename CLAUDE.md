@@ -101,6 +101,7 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
   - El cotizador no calcula solo: se elige origen y destino y se toca **"Ver precio"**.
   - Tarifas de referencia en una sección aparte ("Tarifas aproximadas"), no debajo del buscador.
   - WhatsApp real: +54 9 11 5107-7099.
+  - Tarifas reales: $1.500/km; Ezeiza ↔ CABA $80.000; Aeroparque ↔ CABA $30.000 (fijas solo si el otro extremo está dentro de CABA, polígono en `tarifas.ts`; desde el Gran Buenos Aires se cobra por km). Recargo nocturno y regreso en vacío quedan desactivados hasta que Julian los defina; el mínimo de $15.000 es de ejemplo.
 - SEO: metadatos por página, JSON-LD (LocalBusiness, TaxiService, FAQPage, BreadcrumbList), sitemap, robots, imagen OG.
 - Reseñas: `sitio.resenas` vacío = no se muestra la sección. Nunca inventar reseñas.
 

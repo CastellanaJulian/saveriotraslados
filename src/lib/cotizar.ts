@@ -11,9 +11,16 @@ export function distanciaKm(a: Punto, b: Punto) {
   return 2 * R * Math.asin(Math.sqrt(h));
 }
 
+// Punto dentro de polígono (ray casting).
 function enZona(p: Punto, zonaId: keyof typeof zonas) {
-  const z = zonas[zonaId];
-  return distanciaKm(p, z.centro) <= z.radioKm;
+  const poly = zonas[zonaId].poligono;
+  let dentro = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const [xi, yi] = poly[i];
+    const [xj, yj] = poly[j];
+    if (yi > p.lat !== yj > p.lat && p.lon < ((xj - xi) * (p.lat - yi)) / (yj - yi) + xi) dentro = !dentro;
+  }
+  return dentro;
 }
 
 export function tarifaFijaPara(origen: Punto, destino: Punto) {
