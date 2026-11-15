@@ -86,6 +86,7 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 
 ## Implementación (estado al 2026-11-15)
 - Next.js 16 (App Router, TypeScript, Tailwind 4), **sitio estático** (sin Cache Components). Repo: github.com/CastellanaJulian/saveriotraslados.
+- Publicado en Vercel (conectado al repo, cada push a `main` publica): https://saveriotraslados-gold.vercel.app. `sitio.url` toma el dominio de producción de Vercel solo; al conectar saveriotraslados.com.ar se actualiza canonical y sitemap.
 - Antes de tocar APIs de Next, leer la doc local en `node_modules/next/dist/docs/` (ver AGENTS.md).
 - Configuración editable en `src/config/` (tarifas, datos del sitio, páginas por destino). Valores marcados EJEMPLO.
 - Cotizador: `src/components/Cotizador.tsx` (cliente). APIs: `/api/lugares` (Photon) y `/api/ruta` (ORS con `ORS_API_KEY`, si no OSRM demo).

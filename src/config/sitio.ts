@@ -2,7 +2,15 @@
 
 export const sitio = {
   nombre: "Saverio Traslados",
-  url: "https://saveriotraslados.com.ar",
+  // URL pública (canonical, sitemap, datos estructurados). Orden:
+  // 1) NEXT_PUBLIC_SITE_URL si se define a mano en Vercel.
+  // 2) El dominio de producción del proyecto en Vercel (cambia solo al conectar saveriotraslados.com.ar).
+  // 3) El dominio previsto.
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "https://saveriotraslados.com.ar"),
   // Zona de servicio: todo Buenos Aires (CABA y Gran Buenos Aires), sin acotar a una zona.
   zona: "Buenos Aires",
   zonaCompleta: "CABA y Gran Buenos Aires",
