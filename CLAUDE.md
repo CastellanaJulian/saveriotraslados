@@ -127,6 +127,9 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 - Enfocada en traslados corporativos a aeropuertos, hoteles, Terminal de Retiro e interior (pedido de Julian). Reservás vos y viaja otra persona; solo factura C. Sin "cuenta corriente" (no confirmado).
 - Bloques: h1 + párrafo, cotizador, "Viajes que hacemos" (con links a destinos), "Cómo reservar" (4 pasos), tarifas, chofer, seguridad, FAQ propias. JSON-LD Service con BusinessAudience. Link en header ("Empresas") y pie.
 
+## Métricas
+- Vercel Analytics (`@vercel/analytics`, componente en `layout.tsx`): visitas por página, sin cookies. Hay que activarlo en Vercel → proyecto → Analytics. Eventos propios (Ver precio, Reservar) requieren plan Pro.
+
 ## Confirmado por Julian (2026-11-15, segunda tanda)
 - **Taxi con licencia de CABA** (no remis). Se puede usar "taxi" en el sitio; no usar "remis".
 - **Sin recargo nocturno y sin cobro de regreso en vacío** (quedan en 0 y 1 en `tarifas.ts`).

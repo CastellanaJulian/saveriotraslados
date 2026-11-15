@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import { sitio } from "@/config/sitio";
+import { Analytics } from "@vercel/analytics/next";
 import { Encabezado, Pie } from "@/components/Marco";
 import "./globals.css";
 
@@ -40,6 +41,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Encabezado />
         <main className="flex-1">{children}</main>
         <Pie />
+        {/* Vercel Analytics: visitas por página, sin cookies. Activarlo en Vercel → Analytics. */}
+        <Analytics />
       </body>
     </html>
   );
