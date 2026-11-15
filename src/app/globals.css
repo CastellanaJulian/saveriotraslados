@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-tinta: #111111;
+  --color-apagado: #6b6b6b;
+  --color-gris: #f3f3f1;
+  --color-linea: #e8e8e5;
+  --color-taxi: #ffc700;
+  --color-taxi-hover: #f2bb00;
+  --color-taxi-suave: #fff6cc;
+  --color-taxi-texto: #5c4a00;
+  --font-sans: var(--font-geist-sans);
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-tinta);
+}
