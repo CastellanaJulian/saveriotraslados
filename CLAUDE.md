@@ -121,6 +121,11 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 - Animación al bajar: clase `.aparecer` (CSS scroll-driven, sin JS; respeta "reducir movimiento").
 - Reseñas: `sitio.resenas` vacío = no se muestra la sección. Nunca inventar reseñas.
 
+## Perfil de Empresa de Google
+- Creado el 2026-11-15 con el mail personal de Julian, como "Empresa de servicios" con dirección en Castelar (oculta, zona de servicio). Estado: **en verificación**.
+- Teléfono cargado = el del sitio (hoy el de Julian, temporal). Si se cambia, cambiar sitio y perfil juntos.
+- Pendiente: fotos reales (auto, interior, baúl, Javier), logo, sumar al papá como propietario, pedir reseñas. Flyer solo como publicación, no como foto. Crédito de Google Ads: omitido por ahora.
+
 ## Preguntas abiertas
 - ¿Desde qué ciudad/barrio sale?
 - ¿Habilitación actual (taxi/remis) y si cubre viajes fuera de la jurisdicción? (Afecta qué se puede ofrecer y publicar.)
