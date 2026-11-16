@@ -117,7 +117,7 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 - Sale desde Castelar, pero **no se publica** (Julian, 2026-11-15): sin página por zona de salida ni mención en el sitio. El precio siempre se calcula desde donde se busca al pasajero; el acercamiento no se cobra.
 - Carpeta `impresos/` (tarjeta y flyer) no es del sitio: no commitear sin preguntar.
 - Dirección del negocio: **no se publica**, es negocio con zona de servicio (Julian, 2026-11-15). En JSON-LD solo región; en el Perfil de Google, zona de servicio con dirección oculta.
-- Dominio en Vercel: www.saveriotraslados.com.ar es el de producción y el dominio sin www redirige a www (canonical y sitemap usan www, vía VERCEL_PROJECT_PRODUCTION_URL). Search Console verificado (propiedad de dominio) y sitemap enviado con la URL completa (2026-11-15).
+- Dominio en Vercel: www.saveriotraslados.com.ar es el de producción y el dominio sin www redirige a www (canonical y sitemap usan www, vía VERCEL_PROJECT_PRODUCTION_URL). Search Console verificado (propiedad de dominio) y sitemap enviado con la URL completa (2026-11-15). Bing Webmaster Tools importado desde Search Console (para ChatGPT/Copilot). Firewall de Vercel: Bot Protection, AI Bots y Attack Mode apagados (no bloquear crawlers). Pendiente: Bing Places cuando se verifique el Perfil de Google.
 - Header (2026-11-15): logo, links Ezeiza / Aeroparque / Tarifas (desde md) y píldora blanca "WhatsApp" + teléfono (en celu solo "WhatsApp").
 - Choferes: foto, nombre, auto y link "Escribir por WhatsApp". Sin chips de condiciones (Julian: repetían info). Se eliminó `sitio.condiciones`.
 - Animación al bajar: clase `.aparecer` (CSS scroll-driven, sin JS; respeta "reducir movimiento").
