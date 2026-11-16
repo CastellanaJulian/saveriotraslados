@@ -16,9 +16,8 @@ export default function Inicio() {
           <h1 className="mt-2 text-[2.6rem] font-extrabold leading-[1.02] tracking-[-0.04em] sm:text-6xl">
             Traslados a Ezeiza, Aeroparque y el interior
           </h1>
-          <p className="mt-5 max-w-md text-[17px] leading-relaxed text-apagado">
-            Viajes desde {sitio.zonaCompleta} a los aeropuertos, La Plata, Mar del Plata, Rosario y otras ciudades, en{" "}
-            {sitio.auto.modelo} para hasta {sitio.auto.pasajeros} pasajeros. Cotizás acá y reservás por WhatsApp.
+          <p className="mt-4 text-[17px] text-apagado">
+            Desde {sitio.zonaCompleta} · Hasta {sitio.auto.pasajeros} pasajeros
           </p>
         </div>
         <div className="lg:row-span-2">
