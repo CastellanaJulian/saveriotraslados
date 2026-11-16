@@ -1,5 +1,7 @@
 import { otrosAeropuertos, tarifas, tarifasFijas, zonas, type Punto } from "@/config/tarifas";
 
+export type Idioma = "es" | "en";
+
 export function distanciaKm(a: Punto, b: Punto) {
   const R = 6371;
   const rad = (x: number) => (x * Math.PI) / 180;
@@ -54,12 +56,20 @@ function redondear(n: number) {
   return Math.ceil(n / tarifas.redondeo) * tarifas.redondeo;
 }
 
+// Dólares por km (US$1/km), con el mismo mínimo que en pesos llevado a km.
+export function precioUSDPorKm(km: number) {
+  const minimoKm = tarifas.minimo / tarifas.precioPorKm;
+  return Math.ceil(Math.max(km, minimoKm) * tarifas.precioPorKmUSD);
+}
+
 export type Cotizacion = {
   precio: number;
   tipo: "fijo" | "km";
   nocturno: boolean;
   aeropuerto: Aeropuerto | null;
   nota: string;
+  // Precio en dólares. null = a confirmar (tarifa fija sin precio en dólares cargado).
+  precioUSD: number | null;
 };
 
 export function cotizar(opts: {
@@ -80,6 +90,7 @@ export function cotizar(opts: {
       nocturno,
       aeropuerto,
       nota: "Precio aproximado, sujeto a confirmación. Incluye peajes.",
+      precioUSD: fija.precioUSD,
     };
   }
 
@@ -91,11 +102,17 @@ export function cotizar(opts: {
     nocturno,
     aeropuerto,
     nota: "Precio aproximado, sujeto a confirmación. Incluye peajes.",
+    precioUSD: precioUSDPorKm(opts.km),
   };
 }
 
-export function formatoPrecio(n: number) {
-  return "$" + n.toLocaleString("es-AR");
+// En inglés se aclara la moneda: "$" solo se confunde con dólares.
+export function formatoPrecio(n: number, idioma: Idioma = "es") {
+  return idioma === "en" ? `ARS ${n.toLocaleString("en-US")}` : "$" + n.toLocaleString("es-AR");
+}
+
+export function formatoUSD(n: number) {
+  return `US$${n}`;
 }
 
 export function formatoDuracion(min: number) {

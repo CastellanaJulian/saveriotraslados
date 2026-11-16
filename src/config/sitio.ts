@@ -23,7 +23,14 @@ export const sitio = {
   whatsapp: "5491158017970",
   // Equipo de choferes. Se muestran en el bloque "Nuestros choferes".
   // foto: archivo en /public (null = sin foto).
-  choferes: [{ nombre: "Javier Castellana", foto: "/javier-castellana.jpg" as string | null }],
+  choferes: [
+    {
+      nombre: "Javier Castellana",
+      foto: "/javier-castellana.jpg" as string | null,
+      // Confirmado por Julian (2026-11-15). No mencionar atención 24 h.
+      anios: 25,
+    },
+  ],
   auto: {
     // No se nombra el modelo en el sitio (Julian, 2026-11-15): se dice "auto 0 km".
     modelo: "auto 0 km",
@@ -37,8 +44,11 @@ export const sitio = {
     wifi: true, // WiFi a bordo sin cargo (Julian, 2026-11-15)
   },
   // Se acepta cualquier medio de pago; con tarjeta (en cuotas o no) puede haber interés.
-  pagos: "Aceptamos todos los medios de pago: efectivo, transferencia, Mercado Pago y tarjetas.",
+  pagos: "Aceptamos todos los medios de pago: efectivo en pesos o dólares, transferencia, Mercado Pago y tarjetas.",
   pagosNota: "Con tarjeta puede haber interés.",
+  // Versión en inglés (/en).
+  payments: "We take cash in pesos or US dollars, bank transfer, Mercado Pago and cards.",
+  paymentsNote: "Card payments may carry interest.",
   // Perfiles oficiales (Perfil de Empresa de Google, Instagram, Facebook). Se publican en los
   // datos estructurados (sameAs) para que Google relacione todo con el mismo negocio.
   redes: [] as string[],

@@ -1,4 +1,5 @@
 import { rutas, type Ruta } from "@/config/rutas";
+import { rutasEn, rutaEs, type RutaEn } from "@/config/rutas-en";
 import { tarifasFijas } from "@/config/tarifas";
 import { sitio } from "@/config/sitio";
 import type { Frecuente } from "@/components/Cotizador";
@@ -20,8 +21,24 @@ export function aFrecuente(r: Ruta): Frecuente {
     detalle: `${r.km} km · ${formatoDuracion(r.minutos)}`,
     precio: fijo ? formatoPrecio(precio) : `desde ${formatoPrecio(precio)}`,
     slug: r.slug,
+    href: `/traslados/${r.slug}`,
     icono: fijo ? "avion" : "ruta",
   };
 }
 
 export const frecuentes = rutas.map(aFrecuente);
+
+// Lista de rutas de la versión en inglés (precios en pesos con la moneda aclarada).
+export function aFrecuenteEn(r: RutaEn): Frecuente {
+  const es = rutaEs(r);
+  const { precio, fijo } = precioReferencia(es);
+  return {
+    ...aFrecuente(es),
+    titulo: r.destino,
+    precio: fijo ? formatoPrecio(precio, "en") : `from ${formatoPrecio(precio, "en")}`,
+    slug: r.slug,
+    href: `/en/${r.slug}`,
+  };
+}
+
+export const frecuentesEn = rutasEn.map(aFrecuenteEn);

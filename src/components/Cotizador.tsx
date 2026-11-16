@@ -2,7 +2,15 @@
 
 import { useId, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { sitio } from "@/config/sitio";
-import { cotizar, formatoDuracion, formatoPrecio, type Aeropuerto, type Cotizacion } from "@/lib/cotizar";
+import {
+  cotizar,
+  formatoDuracion,
+  formatoPrecio,
+  formatoUSD,
+  type Aeropuerto,
+  type Cotizacion,
+  type Idioma,
+} from "@/lib/cotizar";
 import { formatoFecha, linkWhatsApp, mensajeConsulta, mensajeReserva } from "@/lib/whatsapp";
 import { Icono, type NombreIcono } from "./Icono";
 import { MapaRuta } from "./MapaRuta";
@@ -16,7 +24,119 @@ export type Frecuente = {
   detalle: string;
   precio: string;
   slug: string;
+  href: string;
   icono: NombreIcono;
+};
+
+// Textos del cotizador en los dos idiomas del sitio.
+const TX = {
+  es: {
+    errorRuta: "No pudimos calcular el recorrido. Probá de nuevo o escribinos por WhatsApp.",
+    elegiOrigen: "Elegí desde dónde salís en la lista de sugerencias.",
+    elegiDestino: "Elegí a dónde vas en la lista de sugerencias.",
+    elegiFecha: "Elegí la fecha",
+    elegiHora: "Elegí la hora",
+    elegiPasajeros: "Elegí cuántos viajan",
+    miUbicacion: "Mi ubicación",
+    cambiarViaje: "Cambiar el viaje",
+    pasajero: "pasajero",
+    pasajerosPl: "pasajeros",
+    nota: "Precio aproximado, sujeto a confirmación. Incluye peajes.",
+    nocturno: " Incluye recargo nocturno.",
+    usd: (p: string) => `En dólares: ${p}`,
+    usdConsultar: "",
+    esperaVuelo: "Si el vuelo se atrasa, la espera no se cobra",
+    wifi: "WiFi a bordo sin cargo",
+    pagos: "Todos los medios de pago",
+    confirmamos: "Te confirmamos chofer, auto y patente",
+    soloConsultar: "Solo quiero consultar por WhatsApp",
+    enviado:
+      "Te abrimos WhatsApp con los datos del viaje. Mandá el mensaje y te confirmamos el precio y la reserva por ahí.",
+    desde: "Desde dónde salís",
+    usarUbicacion: "Usar mi ubicación",
+    hasta: "A dónde vas",
+    cuando: "Cuándo",
+    pasajerosTitulo: "Pasajeros",
+    cantidadPasajeros: "Cantidad de pasajeros",
+    masDe: (n: number) => `¿Son más de ${n}? Sumamos otro chofer con su auto.`,
+    masDeMensaje: (n: number) => `Hola, somos más de ${n} pasajeros y quiero consultar por un viaje.`,
+    consultanos: "Consultanos",
+    repetir: "Repetir",
+    calculando: "Calculando…",
+    verPrecio: "Ver precio",
+    sale: "Sale el vuelo",
+    aterriza: "Aterriza el vuelo",
+    horaSale: "Hora en que sale el vuelo",
+    horaAterriza: "Hora en que aterriza el vuelo",
+    escribiNombre: "Escribí tu nombre",
+    completaVuelo: "Completá la hora del vuelo",
+    cuatroOMas: "4 o más",
+    nombre: "Nombre y apellido",
+    numeroVuelo: "Número de vuelo (opcional)",
+    horarioIda: "Con el horario del vuelo te confirmamos a qué hora te buscamos.",
+    valijas: "Valijas grandes",
+    cantidadValijas: "Cantidad de valijas grandes",
+    masValijas: (n: number) => `Con más de ${n} valijas grandes puede hacer falta otro auto. Te confirmamos por WhatsApp.`,
+    entran: (e: string) => `Entran hasta ${e}.`,
+    comentarios: "Comentarios (opcional)",
+    comentariosEj: "Datos para la factura C, ida y vuelta, silla de bebé…",
+    reservar: "Reservar",
+    sinPago:
+      "No pagás nada en la web. Se abre WhatsApp con la reserva completa y te confirmamos precio, chofer y patente antes del viaje. Tus datos solo se usan para tu reserva.",
+  },
+  en: {
+    errorRuta: "We couldn't calculate the route. Try again or message us on WhatsApp.",
+    elegiOrigen: "Pick your pickup point from the suggestions.",
+    elegiDestino: "Pick your destination from the suggestions.",
+    elegiFecha: "Pick a date",
+    elegiHora: "Pick a time",
+    elegiPasajeros: "Choose how many are traveling",
+    miUbicacion: "My location",
+    cambiarViaje: "Change the trip",
+    pasajero: "passenger",
+    pasajerosPl: "passengers",
+    nota: "Approximate price, confirmed before the trip. Tolls included.",
+    nocturno: " Includes night surcharge.",
+    usd: (p: string) => `Or ${p} in US dollars`,
+    usdConsultar: "Paying in US dollars? Ask us for the price on WhatsApp.",
+    esperaVuelo: "If your flight is delayed, waiting time is free",
+    wifi: "Free WiFi on board",
+    pagos: "Cash in pesos or US dollars, transfer or card",
+    confirmamos: "We confirm the driver, car and license plate",
+    soloConsultar: "I just want to ask on WhatsApp",
+    enviado: "WhatsApp is open with your trip details. Send the message and we'll confirm the price and booking there.",
+    desde: "Pickup address",
+    usarUbicacion: "Use my location",
+    hasta: "Where to",
+    cuando: "When",
+    pasajerosTitulo: "Passengers",
+    cantidadPasajeros: "Number of passengers",
+    masDe: (n: number) => `More than ${n}? We add a second driver with his own car.`,
+    masDeMensaje: (n: number) => `Hi, we are more than ${n} passengers and I'd like to ask about a trip.`,
+    consultanos: "Ask us",
+    repetir: "Repeat",
+    calculando: "Calculating…",
+    verPrecio: "See price",
+    sale: "Flight departs",
+    aterriza: "Flight lands",
+    horaSale: "Flight departure time",
+    horaAterriza: "Flight arrival time",
+    escribiNombre: "Enter your name",
+    completaVuelo: "Enter the flight time",
+    cuatroOMas: "4 or more",
+    nombre: "Full name",
+    numeroVuelo: "Flight number (optional)",
+    horarioIda: "With your flight time we'll confirm when we pick you up.",
+    valijas: "Large suitcases",
+    cantidadValijas: "Number of large suitcases",
+    masValijas: (n: number) => `With more than ${n} large suitcases you may need a second car. We'll confirm on WhatsApp.`,
+    entran: () => `Fits up to ${sitio.auto.valijas} large suitcases and ${sitio.auto.valijasMano} carry-ons.`,
+    comentarios: "Comments (optional)",
+    comentariosEj: "Round trip, child seat, a stop on the way…",
+    reservar: "Book",
+    sinPago:
+      "You don't pay anything online. WhatsApp opens with your booking and we confirm the price, driver and license plate before the trip. Your details are only used for your booking.",
+  },
 };
 
 type Recorrido = { km: number; minutos: number; coords: [number, number][] };
@@ -196,10 +316,13 @@ function CampoLugar({
 export function Cotizador({
   origenInicial = null,
   destinoInicial = null,
+  idioma = "es",
 }: {
   origenInicial?: Lugar | null;
   destinoInicial?: Lugar | null;
+  idioma?: Idioma;
 }) {
+  const t = TX[idioma];
   const [origen, setOrigen] = useState<Lugar | null>(origenInicial);
   const [destino, setDestino] = useState<Lugar | null>(destinoInicial);
   const [dia, setDia] = useState("");
@@ -239,7 +362,7 @@ export function Cotizador({
       requestAnimationFrame(() => raiz.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
     } catch {
       if (n !== pedidoRuta.current) return;
-      setError("No pudimos calcular el recorrido. Probá de nuevo o escribinos por WhatsApp.");
+      setError(t.errorRuta);
       setPaso("form");
     }
   }
@@ -257,18 +380,18 @@ export function Cotizador({
 
   function verPrecio() {
     if (!origen) {
-      setAviso("Elegí desde dónde salís en la lista de sugerencias.");
+      setAviso(t.elegiOrigen);
       origenRef.current?.focus();
       return;
     }
     if (!destino) {
-      setAviso("Elegí a dónde vas en la lista de sugerencias.");
+      setAviso(t.elegiDestino);
       return;
     }
     const f = {
-      dia: dia ? "" : "Elegí la fecha",
-      hora: hora ? "" : "Elegí la hora",
-      pasajeros: pasajeros ? "" : "Elegí cuántos viajan",
+      dia: dia ? "" : t.elegiFecha,
+      hora: hora ? "" : t.elegiHora,
+      pasajeros: pasajeros ? "" : t.elegiPasajeros,
     };
     setFaltan(f);
     if (f.dia || f.hora || f.pasajeros) {
@@ -299,7 +422,7 @@ export function Cotizador({
           cambiarOrigen(
             l
               ? { ...l, lat: pos.coords.latitude, lon: pos.coords.longitude }
-              : { nombre: "Mi ubicación", detalle: "", lat: pos.coords.latitude, lon: pos.coords.longitude },
+              : { nombre: t.miUbicacion, detalle: "", lat: pos.coords.latitude, lon: pos.coords.longitude },
           );
         } finally {
           setUbicando(false);
@@ -324,7 +447,9 @@ export function Cotizador({
           destino: etiqueta(destino),
           fecha,
           pasajeros,
-          precio: formatoPrecio(cotizacion.precio),
+          precio:
+            formatoPrecio(cotizacion.precio, idioma) +
+            (idioma === "en" && cotizacion.precioUSD ? ` / ${formatoUSD(cotizacion.precioUSD)}` : ""),
           km: recorrido.km,
         }
       : null;
@@ -334,11 +459,11 @@ export function Cotizador({
     return (
       <div ref={raiz} className="scroll-mt-4 overflow-hidden rounded-2xl border border-linea bg-white">
         <div className="relative h-56 sm:h-64">
-          <MapaRuta coords={recorrido.coords} />
+          <MapaRuta coords={recorrido.coords} idioma={idioma} />
           <button
             type="button"
             onClick={volver}
-            aria-label="Cambiar el viaje"
+            aria-label={t.cambiarViaje}
             className="absolute left-3 top-3 grid size-10 place-items-center rounded-full bg-white shadow"
           >
             <Icono nombre="atras" />
@@ -350,40 +475,45 @@ export function Cotizador({
             {origen!.nombre} · {destino!.nombre}
           </p>
           <p className="text-sm text-apagado">
-            {[fecha ? formatoFecha(fecha) : "", `${pasajeros} ${pasajeros === 1 ? "pasajero" : "pasajeros"}`]
+            {[fecha ? formatoFecha(fecha, idioma) : "", `${pasajeros} ${pasajeros === 1 ? t.pasajero : t.pasajerosPl}`]
               .filter(Boolean)
               .join(" · ")}
           </p>
 
           <div className="mt-4 rounded-xl bg-taxi-suave px-4 py-3">
             <div className="flex flex-wrap items-end justify-between gap-x-3">
-              <span className="text-4xl font-extrabold tracking-tight">{formatoPrecio(cotizacion.precio)}</span>
+              <span className="text-4xl font-extrabold tracking-tight">{formatoPrecio(cotizacion.precio, idioma)}</span>
               <span className="whitespace-nowrap pb-1 text-sm text-taxi-texto">
                 {Math.round(recorrido.km)} km · {formatoDuracion(recorrido.minutos)}
               </span>
             </div>
             <p className="text-sm text-taxi-texto">
-              {cotizacion.nota}
-              {cotizacion.nocturno && " Incluye recargo nocturno."}
+              {t.nota}
+              {cotizacion.nocturno && t.nocturno}
             </p>
+            {idioma === "en" && (
+              <p className="mt-1 text-sm font-semibold text-taxi-texto">
+                {cotizacion.precioUSD ? t.usd(formatoUSD(cotizacion.precioUSD)) : t.usdConsultar}
+              </p>
+            )}
           </div>
 
           <ul className="mt-4 space-y-2 text-[15px]">
             {cotizacion.aeropuerto && (
               <li className="flex gap-2">
-                <Icono nombre="check" className="size-5 shrink-0" /> Si el vuelo se atrasa, la espera no se cobra
+                <Icono nombre="check" className="size-5 shrink-0" /> {t.esperaVuelo}
               </li>
             )}
             {sitio.auto.wifi && (
               <li className="flex gap-2">
-                <Icono nombre="check" className="size-5 shrink-0" /> WiFi a bordo sin cargo
+                <Icono nombre="check" className="size-5 shrink-0" /> {t.wifi}
               </li>
             )}
             <li className="flex gap-2">
-              <Icono nombre="check" className="size-5 shrink-0" /> Todos los medios de pago
+              <Icono nombre="check" className="size-5 shrink-0" /> {t.pagos}
             </li>
             <li className="flex gap-2">
-              <Icono nombre="check" className="size-5 shrink-0" /> Te confirmamos chofer, auto y patente
+              <Icono nombre="check" className="size-5 shrink-0" /> {t.confirmamos}
             </li>
           </ul>
 
@@ -393,26 +523,26 @@ export function Cotizador({
                 viaje={viaje}
                 aeropuerto={cotizacion.aeropuerto}
                 pasajeros={pasajeros}
+                idioma={idioma}
                 onEnviado={() => {
                   guardarUltimoViaje({ origen: origen!, destino: destino! });
                   setPaso("enviado");
                 }}
               />
               <a
-                href={linkWhatsApp(mensajeConsulta(viaje))}
+                href={linkWhatsApp(mensajeConsulta(viaje, idioma))}
                 target="_blank"
                 rel="noopener"
                 className="mt-4 block text-center text-sm underline underline-offset-4"
               >
-                Solo quiero consultar por WhatsApp
+                {t.soloConsultar}
               </a>
             </>
           )}
 
           {paso === "enviado" && (
             <p className="mt-6 rounded-xl bg-gris p-4 text-[15px]">
-              Te abrimos WhatsApp con los datos del viaje. Mandá el mensaje y te confirmamos el precio y la reserva
-              por ahí.
+              {t.enviado}
             </p>
           )}
         </div>
@@ -427,7 +557,7 @@ export function Cotizador({
         <span className="absolute bottom-7 left-[21px] top-7 z-10 w-0.5 bg-tinta" aria-hidden="true" />
         <CampoLugar
           tipo="origen"
-          placeholder="Desde dónde salís"
+          placeholder={t.desde}
           valor={origen}
           onElegir={cambiarOrigen}
           ref={origenRef}
@@ -435,24 +565,25 @@ export function Cotizador({
             <button
               type="button"
               onClick={usarUbicacion}
-              aria-label="Usar mi ubicación"
+              aria-label={t.usarUbicacion}
               className="absolute right-2 top-1/2 grid size-10 -translate-y-1/2 place-items-center rounded-lg text-tinta hover:bg-white"
             >
               <Icono nombre="ubicacion" className={`size-5 ${ubicando ? "animate-pulse" : ""}`} />
             </button>
           }
         />
-        <CampoLugar tipo="destino" placeholder="A dónde vas" valor={destino} onElegir={cambiarDestino} />
+        <CampoLugar tipo="destino" placeholder={t.hasta} valor={destino} onElegir={cambiarDestino} />
       </div>
 
       {aviso && <p className="mt-2 text-sm font-medium">{aviso}</p>}
       {error && <p className="mt-2 text-sm text-red-700">{error}</p>}
 
       <div className="mt-3 space-y-2">
-        <CampoChico etiqueta="Cuándo" error={faltan.dia || faltan.hora}>
+        <CampoChico etiqueta={t.cuando} error={faltan.dia || faltan.hora}>
           <div className="space-y-2">
             <SelectorFecha
               valor={dia}
+              idioma={idioma}
               error={!!faltan.dia}
               onValor={(v) => {
                 setDia(v);
@@ -462,6 +593,7 @@ export function Cotizador({
             <SelectorHora
               valor={hora}
               dia={dia}
+              idioma={idioma}
               error={!!faltan.hora}
               onValor={(v) => {
                 setHora(v);
@@ -472,8 +604,8 @@ export function Cotizador({
         </CampoChico>
       </div>
       <div className="mt-2">
-        <CampoChico etiqueta="Pasajeros" error={faltan.pasajeros}>
-          <div className="grid grid-cols-4 gap-2" role="radiogroup" aria-label="Cantidad de pasajeros">
+        <CampoChico etiqueta={t.pasajerosTitulo} error={faltan.pasajeros}>
+          <div className="grid grid-cols-4 gap-2" role="radiogroup" aria-label={t.cantidadPasajeros}>
             {Array.from({ length: sitio.auto.pasajeros }, (_, i) => i + 1).map((n) => (
               <button
                 key={n}
@@ -493,14 +625,14 @@ export function Cotizador({
             ))}
           </div>
           <p className="mt-2 text-sm text-apagado">
-            ¿Son más de {sitio.auto.pasajeros}? Sumamos otro chofer con su auto.{" "}
+            {t.masDe(sitio.auto.pasajeros)}{" "}
             <a
-              href={linkWhatsApp(`Hola, somos más de ${sitio.auto.pasajeros} pasajeros y quiero consultar por un viaje.`)}
+              href={linkWhatsApp(t.masDeMensaje(sitio.auto.pasajeros))}
               target="_blank"
               rel="noopener"
               className="font-medium text-tinta underline underline-offset-4"
             >
-              Consultanos
+              {t.consultanos}
             </a>
           </p>
         </CampoChico>
@@ -514,7 +646,7 @@ export function Cotizador({
           }}
           className="mt-3 flex h-10 items-center rounded-full border border-linea px-4 text-sm font-medium hover:bg-gris"
         >
-          Repetir: {ultimo.destino.nombre}
+          {t.repetir}: {ultimo.destino.nombre}
         </button>
       )}
 
@@ -523,7 +655,7 @@ export function Cotizador({
         onClick={verPrecio}
         className="mt-4 h-14 w-full rounded-xl bg-taxi text-base font-bold text-tinta hover:bg-taxi-hover"
       >
-        {paso === "cargando" ? "Calculando…" : "Ver precio"}
+        {paso === "cargando" ? t.calculando : t.verPrecio}
       </button>
     </div>
   );
@@ -536,8 +668,10 @@ function FormReserva(props: {
   viaje: Parameters<typeof mensajeReserva>[0];
   aeropuerto: Aeropuerto | null;
   pasajeros: number;
+  idioma: Idioma;
   onEnviado: () => void;
 }) {
+  const t = TX[props.idioma];
   const [nombre, setNombre] = useState("");
   const [valijas, setValijas] = useState(1);
   const [vuelo, setVuelo] = useState("");
@@ -546,14 +680,14 @@ function FormReserva(props: {
   const [errores, setErrores] = useState<Record<string, string>>({});
 
   const a = props.aeropuerto;
-  const etiquetaVuelo = a?.sentido === "ida" ? "Sale el vuelo" : "Aterriza el vuelo";
-  const labelVuelo = a?.sentido === "ida" ? "Hora en que sale el vuelo" : "Hora en que aterriza el vuelo";
+  const etiquetaVuelo = a?.sentido === "ida" ? t.sale : t.aterriza;
+  const labelVuelo = a?.sentido === "ida" ? t.horaSale : t.horaAterriza;
 
   function enviar(e: React.FormEvent) {
     e.preventDefault();
     const err: Record<string, string> = {};
-    if (nombre.trim().length < 2) err.nombre = "Escribí tu nombre";
-    if (a && !horaVuelo) err.horaVuelo = "Completá la hora del vuelo";
+    if (nombre.trim().length < 2) err.nombre = t.escribiNombre;
+    if (a && !horaVuelo) err.horaVuelo = t.completaVuelo;
     setErrores(err);
     if (Object.keys(err).length) return;
     window.open(
@@ -563,11 +697,12 @@ function FormReserva(props: {
           {
             nombre: nombre.trim(),
             pasajeros: props.pasajeros,
-            valijas: valijas === 4 ? "4 o más" : valijas,
+            valijas: valijas === 4 ? t.cuatroOMas : valijas,
             vuelo: vuelo.trim(),
-            horaVuelo: a ? `${etiquetaVuelo}: ${horaVuelo} h` : "",
+            horaVuelo: a ? `${etiquetaVuelo}: ${horaVuelo}${props.idioma === "en" ? "" : " h"}` : "",
             comentarios: comentarios.trim(),
           },
+          props.idioma,
         ),
       ),
       "_blank",
@@ -581,7 +716,7 @@ function FormReserva(props: {
 
   return (
     <form onSubmit={enviar} noValidate className="mt-6 space-y-3 border-t border-linea pt-5">
-      <Campo etiqueta="Nombre y apellido" error={errores.nombre}>
+      <Campo etiqueta={t.nombre} error={errores.nombre}>
         <input
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
@@ -590,7 +725,7 @@ function FormReserva(props: {
         />
       </Campo>
       {a && (
-        <Campo etiqueta="Número de vuelo (opcional)">
+        <Campo etiqueta={t.numeroVuelo}>
           <input
             value={vuelo}
             onChange={(e) => setVuelo(e.target.value.toUpperCase())}
@@ -604,16 +739,17 @@ function FormReserva(props: {
           <SelectorHora
             valor={horaVuelo}
             etiqueta={labelVuelo}
+            idioma={props.idioma}
             error={!!errores.horaVuelo}
             onValor={setHoraVuelo}
           />
         </CampoChico>
       )}
       {a?.sentido === "ida" && (
-        <p className="text-sm text-apagado">Con el horario del vuelo te confirmamos a qué hora te buscamos.</p>
+        <p className="text-sm text-apagado">{t.horarioIda}</p>
       )}
-      <Campo etiqueta="Valijas grandes">
-        <div className="grid grid-cols-5 gap-2" role="radiogroup" aria-label="Cantidad de valijas grandes">
+      <Campo etiqueta={t.valijas}>
+        <div className="grid grid-cols-5 gap-2" role="radiogroup" aria-label={t.cantidadValijas}>
           {[0, 1, 2, 3, 4].map((n) => (
             <button
               key={n}
@@ -631,25 +767,24 @@ function FormReserva(props: {
         </div>
         <p className="mt-2 text-sm text-apagado">
           {valijas > sitio.auto.valijas
-            ? `Con más de ${sitio.auto.valijas} valijas grandes puede hacer falta otro auto. Te confirmamos por WhatsApp.`
-            : `Entran hasta ${sitio.auto.equipaje}.`}
+            ? t.masValijas(sitio.auto.valijas)
+            : t.entran(sitio.auto.equipaje)}
         </p>
       </Campo>
-      <Campo etiqueta="Comentarios (opcional)">
+      <Campo etiqueta={t.comentarios}>
         <textarea
           value={comentarios}
           onChange={(e) => setComentarios(e.target.value)}
           rows={2}
-          placeholder="Datos para la factura C, ida y vuelta, silla de bebé…"
+          placeholder={t.comentariosEj}
           className="w-full rounded-xl bg-gris px-4 py-3 text-base outline-none focus:bg-white focus:ring-2 focus:ring-tinta"
         />
       </Campo>
       <button type="submit" className="h-14 w-full rounded-xl bg-taxi text-base font-bold text-tinta hover:bg-taxi-hover">
-        Reservar
+        {t.reservar}
       </button>
       <p className="text-center text-sm text-apagado">
-        No pagás nada en la web. Se abre WhatsApp con la reserva completa y te confirmamos precio, chofer y patente
-        antes del viaje. Tus datos solo se usan para tu reserva.
+        {t.sinPago}
       </p>
     </form>
   );

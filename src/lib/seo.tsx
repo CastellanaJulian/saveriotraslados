@@ -116,3 +116,34 @@ export function JsonLd({ data }: { data: object }) {
     />
   );
 }
+
+// Preguntas generales de la versión en inglés (/en). Solo datos confirmados.
+export const faqsEn = [
+  {
+    pregunta: "How is the price calculated?",
+    respuesta:
+      "Ezeiza and Aeroparque have a fixed reference fare to and from the City of Buenos Aires. Other trips are priced per kilometer: ARS 1,500 or US$1 per km. Tolls are always included. The quote is approximate and we confirm it on WhatsApp before the trip.",
+  },
+  {
+    pregunta: "Can I pay in US dollars?",
+    respuesta: `Yes. ${sitio.payments} ${sitio.paymentsNote}`,
+  },
+  {
+    pregunta: "Is this a licensed taxi?",
+    respuesta:
+      "Yes. It's a licensed taxi of the City of Buenos Aires, with passenger insurance and a driver with a professional license.",
+  },
+  {
+    pregunta: "Is there a night surcharge?",
+    respuesta: "No. Early-morning and late-night trips cost the same.",
+  },
+  {
+    pregunta: "How many people and bags fit?",
+    respuesta: `Up to ${sitio.auto.pasajeros} passengers with ${sitio.auto.valijas} large suitcases and ${sitio.auto.valijasMano} carry-ons. For bigger groups we add a second driver with his own car: tell us when you book.`,
+  },
+  {
+    pregunta: "How do I confirm my booking?",
+    respuesta:
+      "Fill in your details in the quote form and WhatsApp opens with your trip. We reply there to confirm the price, the driver, the car and the license plate. Nothing is paid online.",
+  },
+];

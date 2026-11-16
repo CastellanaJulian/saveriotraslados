@@ -139,6 +139,18 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 
 - WiFi a bordo sin cargo (Julian, 2026-11-15): `sitio.auto.wifi`; se muestra en el chofer, en lo que incluye el resultado, en la FAQ de valijas y como amenityFeature en JSON-LD.
 
+## Versión en inglés (2026-11-15)
+- Para pasajeros que llegan del exterior: `/en` (home), `/en/ezeiza-airport-transfer`, `/en/aeroparque-airport-transfer`, `/en/ezeiza-aeroparque-transfer`. Textos en `config/rutas-en.ts` (reusan km, tarifa y puntos de la página en español vía `esSlug`) y `faqsEn` en `lib/seo.tsx`.
+- Dos layouts raíz: `app/(es)/layout.tsx` (lang es-AR) y `app/(en)/layout.tsx` (lang en). 404 general en `app/global-not-found.tsx` (flag `experimental.globalNotFound`). Ir de un idioma al otro recarga la página (normal con layouts raíz distintos).
+- hreflang (es-AR, en, x-default = español) en metadatos y sitemap. Link "English" / "Español" en header (md+) y pie.
+- Cotizador, Selectores, MapaRuta, Bloques, Marco y mensajes de WhatsApp reciben `idioma`. En inglés el precio se muestra "ARS 80,000" (el "$" solo se confunde con dólares) y el WhatsApp sale en inglés.
+- **Dólares** (Julian): se aceptan sin problema, **US$1 por km** (`tarifas.precioPorKmUSD`). Tarifas fijas en dólares: `precioUSD` en `tarifasFijas`, hoy `null` = "consultar" (falta que Julian las defina).
+- No prometer chofer que hable inglés (no confirmado).
+
+## Javier (2026-11-15)
+- Más de 25 años de servicio (`sitio.choferes[].anios`). Lo que lo distingue: cordialidad, responsabilidad y limpieza.
+- No mencionar atención 24 h. Todavía no hay Instagram ni reseñas.
+
 ## Métricas
 - Vercel Analytics (`@vercel/analytics`, componente en `layout.tsx`): visitas por página, sin cookies. Hay que activarlo en Vercel → proyecto → Analytics. Eventos propios (Ver precio, Reservar) requieren plan Pro.
 

@@ -5,6 +5,38 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Icono } from "./Icono";
+import type { Idioma } from "@/lib/cotizar";
+
+const T = {
+  es: {
+    locale: "es-AR",
+    hoy: "Hoy",
+    manana: "Mañana",
+    sinElegir: "sin elegir",
+    fecha: "Fecha del viaje",
+    elegirDia: "Elegí el día",
+    elegirFecha: "Elegir fecha",
+    mesAnterior: "Mes anterior",
+    mesSiguiente: "Mes siguiente",
+    dias: ["lu", "ma", "mi", "ju", "vi", "sá", "do"],
+    hora: "Hora",
+    elegirHora: "Elegí la hora",
+  },
+  en: {
+    locale: "en-US",
+    hoy: "Today",
+    manana: "Tomorrow",
+    sinElegir: "not set",
+    fecha: "Trip date",
+    elegirDia: "Pick a date",
+    elegirFecha: "Pick a date",
+    mesAnterior: "Previous month",
+    mesSiguiente: "Next month",
+    dias: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+    hora: "Time",
+    elegirHora: "Pick a time",
+  },
+};
 
 const DIAS_ADELANTE = 180;
 const PASO_MINUTOS = 15;
@@ -22,13 +54,18 @@ export function hoyYmd() {
   return ymd(new Date());
 }
 
-export function textoDia(v: string) {
+export function textoDia(v: string, idioma: Idioma = "es") {
+  const t = T[idioma];
   if (!v) return "";
   const hoy = new Date();
   const manana = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate() + 1);
-  if (v === ymd(hoy)) return "Hoy";
-  if (v === ymd(manana)) return "Mañana";
-  return desdeYmd(v).toLocaleDateString("es-AR", { weekday: "long", day: "numeric", month: "long" });
+  if (v === ymd(hoy)) return t.hoy;
+  if (v === ymd(manana)) return t.manana;
+  return desdeYmd(v).toLocaleDateString(t.locale, {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  });
 }
 
 // Cierra el panel al tocar afuera o con Escape.
@@ -57,6 +94,7 @@ function Disparador(props: {
   abierto: boolean;
   error?: boolean;
   etiqueta: string;
+  sinElegir: string;
   onClick: () => void;
 }) {
   return (
@@ -64,37 +102,57 @@ function Disparador(props: {
       type="button"
       aria-haspopup="dialog"
       aria-expanded={props.abierto}
-      aria-label={`${props.etiqueta}: ${props.vacio ? "sin elegir" : props.texto}`}
+      aria-label={`${props.etiqueta}: ${props.vacio ? props.sinElegir : props.texto}`}
       onClick={props.onClick}
       className={`flex h-14 w-full items-center gap-3 rounded-xl px-4 text-left text-base ${
         props.abierto ? "bg-white ring-2 ring-tinta" : "bg-gris"
       } ${props.error && !props.abierto ? "ring-2 ring-red-600" : ""}`}
     >
       <Icono nombre={props.icono} className="size-5 shrink-0" />
-      <span className={`flex-1 first-letter:uppercase ${props.vacio ? "text-apagado" : "font-medium"}`}>
+      <span
+        className={`flex-1 first-letter:uppercase ${props.vacio ? "text-apagado" : "font-medium"}`}
+      >
         {props.texto}
       </span>
-      <Icono nombre="abajo" className={`size-4 shrink-0 transition ${props.abierto ? "rotate-180" : ""}`} />
+      <Icono
+        nombre="abajo"
+        className={`size-4 shrink-0 transition ${props.abierto ? "rotate-180" : ""}`}
+      />
     </button>
   );
 }
 
 // ---------- Fecha ----------
 
-export function SelectorFecha(props: { valor: string; onValor: (v: string) => void; error?: boolean }) {
+export function SelectorFecha(props: {
+  valor: string;
+  onValor: (v: string) => void;
+  error?: boolean;
+  idioma?: Idioma;
+}) {
+  const idioma = props.idioma ?? "es";
+  const t = T[idioma];
   const [abierto, setAbierto] = useState(false);
   const ref = useCerrarAfuera(abierto, () => setAbierto(false));
   const hoy = new Date();
   const min = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
-  const max = new Date(min.getFullYear(), min.getMonth(), min.getDate() + DIAS_ADELANTE);
+  const max = new Date(
+    min.getFullYear(),
+    min.getMonth(),
+    min.getDate() + DIAS_ADELANTE,
+  );
   const base = props.valor ? desdeYmd(props.valor) : min;
   const [mes, setMes] = useState({ y: base.getFullYear(), m: base.getMonth() });
 
   const primero = new Date(mes.y, mes.m, 1);
   const offset = (primero.getDay() + 6) % 7; // semana empieza el lunes
   const diasMes = new Date(mes.y, mes.m + 1, 0).getDate();
-  const titulo = primero.toLocaleDateString("es-AR", { month: "long", year: "numeric" });
-  const puedeAtras = new Date(mes.y, mes.m, 1) > new Date(min.getFullYear(), min.getMonth(), 1);
+  const titulo = primero.toLocaleDateString(t.locale, {
+    month: "long",
+    year: "numeric",
+  });
+  const puedeAtras =
+    new Date(mes.y, mes.m, 1) > new Date(min.getFullYear(), min.getMonth(), 1);
   const puedeAdelante = new Date(mes.y, mes.m + 1, 1) <= max;
 
   function mover(n: number) {
@@ -106,8 +164,9 @@ export function SelectorFecha(props: { valor: string; onValor: (v: string) => vo
     <div ref={ref} className="relative">
       <Disparador
         icono="calendario"
-        etiqueta="Fecha del viaje"
-        texto={props.valor ? textoDia(props.valor) : "Elegí el día"}
+        etiqueta={t.fecha}
+        sinElegir={t.sinElegir}
+        texto={props.valor ? textoDia(props.valor, idioma) : t.elegirDia}
         vacio={!props.valor}
         abierto={abierto}
         error={props.error}
@@ -116,7 +175,7 @@ export function SelectorFecha(props: { valor: string; onValor: (v: string) => vo
       {abierto && (
         <div
           role="dialog"
-          aria-label="Elegir fecha"
+          aria-label={t.elegirFecha}
           className="absolute inset-x-0 top-full z-40 mt-2 rounded-2xl border border-linea bg-white p-4 shadow-xl"
         >
           <div className="mb-3 flex items-center justify-between">
@@ -124,7 +183,7 @@ export function SelectorFecha(props: { valor: string; onValor: (v: string) => vo
               type="button"
               onClick={() => mover(-1)}
               disabled={!puedeAtras}
-              aria-label="Mes anterior"
+              aria-label={t.mesAnterior}
               className="grid size-9 place-items-center rounded-full hover:bg-gris disabled:opacity-25"
             >
               <Icono nombre="izquierda" className="size-5" />
@@ -134,14 +193,14 @@ export function SelectorFecha(props: { valor: string; onValor: (v: string) => vo
               type="button"
               onClick={() => mover(1)}
               disabled={!puedeAdelante}
-              aria-label="Mes siguiente"
+              aria-label={t.mesSiguiente}
               className="grid size-9 place-items-center rounded-full hover:bg-gris disabled:opacity-25"
             >
               <Icono nombre="derecha" className="size-5" />
             </button>
           </div>
           <div className="grid grid-cols-7 text-center text-xs text-apagado">
-            {["lu", "ma", "mi", "ju", "vi", "sá", "do"].map((d) => (
+            {t.dias.map((d) => (
               <span key={d} className="py-1">
                 {d}
               </span>
@@ -163,7 +222,11 @@ export function SelectorFecha(props: { valor: string; onValor: (v: string) => vo
                   type="button"
                   disabled={fuera}
                   aria-pressed={elegido}
-                  aria-label={fecha.toLocaleDateString("es-AR", { weekday: "long", day: "numeric", month: "long" })}
+                  aria-label={fecha.toLocaleDateString(t.locale, {
+                    weekday: "long",
+                    day: "numeric",
+                    month: "long",
+                  })}
                   onClick={() => {
                     props.onValor(v);
                     setAbierto(false);
@@ -195,7 +258,9 @@ export function SelectorHora(props: {
   error?: boolean;
   etiqueta?: string;
   dia?: string; // si es hoy, se bloquean los horarios que ya pasaron
+  idioma?: Idioma;
 }) {
+  const t = T[props.idioma ?? "es"];
   const [abierto, setAbierto] = useState(false);
   const ref = useCerrarAfuera(abierto, () => setAbierto(false));
   const lista = useRef<HTMLUListElement>(null);
@@ -220,14 +285,23 @@ export function SelectorHora(props: {
     destino?.scrollIntoView({ block: "center" });
   }, [abierto]);
 
-  const sugerida = horas.find((h) => !h.pasada && h.v >= "07:00")?.v ?? horas.find((h) => !h.pasada)?.v;
+  const sugerida =
+    horas.find((h) => !h.pasada && h.v >= "07:00")?.v ??
+    horas.find((h) => !h.pasada)?.v;
 
   return (
     <div ref={ref} className="relative">
       <Disparador
         icono="reloj"
-        etiqueta={props.etiqueta ?? "Hora"}
-        texto={props.valor ? `${props.valor} h` : "Elegí la hora"}
+        etiqueta={props.etiqueta ?? t.hora}
+        sinElegir={t.sinElegir}
+        texto={
+          props.valor
+            ? props.idioma === "en"
+              ? props.valor
+              : `${props.valor} h`
+            : t.elegirHora
+        }
         vacio={!props.valor}
         abierto={abierto}
         error={props.error}
@@ -237,11 +311,16 @@ export function SelectorHora(props: {
         <ul
           ref={lista}
           role="listbox"
-          aria-label={props.etiqueta ?? "Hora"}
+          aria-label={props.etiqueta ?? t.hora}
           className="absolute inset-x-0 top-full z-40 mt-2 max-h-72 overflow-y-auto rounded-2xl border border-linea bg-white py-2 shadow-xl"
         >
           {horas.map((h) => (
-            <li key={h.v} role="option" aria-selected={h.v === props.valor} data-sugerida={h.v === sugerida}>
+            <li
+              key={h.v}
+              role="option"
+              aria-selected={h.v === props.valor}
+              data-sugerida={h.v === sugerida}
+            >
               <button
                 type="button"
                 disabled={h.pasada}

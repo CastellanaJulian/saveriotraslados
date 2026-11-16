@@ -1,11 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { geist } from "@/lib/fuente";
 import { sitio } from "@/config/sitio";
 import { Analytics } from "@vercel/analytics/next";
 import { Encabezado, Pie } from "@/components/Marco";
-import "./globals.css";
-
-const geist = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
+import "../globals.css";
 
 const descripcion = `Traslados a Ezeiza, Aeroparque y viajes de media distancia desde CABA y Gran Buenos Aires. Cotizá al instante y reservá por WhatsApp.`;
 
@@ -16,7 +14,7 @@ export const metadata: Metadata = {
     template: `%s | ${sitio.nombre}`,
   },
   description: descripcion,
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/", languages: { "es-AR": "/", en: "/en", "x-default": "/" } },
   openGraph: {
     type: "website",
     locale: "es_AR",
@@ -38,9 +36,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es-AR" className={`${geist.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col font-sans">
-        <Encabezado />
+        <Encabezado idioma="es" />
         <main className="flex-1">{children}</main>
-        <Pie />
+        <Pie idioma="es" />
         {/* Vercel Analytics: visitas por página, sin cookies. Activarlo en Vercel → Analytics. */}
         <Analytics />
       </body>

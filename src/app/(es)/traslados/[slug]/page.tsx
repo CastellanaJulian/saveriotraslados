@@ -8,6 +8,7 @@ import { Chofer, Preguntas, Resenas, Tarifas, ViajesSeguros } from "@/components
 import { aFrecuente, frecuentes, precioReferencia } from "@/lib/frecuentes";
 import { formatoDuracion, formatoPrecio } from "@/lib/cotizar";
 import { JsonLd, jsonLdFaq } from "@/lib/seo";
+import { rutaEnDe } from "@/config/rutas-en";
 
 // Solo existen las rutas cargadas en config/rutas.ts; cualquier otra da 404.
 export const dynamicParams = false;
@@ -19,10 +20,17 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/traslados/[slug]">): Promise<Metadata> {
   const r = rutaPorSlug((await params).slug);
   if (!r) return {};
+  const en = rutaEnDe(r.slug);
   return {
     title: r.title,
     description: r.description,
-    alternates: { canonical: `/traslados/${r.slug}` },
+    alternates: {
+      canonical: `/traslados/${r.slug}`,
+      // Si hay versión en inglés, se avisa a Google para que muestre cada una según el idioma.
+      ...(en && {
+        languages: { "es-AR": `/traslados/${r.slug}`, en: `/en/${en.slug}`, "x-default": `/traslados/${r.slug}` },
+      }),
+    },
     openGraph: { title: r.title, description: r.description, url: `/traslados/${r.slug}` },
   };
 }

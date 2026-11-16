@@ -8,7 +8,14 @@ import { useEffect, useRef, useState } from "react";
 
 const ESTILO = "https://tiles.openfreemap.org/styles/positron";
 
-export function MapaRuta({ coords }: { coords: [number, number][] }) {
+// Avisos del mapa en español (MapLibre los trae en inglés).
+const TEXTOS_ES = {
+  "CooperativeGesturesHandler.WindowsHelpText": "Usá Ctrl + rueda del mouse para hacer zoom",
+  "CooperativeGesturesHandler.MacHelpText": "Usá ⌘ + rueda del mouse para hacer zoom",
+  "CooperativeGesturesHandler.MobileHelpText": "Usá dos dedos para mover el mapa",
+};
+
+export function MapaRuta({ coords, idioma = "es" }: { coords: [number, number][]; idioma?: "es" | "en" }) {
   const contenedor = useRef<HTMLDivElement>(null);
   const [listo, setListo] = useState(false);
 
@@ -31,6 +38,7 @@ export function MapaRuta({ coords }: { coords: [number, number][] }) {
           fitBoundsOptions: { padding: { top: 56, bottom: 28, left: 28, right: 28 }, maxZoom: 15 },
           attributionControl: { compact: true },
           cooperativeGestures: true,
+          ...(idioma === "es" && { locale: TEXTOS_ES }),
           dragRotate: false,
           pitchWithRotate: false,
         });
@@ -77,7 +85,7 @@ export function MapaRuta({ coords }: { coords: [number, number][] }) {
       cancelado = true;
       mapa?.remove();
     };
-  }, [coords]);
+  }, [coords, idioma]);
 
   return (
     <div className="relative h-full w-full">
