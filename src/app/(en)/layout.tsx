@@ -12,7 +12,7 @@ const description =
 export const metadata: Metadata = {
   metadataBase: new URL(sitio.url),
   title: {
-    default: `Buenos Aires Airport Transfers: Ezeiza and Aeroparque | ${sitio.nombre}`,
+    default: `Ezeiza & Aeroparque Airport Transfers | ${sitio.nombre}`,
     template: `%s | ${sitio.nombre}`,
   },
   description,
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: sitio.nombre,
-    title: sitio.nombre,
+    title: `Airport transfers in Buenos Aires | ${sitio.nombre}`,
     description,
   },
   formatDetection: { telephone: false },

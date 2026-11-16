@@ -33,7 +33,7 @@ export default async function Imagen({ params }: { params: Promise<{ slug: strin
             {tituloTraslado(r)}
           </div>
           <div style={{ color: "#bdbdbd", fontSize: 40, marginTop: 34, display: "flex" }}>
-            {`${r.km} km · ${formatoDuracion(r.minutos)} · ${fijo ? "" : "desde "}${formatoPrecio(precio)} aprox.`}
+            {`${r.sinDistancia ? "Desde CABA" : `${r.km} km · ${formatoDuracion(r.minutos)}`} · ${fijo ? "" : "desde "}${formatoPrecio(precio)} aprox.`}
           </div>
         </div>
       </div>

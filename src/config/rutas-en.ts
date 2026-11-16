@@ -27,7 +27,7 @@ export const rutasEn: RutaEn[] = [
     destino: "Ezeiza Airport (EZE)",
     title: "Ezeiza Airport Transfer to Buenos Aires City",
     description:
-      "Private transfer between Ezeiza International Airport (EZE) and Buenos Aires. Fixed reference fare from the city, tolls included, up to 4 passengers, flight tracking and free waiting if your flight is late.",
+      "Private transfer between Ezeiza Airport (EZE) and Buenos Aires. Fixed fare from the city, tolls included, up to 4 passengers, free waiting if your flight is late.",
     intro: [
       "We pick you up at arrivals in Ezeiza and drive you straight to your hotel or apartment, or from your address to the right terminal for your flight. The car is just for you: up to 4 passengers with luggage, no shared shuttle and no stops for other people.",
       "Trips between Ezeiza and the City of Buenos Aires have a fixed reference fare with tolls included. From Greater Buenos Aires the price is per kilometer. You can pay in pesos or in US dollars.",
@@ -67,7 +67,7 @@ export const rutasEn: RutaEn[] = [
     destino: "Aeroparque (AEP)",
     title: "Aeroparque Airport Transfer in Buenos Aires",
     description:
-      "Private transfer to and from Aeroparque Jorge Newbery (AEP), the domestic airport of Buenos Aires. Fixed reference fare from the city, tolls included, up to 4 passengers.",
+      "Private transfer to and from Aeroparque (AEP), the domestic airport of Buenos Aires. Fixed fare from the city, tolls included, up to 4 passengers.",
     intro: [
       "Aeroparque Jorge Newbery is the airport for domestic flights (Iguazú, Bariloche, Mendoza, Salta, El Calafate) and some regional ones. It sits by the river, close to Palermo.",
       "Trips between Aeroparque and the City of Buenos Aires have a fixed reference fare with tolls included. You book here in a minute and we confirm the price, driver and car on WhatsApp.",
@@ -95,9 +95,9 @@ export const rutasEn: RutaEn[] = [
     esSlug: "ezeiza-aeroparque",
     titulo: "Transfer between Ezeiza and Aeroparque",
     destino: "Ezeiza ↔ Aeroparque",
-    title: "Transfer between Ezeiza (EZE) and Aeroparque (AEP)",
+    title: "Transfer between Ezeiza and Aeroparque",
     description:
-      `Private transfer between Ezeiza (EZE) and Aeroparque (AEP) airports for connecting flights. Up to 4 passengers with luggage, ARS 80,000 (about ${usdEzeiza}) with tolls included.`,
+      `Transfer between Ezeiza (EZE) and Aeroparque (AEP) for connecting flights. Up to 4 passengers with luggage, ARS 80,000 (about ${usdEzeiza}), tolls included.`,
     intro: [
       "Most international flights land in Ezeiza and most domestic flights leave from Aeroparque, so a connection in Buenos Aires usually means crossing the city. We wait for you with your flight time and drive straight to the other airport.",
       "It's about 40 km: between 40 minutes and an hour with normal traffic. The price is per car, so up to 4 passengers with their bags travel for the same fare.",

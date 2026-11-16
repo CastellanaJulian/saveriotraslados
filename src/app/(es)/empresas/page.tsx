@@ -8,9 +8,9 @@ import { frecuentes } from "@/lib/frecuentes";
 import { linkWhatsApp } from "@/lib/whatsapp";
 import { JsonLd, jsonLdFaq } from "@/lib/seo";
 
-const titulo = "Traslados para empresas: aeropuertos, hoteles y viajes al interior";
+const titulo = "Traslados para empresas en Buenos Aires";
 const descripcion =
-  "Traslados corporativos en CABA y Gran Buenos Aires: Ezeiza, Aeroparque, hoteles, Terminal de Retiro y viajes al interior. Reservás para tu equipo o tus visitas, factura C.";
+  "Traslados corporativos a Ezeiza, Aeroparque, hoteles, Terminal de Retiro y el interior. Reservás para tu equipo o tus visitas, con factura C.";
 
 export const metadata: Metadata = {
   title: titulo,

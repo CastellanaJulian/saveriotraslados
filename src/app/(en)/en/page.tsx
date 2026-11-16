@@ -7,7 +7,7 @@ import { sitio } from "@/config/sitio";
 export default function HomeIngles() {
   return (
     <>
-      <JsonLd data={jsonLdNegocio()} />
+      <JsonLd data={jsonLdNegocio("en")} />
       <JsonLd data={jsonLdFaq(faqsEn)} />
 
       <div className="mx-auto grid max-w-5xl grid-cols-[minmax(0,1fr)] gap-10 px-4 pt-8 sm:px-6 sm:pt-14 lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-16">

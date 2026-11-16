@@ -90,14 +90,18 @@ export default async function PaginaRutaEn({ params }: PageProps<"/en/[slug]">) 
                 <span className="block text-base font-semibold text-apagado">or {formatoUSD(usd)}</span>
               </dd>
             </div>
-            <div>
-              <dt className="text-sm text-apagado">Distance</dt>
-              <dd className="whitespace-nowrap text-xl font-extrabold sm:text-2xl">{es.km} km</dd>
-            </div>
-            <div>
-              <dt className="text-sm text-apagado">Drive</dt>
-              <dd className="whitespace-nowrap text-xl font-extrabold sm:text-2xl">{formatoDuracion(es.minutos)}</dd>
-            </div>
+            {!es.sinDistancia && (
+              <>
+                <div>
+                  <dt className="text-sm text-apagado">Distance</dt>
+                  <dd className="whitespace-nowrap text-xl font-extrabold sm:text-2xl">{es.km} km</dd>
+                </div>
+                <div>
+                  <dt className="text-sm text-apagado">Drive</dt>
+                  <dd className="whitespace-nowrap text-xl font-extrabold sm:text-2xl">{formatoDuracion(es.minutos)}</dd>
+                </div>
+              </>
+            )}
           </dl>
           <div className="mt-6 hidden max-w-md space-y-3 text-[17px] leading-relaxed text-apagado lg:block">
             {r.intro.map((p) => (

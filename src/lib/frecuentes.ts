@@ -18,7 +18,7 @@ export function aFrecuente(r: Ruta): Frecuente {
   return {
     lugar: { nombre: r.destinoCompleto, detalle: "", lat: r.punto.lat, lon: r.punto.lon },
     titulo: r.origen ? r.destino : nombre,
-    detalle: `${r.km} km · ${formatoDuracion(r.minutos)}`,
+    detalle: r.sinDistancia ? "Desde cualquier punto de CABA" : `${r.km} km · ${formatoDuracion(r.minutos)}`,
     precio: fijo ? formatoPrecio(precio) : `desde ${formatoPrecio(precio)}`,
     slug: r.slug,
     href: `/traslados/${r.slug}`,
@@ -35,7 +35,7 @@ export function aFrecuenteEn(r: RutaEn): Frecuente {
   return {
     ...aFrecuente(es),
     titulo: r.destino,
-    detalle: `${es.km} km · ${formatoDuracion(es.minutos)} · about ${formatoUSD(fijo ? usdDeTarifaFija(precio) : precioUSDPorKm(es.km))}`,
+    detalle: `${es.sinDistancia ? "From anywhere in the city" : `${es.km} km · ${formatoDuracion(es.minutos)}`} · about ${formatoUSD(fijo ? usdDeTarifaFija(precio) : precioUSDPorKm(es.km))}`,
     precio: fijo ? formatoPrecio(precio, "en") : `from ${formatoPrecio(precio, "en")}`,
     slug: r.slug,
     href: `/en/${r.slug}`,

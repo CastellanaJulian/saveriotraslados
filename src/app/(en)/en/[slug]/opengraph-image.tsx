@@ -32,7 +32,7 @@ export default async function Imagen({ params }: { params: Promise<{ slug: strin
           <div style={{ color: "#ffc700", fontSize: 38, fontWeight: 700 }}>{sitio.nombre}</div>
           <div style={{ color: "#fff", fontSize: 88, fontWeight: 800, lineHeight: 1.02, marginTop: 18 }}>{r.titulo}</div>
           <div style={{ color: "#bdbdbd", fontSize: 40, marginTop: 34, display: "flex" }}>
-            {`${es.km} km · ${formatoDuracion(es.minutos)} · ${fijo ? "" : "from "}${formatoPrecio(precio, "en")} approx.`}
+            {`${es.sinDistancia ? "From the city" : `${es.km} km · ${formatoDuracion(es.minutos)}`} · ${fijo ? "" : "from "}${formatoPrecio(precio, "en")} approx.`}
           </div>
         </div>
       </div>

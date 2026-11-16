@@ -1,5 +1,5 @@
 // Páginas por destino (SEO). Cada una genera /traslados/[slug].
-// km y minutos son aproximados desde el centro de CABA. ⚠️ Revisar textos y valores con Saverio.
+// km y minutos son aproximados desde el centro de CABA (medidos con OpenRouteService el 2026-11-16).
 
 import type { Punto } from "./tarifas";
 
@@ -10,6 +10,8 @@ export type Ruta = {
   // Origen fijo (ej. traslado entre aeropuertos). Si no está, el pasajero carga desde dónde sale.
   origen?: { nombre: string; punto: Punto };
   traslado?: string; // título si "Traslado a {destino}" no suena bien (ej. "Traslado al Aeropuerto de San Fernando")
+  // No mostrar km ni tiempo: el recorrido depende de dónde se busca al pasajero (ej. Aeroparque dentro de CABA).
+  sinDistancia?: boolean;
   punto: Punto;
   km: number;
   minutos: number;
@@ -29,9 +31,9 @@ export const rutas: Ruta[] = [
     km: 32,
     minutos: 35,
     tarifaFijaId: "ezeiza",
-    title: "Traslado a Ezeiza desde CABA y Gran Buenos Aires",
+    title: "Traslado a Ezeiza desde CABA y GBA",
     description:
-      "Traslado al Aeropuerto de Ezeiza desde CABA y Gran Buenos Aires. Cotizá al instante, auto 0 km para 4 pasajeros, vuelos de madrugada y espera sin cargo si se atrasa el vuelo.",
+      "Traslado al Aeropuerto de Ezeiza desde CABA y Gran Buenos Aires. Auto 0 km para 4 pasajeros, peajes incluidos y espera sin cargo si se atrasa el vuelo.",
     intro: [
       "Te buscamos en tu casa o en la oficina y te dejamos en la terminal que corresponda a tu vuelo. Desde CABA tiene una tarifa de referencia con el peaje incluido; desde el resto del Gran Buenos Aires se calcula por kilómetro, también con peajes incluidos. Te confirmamos el precio por WhatsApp.",
       "Para vuelos internacionales conviene salir con tres horas de margen. Si salís temprano a la mañana, reservá el día anterior y te confirmamos por WhatsApp con el auto y la patente.",
@@ -60,10 +62,11 @@ export const rutas: Ruta[] = [
     destino: "Aeroparque",
     destinoCompleto: "Aeroparque Jorge Newbery",
     punto: { lat: -34.5592, lon: -58.4156 },
-    km: 28,
-    minutos: 40,
+    km: 7,
+    minutos: 20,
+    sinDistancia: true,
     tarifaFijaId: "aeroparque",
-    title: "Traslado a Aeroparque desde CABA y Gran Buenos Aires",
+    title: "Traslado a Aeroparque desde CABA y GBA",
     description:
       "Traslado a Aeroparque Jorge Newbery desde CABA y Gran Buenos Aires. Cotizá al instante, puntualidad para vuelos de cabotaje y factura C.",
     intro: [
@@ -130,7 +133,7 @@ export const rutas: Ruta[] = [
     punto: { lat: -34.4532, lon: -58.5862 },
     km: 29,
     minutos: 40,
-    title: "Traslado al Aeropuerto de San Fernando desde CABA",
+    title: "Traslado al Aeropuerto de San Fernando",
     description:
       "Traslado al Aeropuerto de San Fernando para vuelos privados, ejecutivos y chárter, desde CABA y Gran Buenos Aires. Cotizá al instante y reservá por WhatsApp.",
     intro: [
@@ -157,7 +160,7 @@ export const rutas: Ruta[] = [
     punto: { lat: -34.4587, lon: -58.9142 },
     km: 58,
     minutos: 55,
-    title: "Traslado a Pilar desde CABA y Gran Buenos Aires",
+    title: "Traslado a Pilar desde CABA y GBA",
     description:
       "Traslado a Pilar, parques industriales y barrios cerrados desde CABA y Gran Buenos Aires. Peajes incluidos, factura C y reserva por WhatsApp.",
     intro: [
@@ -211,7 +214,7 @@ export const rutas: Ruta[] = [
     punto: { lat: -34.5631, lon: -59.1208 },
     km: 78,
     minutos: 75,
-    title: "Traslado a Luján desde CABA y Gran Buenos Aires",
+    title: "Traslado a Luján desde CABA y GBA",
     description:
       "Viaje a Luján y la Basílica desde CABA y Gran Buenos Aires, ida y vuelta en el día. Auto 0 km para 4 pasajeros, peajes incluidos.",
     intro: [
@@ -235,9 +238,9 @@ export const rutas: Ruta[] = [
     destino: "Mar del Plata",
     destinoCompleto: "Mar del Plata, Buenos Aires",
     punto: { lat: -38.0055, lon: -57.5426 },
-    km: 404,
+    km: 417,
     minutos: 270,
-    title: "Traslado a Mar del Plata en auto particular",
+    title: "Traslado de Buenos Aires a Mar del Plata",
     description:
       "Viaje de Buenos Aires a Mar del Plata puerta a puerta en auto 0 km para hasta 4 pasajeros. Cotizá el precio al instante y reservá por WhatsApp.",
     intro: [
@@ -262,19 +265,34 @@ export const rutas: Ruta[] = [
     destino: "La Plata",
     destinoCompleto: "La Plata, Buenos Aires",
     punto: { lat: -34.9214, lon: -57.9545 },
-    km: 50,
-    minutos: 50,
-    title: "Traslado a La Plata",
+    km: 58,
+    minutos: 60,
+    title: "Traslado a La Plata desde CABA y GBA",
     description:
       "Traslado a La Plata desde CABA y Gran Buenos Aires para reuniones, trámites y viajes de trabajo. Cotizá al instante y reservá por WhatsApp.",
     intro: [
       "Para reuniones, trámites en organismos provinciales o visitas a clientes. Te llevamos y, si hace falta, te esperamos para la vuelta.",
+      "Desde el centro de CABA son unos 58 km por la Autopista Buenos Aires–La Plata: con tránsito normal, alrededor de una hora. Te dejamos en la dirección exacta, ya sea un ministerio, tribunales, la universidad o un hospital.",
     ],
     faqs: [
+      {
+        pregunta: "¿Cuánto sale un traslado a La Plata?",
+        respuesta:
+          "Se calcula por kilómetro, con peajes incluidos. El cotizador de esta página te da el precio aproximado desde tu dirección y te lo confirmamos por WhatsApp al reservar.",
+      },
       {
         pregunta: "¿Pueden esperarme mientras hago un trámite?",
         respuesta:
           "Sí. Avisanos al reservar cuánto tiempo estimás y lo sumamos al precio de ida y vuelta.",
+      },
+      {
+        pregunta: "¿Me buscan en La Plata para volver a Buenos Aires?",
+        respuesta:
+          "Sí. Cargá la dirección de La Plata como punto de partida en el cotizador, o reservá la ida y la vuelta juntas.",
+      },
+      {
+        pregunta: "¿Hacen factura para viajes de trabajo?",
+        respuesta: "Hacemos solo factura C, no emitimos factura A. Pasanos los datos de facturación al reservar.",
       },
     ],
   },
@@ -283,19 +301,34 @@ export const rutas: Ruta[] = [
     destino: "Rosario",
     destinoCompleto: "Rosario, Santa Fe",
     punto: { lat: -32.9442, lon: -60.6505 },
-    km: 320,
+    km: 298,
     minutos: 210,
-    title: "Traslado a Rosario en auto particular",
+    title: "Traslado de Buenos Aires a Rosario",
     description:
       "Viaje de Buenos Aires a Rosario puerta a puerta para trabajo o familia. Auto 0 km para 4 pasajeros, precio al instante.",
     intro: [
       "Por autopista Buenos Aires–Rosario, unas tres horas y media puerta a puerta. Una opción cómoda para viajes de trabajo de ida y vuelta en el día.",
+      "Son unos 300 km desde el centro de CABA. Te buscamos en tu casa, la oficina o el hotel y te dejamos en la dirección exacta en Rosario, sin pasar por terminales ni esperar horarios de micro.",
     ],
     faqs: [
+      {
+        pregunta: "¿Cuánto sale un viaje a Rosario?",
+        respuesta:
+          "Se calcula por kilómetro, con peajes incluidos. El precio es por el auto, no por persona: viajan hasta 4 pasajeros por la misma tarifa. El cotizador te da el valor aproximado y te lo confirmamos por WhatsApp.",
+      },
       {
         pregunta: "¿Se puede ir y volver en el día?",
         respuesta:
           "Sí. Reservá ida y vuelta con el horario de regreso y te pasamos el precio del día completo.",
+      },
+      {
+        pregunta: "¿Paramos en el camino?",
+        respuesta: "Sí. Si necesitás una parada para comer o ir al baño, avisanos y paramos en una estación de servicio de la autopista.",
+      },
+      {
+        pregunta: "¿Cuántas valijas entran?",
+        respuesta:
+          "Con 4 pasajeros entran hasta 3 valijas grandes y 4 de mano. Si llevan más, avisanos al reservar.",
       },
     ],
   },

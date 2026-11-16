@@ -151,6 +151,12 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 - Más de 25 años de servicio (`sitio.choferes[].anios`). Lo que lo distingue: cordialidad, responsabilidad y limpieza.
 - No mencionar atención 24 h. Todavía no hay Instagram ni reseñas.
 
+## Auditoría SEO (2026-11-16)
+- Sin horario en el JSON-LD del negocio (antes decía 24 h todos los días; no se publica). Monedas: ARS y USD; pago en efectivo en pesos o dólares.
+- Distancias medidas con ORS desde el centro de CABA: La Plata 58 km, Mar del Plata 417 km, Rosario 298 km. **Aeroparque sin distancia ni tiempo** (`sinDistancia` en rutas.ts; Julian: depende de dónde se busca al pasajero); en listas dice "Desde cualquier punto de CABA".
+- Títulos de menos de 60 caracteres (con "| Saverio Traslados") y descripciones de menos de 160. Mar del Plata y Rosario: "Traslado de Buenos Aires a ..." (se sacó "auto particular").
+- La Plata y Rosario con más texto y preguntas propias. og:title descriptivo en home (es y en) y /tarifas. LocalBusiness con descripción en inglés en /en.
+
 ## Métricas
 - Vercel Analytics (`@vercel/analytics`, componente en `layout.tsx`): visitas por página, sin cookies. Hay que activarlo en Vercel → proyecto → Analytics. Eventos propios (Ver precio, Reservar) requieren plan Pro.
 

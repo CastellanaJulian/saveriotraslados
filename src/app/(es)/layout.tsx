@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_AR",
     siteName: sitio.nombre,
-    title: sitio.nombre,
+    title: `Traslados a Ezeiza, Aeroparque y el interior | ${sitio.nombre}`,
     description: descripcion,
   },
   formatDetection: { telephone: false },

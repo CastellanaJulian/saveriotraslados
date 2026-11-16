@@ -91,14 +91,18 @@ export default async function PaginaRuta({ params }: PageProps<"/traslados/[slug
               <dt className="text-sm text-apagado">{fijo ? "Tarifa aprox." : "Desde aprox."}</dt>
               <dd className="whitespace-nowrap text-xl font-extrabold sm:text-2xl">{formatoPrecio(precio)}</dd>
             </div>
-            <div>
-              <dt className="text-sm text-apagado">Distancia</dt>
-              <dd className="whitespace-nowrap text-xl font-extrabold sm:text-2xl">{r.km} km</dd>
-            </div>
-            <div>
-              <dt className="text-sm text-apagado">Viaje</dt>
-              <dd className="whitespace-nowrap text-xl font-extrabold sm:text-2xl">{formatoDuracion(r.minutos)}</dd>
-            </div>
+            {!r.sinDistancia && (
+              <>
+                <div>
+                  <dt className="text-sm text-apagado">Distancia</dt>
+                  <dd className="whitespace-nowrap text-xl font-extrabold sm:text-2xl">{r.km} km</dd>
+                </div>
+                <div>
+                  <dt className="text-sm text-apagado">Viaje</dt>
+                  <dd className="whitespace-nowrap text-xl font-extrabold sm:text-2xl">{formatoDuracion(r.minutos)}</dd>
+                </div>
+              </>
+            )}
           </dl>
           <div className="mt-6 hidden max-w-md space-y-3 text-[17px] leading-relaxed text-apagado lg:block">
             {r.intro.map((p) => (

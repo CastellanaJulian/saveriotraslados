@@ -34,7 +34,9 @@ export const faqsGenerales = [
   },
 ];
 
-export function jsonLdNegocio() {
+// Datos del negocio para Google. Sin horario: es un negocio con zona de servicio y no se publica
+// atención 24 h (Julian, 2026-11-15). idioma "en" = descripción en inglés para la versión /en.
+export function jsonLdNegocio(idioma: "es" | "en" = "es") {
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -42,15 +44,18 @@ export function jsonLdNegocio() {
     name: sitio.nombre,
     alternateName: "Saverio",
     description:
-      "Traslados a Ezeiza, Aeroparque y viajes de media distancia desde CABA y Gran Buenos Aires, en auto 0 km para hasta 4 pasajeros.",
+      idioma === "en"
+        ? "Private airport transfers in Buenos Aires: Ezeiza (EZE) and Aeroparque (AEP). Licensed taxi, brand-new car for up to 4 passengers. Pay in pesos or US dollars."
+        : "Traslados a Ezeiza, Aeroparque y viajes de media distancia desde CABA y Gran Buenos Aires, en auto 0 km para hasta 4 pasajeros.",
     url: sitio.url,
     logo: `${sitio.url}/apple-icon`,
     image: [`${sitio.url}/opengraph-image`, ...sitio.choferes.flatMap((c) => (c.foto ? [`${sitio.url}${c.foto}`] : []))],
     ...(sitio.redes.length ? { sameAs: sitio.redes } : {}),
     telephone: sitio.telefonoLink,
     priceRange: "$$",
-    paymentAccepted: "Efectivo, transferencia, Mercado Pago, tarjeta de crédito, tarjeta de débito",
-    currenciesAccepted: "ARS",
+    paymentAccepted:
+      "Efectivo en pesos o dólares, transferencia, Mercado Pago, tarjeta de crédito, tarjeta de débito",
+    currenciesAccepted: "ARS, USD",
     ...(sitio.auto.wifi
       ? { amenityFeature: { "@type": "LocationFeatureSpecification", name: "WiFi a bordo", value: true } }
       : {}),
@@ -73,12 +78,6 @@ export function jsonLdNegocio() {
       geoRadius: 45000,
       },
     ],
-    openingHoursSpecification: {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-      opens: "00:00",
-      closes: "23:59",
-    },
   };
 }
 

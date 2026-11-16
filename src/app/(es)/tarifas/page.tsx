@@ -5,14 +5,15 @@ import { Preguntas, Tarifas } from "@/components/Bloques";
 import { frecuentes } from "@/lib/frecuentes";
 import { faqsGenerales, JsonLd, jsonLdFaq } from "@/lib/seo";
 
-const titulo = "Tarifas de traslados a Ezeiza, Aeroparque y el interior";
+const titulo = "Tarifas de traslados en Buenos Aires";
 const descripcion =
-  "Precios aproximados de traslados desde CABA a Ezeiza ($80.000), Aeroparque ($30.000), Ezeiza ↔ Aeroparque y viajes a Pilar, Tigre, Luján, La Plata, Mar del Plata y Rosario. Peajes incluidos.";
+  "Precios aproximados desde CABA: Ezeiza $80.000, Aeroparque $30.000 y viajes a Pilar, Tigre, Luján, La Plata, Mar del Plata y Rosario. Peajes incluidos.";
 
 export const metadata: Metadata = {
   title: titulo,
   description: descripcion,
   alternates: { canonical: "/tarifas" },
+  openGraph: { title: titulo, description: descripcion, url: "/tarifas" },
 };
 
 const esAeropuerto = (slug: string) => /aeropuerto|aeroparque|ezeiza/.test(slug);
