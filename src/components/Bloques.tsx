@@ -128,6 +128,7 @@ export function Tarifas({
 
 // Viajes seguros. ⚠️ Cada punto lo confirmó Julian; mantenerlo actualizado si cambia.
 const seguridad: { icono: NombreIcono; texto: string }[] = [
+  { icono: "taxi", texto: "Taxi con licencia de la Ciudad de Buenos Aires" },
   { icono: "escudo", texto: "Vehículo con seguro para pasajeros" },
   { icono: "licencia", texto: "Choferes con licencia profesional" },
   { icono: "auto", texto: "Vehículos 0 km" },
@@ -139,7 +140,7 @@ export function ViajesSeguros() {
       <h2 id="seguros" className="text-2xl font-extrabold tracking-tight">
         Viajes seguros
       </h2>
-      <ul className="mt-4 grid gap-3 sm:grid-cols-3">
+      <ul className="mt-4 grid gap-3 sm:grid-cols-2">
         {seguridad.map((s) => (
           <li key={s.texto} className="aparecer flex items-center gap-3 rounded-2xl bg-gris p-4">
             <span className="grid size-11 shrink-0 place-items-center rounded-full bg-taxi-suave text-taxi-texto">

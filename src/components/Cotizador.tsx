@@ -643,7 +643,8 @@ function FormReserva(props: {
         Reservar
       </button>
       <p className="text-center text-sm text-apagado">
-        Se abre WhatsApp con la reserva completa. Te confirmamos el precio y el horario por ahí.
+        No pagás nada en la web. Se abre WhatsApp con la reserva completa y te confirmamos precio, chofer y patente
+        antes del viaje. Tus datos solo se usan para tu reserva.
       </p>
     </form>
   );

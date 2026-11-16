@@ -132,6 +132,11 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 - Más de 4 pasajeros: se suma otro chofer con su auto propio (Julian). Nota bajo "Pasajeros" en el cotizador con link a WhatsApp, FAQ general y de empresas. El precio del segundo auto se pasa por WhatsApp (no definido).
 - Equipaje máximo por auto: **3 valijas grandes y 4 de mano** (estimado prudente para la Spin con 4 pasajeros, baúl ~550 L; Julian no lo sabía exacto, conviene confirmarlo cargando el auto). En `sitio.auto` (valijas, valijasMano, equipaje). La reserva avisa si eligen más de 3 grandes (puede hacer falta otro auto).
 
+## Confianza (2026-11-15)
+- "Viajes seguros" suma "Taxi con licencia de la Ciudad de Buenos Aires" (4 ítems, grilla 2×2).
+- Bajo "Reservar": "No pagás nada en la web…" + "Tus datos solo se usan para tu reserva". En el pie: "No cobramos nada en la web. Tus datos solo se usan para coordinar tu viaje."
+- Pendiente con datos de Julian: reseñas reales, fotos del auto, Data Fiscal (QR ARCA) + CUIT en el pie, línea sobre la trayectoria de Javier. Seña: no confirmado si cobran por adelantado (no afirmar "sin seña").
+
 ## Métricas
 - Vercel Analytics (`@vercel/analytics`, componente en `layout.tsx`): visitas por página, sin cookies. Hay que activarlo en Vercel → proyecto → Analytics. Eventos propios (Ver precio, Reservar) requieren plan Pro.
 

@@ -79,9 +79,12 @@ export function Pie() {
             </Link>
           </li>
         </ul>
-        <p className="text-apagado">
-          {sitio.pagos} {sitio.pagosNota}
-        </p>
+        <div className="space-y-2 text-apagado">
+          <p>
+            {sitio.pagos} {sitio.pagosNota}
+          </p>
+          <p>No cobramos nada en la web. Tus datos solo se usan para coordinar tu viaje.</p>
+        </div>
       </div>
     </footer>
   );
