@@ -374,6 +374,11 @@ export function Cotizador({
                 <Icono nombre="check" className="size-5 shrink-0" /> Si el vuelo se atrasa, la espera no se cobra
               </li>
             )}
+            {sitio.auto.wifi && (
+              <li className="flex gap-2">
+                <Icono nombre="check" className="size-5 shrink-0" /> WiFi a bordo sin cargo
+              </li>
+            )}
             <li className="flex gap-2">
               <Icono nombre="check" className="size-5 shrink-0" /> Todos los medios de pago
             </li>

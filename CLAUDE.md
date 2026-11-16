@@ -137,6 +137,8 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 - Bajo "Reservar": "No pagás nada en la web…" + "Tus datos solo se usan para tu reserva". En el pie: "No cobramos nada en la web. Tus datos solo se usan para coordinar tu viaje."
 - Pendiente con datos de Julian: reseñas reales, fotos del auto, Data Fiscal (QR ARCA) + CUIT en el pie, línea sobre la trayectoria de Javier. Seña: no confirmado si cobran por adelantado (no afirmar "sin seña").
 
+- WiFi a bordo sin cargo (Julian, 2026-11-15): `sitio.auto.wifi`; se muestra en el chofer, en lo que incluye el resultado, en la FAQ de valijas y como amenityFeature en JSON-LD.
+
 ## Métricas
 - Vercel Analytics (`@vercel/analytics`, componente en `layout.tsx`): visitas por página, sin cookies. Hay que activarlo en Vercel → proyecto → Analytics. Eventos propios (Ver precio, Reservar) requieren plan Pro.
 

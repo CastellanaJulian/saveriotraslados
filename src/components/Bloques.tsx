@@ -35,6 +35,7 @@ export function Chofer() {
         ))}
         <p className="mt-1 text-[15px] text-apagado">
           Auto 0 km · hasta {sitio.auto.pasajeros} pasajeros · {sitio.auto.equipaje}
+          {sitio.auto.wifi && " · WiFi a bordo"}
         </p>
         <a
           href={linkWhatsApp("Hola, quiero consultar por un viaje.")}

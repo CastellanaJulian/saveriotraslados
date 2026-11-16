@@ -34,6 +34,7 @@ export const sitio = {
     valijas: 3, // valijas grandes (despachadas)
     valijasMano: 4, // de mano / mochilas
     equipaje: "3 valijas grandes y 4 de mano",
+    wifi: true, // WiFi a bordo sin cargo (Julian, 2026-11-15)
   },
   // Se acepta cualquier medio de pago; con tarjeta (en cuotas o no) puede haber interés.
   pagos: "Aceptamos todos los medios de pago: efectivo, transferencia, Mercado Pago y tarjetas.",

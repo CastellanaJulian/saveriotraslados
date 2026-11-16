@@ -25,7 +25,7 @@ export const faqsGenerales = [
   },
   {
     pregunta: "¿Cuántas personas y valijas entran?",
-    respuesta: `Viajamos en un ${sitio.auto.modelo} para hasta ${sitio.auto.pasajeros} pasajeros con ${sitio.auto.equipaje}. Si son más o llevan más equipaje, sumamos otro chofer con su auto propio: avisanos al reservar.`,
+    respuesta: `Viajamos en un ${sitio.auto.modelo} para hasta ${sitio.auto.pasajeros} pasajeros con ${sitio.auto.equipaje}${sitio.auto.wifi ? ", con WiFi a bordo" : ""}. Si son más o llevan más equipaje, sumamos otro chofer con su auto propio: avisanos al reservar.`,
   },
   {
     pregunta: "¿Cómo confirmo la reserva?",
@@ -51,6 +51,9 @@ export function jsonLdNegocio() {
     priceRange: "$$",
     paymentAccepted: "Efectivo, transferencia, Mercado Pago, tarjeta de crédito, tarjeta de débito",
     currenciesAccepted: "ARS",
+    ...(sitio.auto.wifi
+      ? { amenityFeature: { "@type": "LocationFeatureSpecification", name: "WiFi a bordo", value: true } }
+      : {}),
     address: {
       "@type": "PostalAddress",
       addressRegion: "Buenos Aires",
