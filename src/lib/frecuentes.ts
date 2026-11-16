@@ -16,7 +16,7 @@ export function aFrecuente(r: Ruta): Frecuente {
   const { precio, fijo, nombre } = precioReferencia(r);
   return {
     lugar: { nombre: r.destinoCompleto, detalle: "", lat: r.punto.lat, lon: r.punto.lon },
-    titulo: nombre,
+    titulo: r.origen ? r.destino : nombre,
     detalle: `${r.km} km · ${formatoDuracion(r.minutos)}`,
     precio: fijo ? formatoPrecio(precio) : `desde ${formatoPrecio(precio)}`,
     slug: r.slug,

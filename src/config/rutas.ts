@@ -7,6 +7,8 @@ export type Ruta = {
   slug: string;
   destino: string; // nombre corto, ej. "Mar del Plata"
   destinoCompleto: string; // como se carga en el cotizador
+  // Origen fijo (ej. traslado entre aeropuertos). Si no está, el pasajero carga desde dónde sale.
+  origen?: { nombre: string; punto: Punto };
   traslado?: string; // título si "Traslado a {destino}" no suena bien (ej. "Traslado al Aeropuerto de San Fernando")
   punto: Punto;
   km: number;
@@ -77,6 +79,46 @@ export const rutas: Ruta[] = [
       {
         pregunta: "¿Hacen factura?",
         respuesta: "Hacemos solo factura C, no emitimos factura A. Pasanos los datos de facturación al reservar.",
+      },
+    ],
+  },
+  {
+    slug: "ezeiza-aeroparque",
+    destino: "Ezeiza ↔ Aeroparque",
+    destinoCompleto: "Aeroparque Jorge Newbery",
+    origen: { nombre: "Aeropuerto Internacional Ezeiza", punto: { lat: -34.8222, lon: -58.5358 } },
+    traslado: "Traslado entre Ezeiza y Aeroparque",
+    punto: { lat: -34.5592, lon: -58.4156 },
+    km: 40,
+    minutos: 50,
+    tarifaFijaId: "ezeiza",
+    title: "Traslado entre Ezeiza y Aeroparque",
+    description:
+      "Traslado entre los aeropuertos de Ezeiza y Aeroparque para conexiones de vuelo. Auto exclusivo para hasta 4 pasajeros con valijas, $80.000 con peajes incluidos.",
+    intro: [
+      "Para conexiones entre un vuelo internacional y uno de cabotaje, o al revés. Te esperamos con el horario de tu vuelo y vamos directo al otro aeropuerto, sin esperar a otros pasajeros ni horarios de salida.",
+      "Son unos 40 km según el sentido: con tránsito normal, entre 40 minutos y una hora. El precio es por el auto, no por persona, así que viajan hasta 4 pasajeros con sus valijas por la misma tarifa.",
+      "Si el primer vuelo se atrasa, seguimos el horario de llegada y la espera no se cobra.",
+    ],
+    faqs: [
+      {
+        pregunta: "¿Cuánto sale el traslado entre Ezeiza y Aeroparque?",
+        respuesta:
+          "$80.000 con peajes incluidos, en cualquier sentido y a cualquier hora. Es por el auto: viajan hasta 4 pasajeros por el mismo precio. Te lo confirmamos por WhatsApp al reservar.",
+      },
+      {
+        pregunta: "¿Cuánto tiempo dejo entre un vuelo y el otro?",
+        respuesta:
+          "Sumá el tiempo de migraciones y equipaje en el aeropuerto de llegada, alrededor de una hora de viaje y el tiempo que pida tu aerolínea para el check-in en el otro aeropuerto. Si la conexión es justa, avisanos y salimos apenas tengas las valijas.",
+      },
+      {
+        pregunta: "¿Qué pasa si el primer vuelo se atrasa?",
+        respuesta: "Seguimos el vuelo con el número que nos pasás al reservar. Si se atrasa, esperamos sin costo extra.",
+      },
+      {
+        pregunta: "¿Pueden pasar por un hotel en el medio?",
+        respuesta:
+          "Sí. Avisanos al reservar o cargá el hotel como destino en el cotizador; el precio cambia según el recorrido.",
       },
     ],
   },
