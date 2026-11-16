@@ -144,7 +144,7 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 - Dos layouts raíz: `app/(es)/layout.tsx` (lang es-AR) y `app/(en)/layout.tsx` (lang en). 404 general en `app/global-not-found.tsx` (flag `experimental.globalNotFound`). Ir de un idioma al otro recarga la página (normal con layouts raíz distintos).
 - hreflang (es-AR, en, x-default = español) en metadatos y sitemap. Link "English" / "Español" en header (md+) y pie.
 - Cotizador, Selectores, MapaRuta, Bloques, Marco y mensajes de WhatsApp reciben `idioma`. En inglés el precio se muestra "ARS 80,000" (el "$" solo se confunde con dólares) y el WhatsApp sale en inglés.
-- **Dólares** (Julian): se aceptan sin problema, **US$1 por km** (`tarifas.precioPorKmUSD`). Tarifas fijas en dólares: `precioUSD` en `tarifasFijas`, hoy `null` = "consultar" (falta que Julian las defina).
+- **Dólares** (Julian): se aceptan sin problema, **US$1 por km** (`tarifas.precioPorKmUSD`). Tarifas fijas en dólares: se pasan al dólar de referencia `tarifas.dolar` = 1500 (Julian) y se redondean a múltiplos de 5: Ezeiza US$55, Aeroparque US$20 (`usdDeTarifaFija`). Si el dólar cambia, actualizar `dolar`.
 - No prometer chofer que hable inglés (no confirmado).
 
 ## Javier (2026-11-15)

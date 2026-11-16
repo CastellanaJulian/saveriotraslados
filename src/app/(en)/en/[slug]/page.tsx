@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { rutaEnPorSlug, rutaEs, rutasEn } from "@/config/rutas-en";
-import { tarifasFijas } from "@/config/tarifas";
+import { usdDeTarifaFija } from "@/config/tarifas";
 import { sitio } from "@/config/sitio";
 import { Cotizador } from "@/components/Cotizador";
 import { Chofer, Preguntas, Tarifas, ViajesSeguros } from "@/components/Bloques";
 import { aFrecuente, frecuentesEn, precioReferencia } from "@/lib/frecuentes";
-import { formatoDuracion, formatoPrecio, formatoUSD } from "@/lib/cotizar";
+import { formatoDuracion, formatoPrecio, formatoUSD, precioUSDPorKm } from "@/lib/cotizar";
 import { JsonLd, jsonLdFaq } from "@/lib/seo";
 
 // Solo existen las rutas de config/rutas-en.ts; cualquier otra da 404.
@@ -37,7 +37,7 @@ export default async function PaginaRutaEn({ params }: PageProps<"/en/[slug]">) 
 
   const es = rutaEs(r);
   const { precio, fijo } = precioReferencia(es);
-  const usd = es.tarifaFijaId ? tarifasFijas.find((t) => t.id === es.tarifaFijaId)?.precioUSD : null;
+  const usd = fijo ? usdDeTarifaFija(precio) : precioUSDPorKm(es.km);
   const url = `${sitio.url}/en/${r.slug}`;
 
   return (
@@ -87,7 +87,7 @@ export default async function PaginaRutaEn({ params }: PageProps<"/en/[slug]">) 
               <dt className="text-sm text-apagado">{fijo ? "Fare approx." : "From approx."}</dt>
               <dd className="whitespace-nowrap text-xl font-extrabold sm:text-2xl">
                 {formatoPrecio(precio, "en")}
-                {usd ? <span className="text-apagado"> / {formatoUSD(usd)}</span> : null}
+                <span className="block text-base font-semibold text-apagado">or {formatoUSD(usd)}</span>
               </dd>
             </div>
             <div>

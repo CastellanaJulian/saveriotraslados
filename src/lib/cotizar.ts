@@ -1,4 +1,4 @@
-import { otrosAeropuertos, tarifas, tarifasFijas, zonas, type Punto } from "@/config/tarifas";
+import { otrosAeropuertos, tarifas, tarifasFijas, usdDeTarifaFija, zonas, type Punto } from "@/config/tarifas";
 
 export type Idioma = "es" | "en";
 
@@ -68,8 +68,8 @@ export type Cotizacion = {
   nocturno: boolean;
   aeropuerto: Aeropuerto | null;
   nota: string;
-  // Precio en dólares. null = a confirmar (tarifa fija sin precio en dólares cargado).
-  precioUSD: number | null;
+  // Precio aproximado en dólares (para la versión en inglés).
+  precioUSD: number;
 };
 
 export function cotizar(opts: {
@@ -90,7 +90,7 @@ export function cotizar(opts: {
       nocturno,
       aeropuerto,
       nota: "Precio aproximado, sujeto a confirmación. Incluye peajes.",
-      precioUSD: fija.precioUSD,
+      precioUSD: usdDeTarifaFija(redondear(fija.precio * recargo)),
     };
   }
 

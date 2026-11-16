@@ -3,6 +3,10 @@
 // ⚠️ Datos confirmados por Julian (2026-11-15): pago en dólares a US$1 por km. No prometer chofer que hable inglés.
 
 import { rutas, type Ruta } from "./rutas";
+import { usdDeTarifaFija } from "./tarifas";
+
+const usdEzeiza = `US$${usdDeTarifaFija(80000)}`;
+const usdAeroparque = `US$${usdDeTarifaFija(30000)}`;
 
 export type RutaEn = {
   slug: string; // URL: /en/{slug}
@@ -33,12 +37,12 @@ export const rutasEn: RutaEn[] = [
       {
         pregunta: "How much is a transfer from Ezeiza to Buenos Aires city?",
         respuesta:
-          "ARS 80,000 to anywhere in the City of Buenos Aires, tolls included. The price is per car, not per person. We confirm it on WhatsApp when you book.",
+          `ARS 80,000 (about ${usdEzeiza}) to anywhere in the City of Buenos Aires, tolls included. The price is per car, not per person. We confirm it on WhatsApp when you book.`,
       },
       {
         pregunta: "Can I pay in US dollars?",
         respuesta:
-          "Yes. We take cash in pesos or US dollars, bank transfer, Mercado Pago and cards. Card payments may carry interest. For the dollar price of a trip, ask us on WhatsApp.",
+          `Yes. From the city to Ezeiza it's about ${usdEzeiza}, and other trips are US$1 per km. We also take pesos, bank transfer, Mercado Pago and cards (card payments may carry interest).`,
       },
       {
         pregunta: "Where do we meet at the airport?",
@@ -72,7 +76,7 @@ export const rutasEn: RutaEn[] = [
       {
         pregunta: "How much is a transfer to Aeroparque?",
         respuesta:
-          "ARS 30,000 from anywhere in the City of Buenos Aires, tolls included. From Greater Buenos Aires the price is per kilometer. We confirm it on WhatsApp when you book.",
+          `ARS 30,000 (about ${usdAeroparque}) from anywhere in the City of Buenos Aires, tolls included. From Greater Buenos Aires the price is per kilometer. We confirm it on WhatsApp when you book.`,
       },
       {
         pregunta: "How early should I book?",
@@ -93,7 +97,7 @@ export const rutasEn: RutaEn[] = [
     destino: "Ezeiza ↔ Aeroparque",
     title: "Transfer between Ezeiza (EZE) and Aeroparque (AEP)",
     description:
-      "Private transfer between Ezeiza (EZE) and Aeroparque (AEP) airports for connecting flights. Up to 4 passengers with luggage, ARS 80,000 with tolls included.",
+      `Private transfer between Ezeiza (EZE) and Aeroparque (AEP) airports for connecting flights. Up to 4 passengers with luggage, ARS 80,000 (about ${usdEzeiza}) with tolls included.`,
     intro: [
       "Most international flights land in Ezeiza and most domestic flights leave from Aeroparque, so a connection in Buenos Aires usually means crossing the city. We wait for you with your flight time and drive straight to the other airport.",
       "It's about 40 km: between 40 minutes and an hour with normal traffic. The price is per car, so up to 4 passengers with their bags travel for the same fare.",
@@ -103,7 +107,7 @@ export const rutasEn: RutaEn[] = [
       {
         pregunta: "How much is the transfer between Ezeiza and Aeroparque?",
         respuesta:
-          "ARS 80,000 with tolls included, in either direction and at any time of day. It's per car: up to 4 passengers pay the same price.",
+          `ARS 80,000 (about ${usdEzeiza}) with tolls included, in either direction and at any time of day. It's per car: up to 4 passengers pay the same price.`,
       },
       {
         pregunta: "How much time should I leave between flights?",

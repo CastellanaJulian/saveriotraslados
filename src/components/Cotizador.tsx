@@ -44,7 +44,6 @@ const TX = {
     nota: "Precio aproximado, sujeto a confirmación. Incluye peajes.",
     nocturno: " Incluye recargo nocturno.",
     usd: (p: string) => `En dólares: ${p}`,
-    usdConsultar: "",
     esperaVuelo: "Si el vuelo se atrasa, la espera no se cobra",
     wifi: "WiFi a bordo sin cargo",
     pagos: "Todos los medios de pago",
@@ -97,8 +96,7 @@ const TX = {
     pasajerosPl: "passengers",
     nota: "Approximate price, confirmed before the trip. Tolls included.",
     nocturno: " Includes night surcharge.",
-    usd: (p: string) => `Or ${p} in US dollars`,
-    usdConsultar: "Paying in US dollars? Ask us for the price on WhatsApp.",
+    usd: (p: string) => `Or about ${p} if you pay in US dollars`,
     esperaVuelo: "If your flight is delayed, waiting time is free",
     wifi: "Free WiFi on board",
     pagos: "Cash in pesos or US dollars, transfer or card",
@@ -449,7 +447,7 @@ export function Cotizador({
           pasajeros,
           precio:
             formatoPrecio(cotizacion.precio, idioma) +
-            (idioma === "en" && cotizacion.precioUSD ? ` / ${formatoUSD(cotizacion.precioUSD)}` : ""),
+            (idioma === "en" ? ` / ${formatoUSD(cotizacion.precioUSD)}` : ""),
           km: recorrido.km,
         }
       : null;
@@ -493,7 +491,7 @@ export function Cotizador({
             </p>
             {idioma === "en" && (
               <p className="mt-1 text-sm font-semibold text-taxi-texto">
-                {cotizacion.precioUSD ? t.usd(formatoUSD(cotizacion.precioUSD)) : t.usdConsultar}
+                {t.usd(formatoUSD(cotizacion.precioUSD))}
               </p>
             )}
           </div>

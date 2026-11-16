@@ -5,8 +5,11 @@ export type Punto = { lat: number; lon: number };
 
 export const tarifas = {
   precioPorKm: 1500,
-  // Pago en dólares (Julian, 2026-11-15): US$1 por km. Se muestra en la versión en inglés y en la FAQ de pagos.
+  // Pago en dólares (Julian, 2026-11-15): US$1 por km. Se muestra en la versión en inglés.
   precioPorKmUSD: 1,
+  // Dólar de referencia para pasar las tarifas fijas a dólares (Julian: "si el dólar está 1500").
+  // Si cambia mucho, actualizar acá y se recalculan solos los precios en dólares.
+  dolar: 1500,
   // EJEMPLO: precio mínimo por viaje (para viajes muy cortos). Confirmar.
   minimo: 15000,
   // Regreso en vacío: Julian confirmó que NO se cobra (2026-11-15). Dejar en 1.
@@ -59,8 +62,6 @@ export const tarifasFijas: {
   radioKm: number;
   zona: ZonaId;
   precio: number;
-  // Precio en dólares de la tarifa fija. null = a confirmar (se muestra "consultar"). ⚠️ Pedir a Julian.
-  precioUSD: number | null;
   aeropuerto: boolean;
 }[] = [
   {
@@ -71,7 +72,6 @@ export const tarifasFijas: {
     radioKm: 4,
     zona: "caba",
     precio: 80000,
-    precioUSD: null,
     aeropuerto: true,
   },
   {
@@ -82,7 +82,6 @@ export const tarifasFijas: {
     radioKm: 2,
     zona: "caba",
     precio: 30000,
-    precioUSD: null,
     aeropuerto: true,
   },
 ];
@@ -91,3 +90,9 @@ export const tarifasFijas: {
 export const otrosAeropuertos: { nombre: string; lugar: Punto; radioKm: number }[] = [
   { nombre: "Aeropuerto San Fernando", lugar: { lat: -34.4532, lon: -58.5862 }, radioKm: 2 },
 ];
+
+// Tarifa fija en dólares: el precio en pesos al dólar de referencia, redondeado hacia arriba a múltiplos de 5.
+// Ej.: $80.000 → US$55; $30.000 → US$20.
+export function usdDeTarifaFija(precio: number) {
+  return Math.ceil(precio / tarifas.dolar / 5) * 5;
+}

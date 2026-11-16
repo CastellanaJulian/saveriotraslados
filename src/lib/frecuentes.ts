@@ -1,9 +1,9 @@
 import { rutas, type Ruta } from "@/config/rutas";
 import { rutasEn, rutaEs, type RutaEn } from "@/config/rutas-en";
-import { tarifasFijas } from "@/config/tarifas";
+import { tarifasFijas, usdDeTarifaFija } from "@/config/tarifas";
 import { sitio } from "@/config/sitio";
 import type { Frecuente } from "@/components/Cotizador";
-import { cotizar, formatoDuracion, formatoPrecio } from "./cotizar";
+import { cotizar, formatoDuracion, formatoPrecio, formatoUSD, precioUSDPorKm } from "./cotizar";
 
 // Precio de referencia de una ruta (fijo, o calculado por km desde la zona base).
 export function precioReferencia(r: Ruta) {
@@ -35,6 +35,7 @@ export function aFrecuenteEn(r: RutaEn): Frecuente {
   return {
     ...aFrecuente(es),
     titulo: r.destino,
+    detalle: `${es.km} km · ${formatoDuracion(es.minutos)} · about ${formatoUSD(fijo ? usdDeTarifaFija(precio) : precioUSDPorKm(es.km))}`,
     precio: fijo ? formatoPrecio(precio, "en") : `from ${formatoPrecio(precio, "en")}`,
     slug: r.slug,
     href: `/en/${r.slug}`,
