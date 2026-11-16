@@ -20,7 +20,7 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 - **Nombre definido (2026-11-15): "Saverio Traslados".** Usar exactamente este nombre en el sitio, el Perfil de Empresa de Google, Instagram y WhatsApp Business (consistencia de nombre, dirección y teléfono).
   - Por qué: "traslados" cubre aeropuerto, empresas y media distancia; "viajes" compite con agencias de turismo y "remis" implica una habilitación de remis. El nombre real del negocio puede llevar la palabra clave en la ficha de Google; agregarla como relleno está prohibido.
   - No incluir la ciudad en el nombre: va en el contenido de las páginas y en la ficha de Google.
-- **Dominio principal: `saveriotraslados.com.ar`**, con `saveriotraslados.com` redirigiendo con 301. **Comprado en NIC.ar (2026-11-15) y delegado a ns1/ns2.vercel-dns.com; esperando propagación.** (la gestión de dominio, redes y ficha de Google se hace más adelante).
+- **Dominio principal: `saveriotraslados.com.ar`**, con `saveriotraslados.com` redirigiendo con 301. **Comprado en NIC.ar (2026-11-15), delegado a Vercel y funcionando (2026-11-15)**: http y sin www redirigen a https://www.saveriotraslados.com.ar. Falta redirigir saveriotraslados-gold.vercel.app (hoy responde igual, con canonical a www). (la gestión de dominio, redes y ficha de Google se hace más adelante).
 - Antes de registrar: chequear que no exista otro "Saverio Traslados" en Google Maps ni en Instagram.
 - Chequeo whois del 2026-11-15 (no es reserva, puede cambiar):
   - Libres: `viajessaverio.com.ar`, `saverioviajes.com.ar`, `saveriotraslados.com.ar`, `trasladossaverio.com.ar`, `viajessaverio.com`, `saveriotraslados.com`, `trasladossaverio.com`
