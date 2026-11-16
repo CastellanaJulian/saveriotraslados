@@ -8,6 +8,7 @@ const actualizado = new Date();
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: sitio.url, lastModified: actualizado, changeFrequency: "monthly", priority: 1 },
+    { url: `${sitio.url}/tarifas`, lastModified: actualizado, changeFrequency: "monthly", priority: 0.9 },
     { url: `${sitio.url}/empresas`, lastModified: actualizado, changeFrequency: "monthly", priority: 0.9 },
     ...rutas.map((r) => ({
       url: `${sitio.url}/traslados/${r.slug}`,

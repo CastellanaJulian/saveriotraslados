@@ -25,7 +25,7 @@ export const faqsGenerales = [
   },
   {
     pregunta: "¿Cuántas personas y valijas entran?",
-    respuesta: `Viajamos en un ${sitio.auto.modelo} para hasta ${sitio.auto.pasajeros} pasajeros. Si llevan mucho equipaje, avisanos al reservar.`,
+    respuesta: `Viajamos en un ${sitio.auto.modelo} para hasta ${sitio.auto.pasajeros} pasajeros. Si son más, sumamos otro chofer con su auto propio. Si llevan mucho equipaje, avisanos al reservar.`,
   },
   {
     pregunta: "¿Cómo confirmo la reserva?",

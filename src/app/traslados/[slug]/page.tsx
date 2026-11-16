@@ -118,7 +118,7 @@ export default async function PaginaRuta({ params }: PageProps<"/traslados/[slug
         <ViajesSeguros />
         <Resenas />
         <Preguntas faqs={r.faqs} />
-        <Tarifas items={frecuentes.filter((f) => f.slug !== r.slug)} titulo="Otros traslados" />
+        <Tarifas items={frecuentes.filter((f) => f.slug !== r.slug).slice(0, 3)} titulo="Otros traslados" verTodas />
       </div>
     </>
   );

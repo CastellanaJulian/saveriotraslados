@@ -127,6 +127,11 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 - Enfocada en traslados corporativos a aeropuertos, hoteles, Terminal de Retiro e interior (pedido de Julian). Reservás vos y viaja otra persona; solo factura C. Sin "cuenta corriente" (no confirmado).
 - Bloques: h1 + párrafo, cotizador, "Viajes que hacemos" (con links a destinos), "Cómo reservar" (4 pasos), tarifas, chofer, seguridad, FAQ propias. JSON-LD Service con BusinessAudience. Link en header ("Empresas") y pie.
 
+## Tarifas y grupos (2026-11-15)
+- Página `/tarifas` con la lista completa (Aeropuertos / Ciudades e interior) y FAQ de precios. En la home, empresas y destinos va una lista corta (3) con link "Ver todas las tarifas" (Julian: en celu la lista era enorme). Header "Tarifas" → /tarifas.
+- Más de 4 pasajeros: se suma otro chofer con su auto propio (Julian). Nota bajo "Pasajeros" en el cotizador con link a WhatsApp, FAQ general y de empresas. El precio del segundo auto se pasa por WhatsApp (no definido).
+- Máximo de equipaje por auto: **pendiente que Julian pase el número** (hoy `sitio.auto.valijas` = 4, EJEMPLO).
+
 ## Métricas
 - Vercel Analytics (`@vercel/analytics`, componente en `layout.tsx`): visitas por página, sin cookies. Hay que activarlo en Vercel → proyecto → Analytics. Eventos propios (Ver precio, Reservar) requieren plan Pro.
 

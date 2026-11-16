@@ -18,7 +18,7 @@ export default function Inicio() {
           </h1>
           <p className="mt-4 text-[17px] text-apagado">
             <span className="whitespace-nowrap">Desde {sitio.zonaCompleta}</span> ·{" "}
-            <span className="whitespace-nowrap">Hasta {sitio.auto.pasajeros} pasajeros</span>
+            <span className="whitespace-nowrap">Hasta {sitio.auto.pasajeros} pasajeros por auto</span>
           </p>
         </div>
         <div className="lg:row-span-2">
@@ -27,7 +27,7 @@ export default function Inicio() {
       </div>
 
       <div className="mx-auto mt-16 max-w-5xl space-y-16 px-4 sm:px-6">
-        <Tarifas items={frecuentes} />
+        <Tarifas items={frecuentes.slice(0, 3)} verTodas />
         <Chofer />
         <ViajesSeguros />
         <Resenas />

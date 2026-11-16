@@ -487,6 +487,17 @@ export function Cotizador({
               </button>
             ))}
           </div>
+          <p className="mt-2 text-sm text-apagado">
+            ¿Son más de {sitio.auto.pasajeros}? Sumamos otro chofer con su auto.{" "}
+            <a
+              href={linkWhatsApp(`Hola, somos más de ${sitio.auto.pasajeros} pasajeros y quiero consultar por un viaje.`)}
+              target="_blank"
+              rel="noopener"
+              className="font-medium text-tinta underline underline-offset-4"
+            >
+              Consultanos
+            </a>
+          </p>
         </CampoChico>
       </div>
       {ultimo && !origen && !destino && (

@@ -84,10 +84,23 @@ export function Preguntas({ faqs }: { faqs: { pregunta: string; respuesta: strin
 }
 
 // Tarifas aproximadas: separadas del buscador, con link a la página de cada destino.
-export function Tarifas({ items, titulo = "Tarifas aproximadas" }: { items: Frecuente[]; titulo?: string }) {
+// En la home y las demás páginas va una lista corta con link a /tarifas (la lista completa).
+export function Tarifas({
+  items,
+  titulo = "Tarifas aproximadas",
+  id = "tarifas",
+  nota = "Precios de referencia desde CABA con peajes incluidos, sujetos a confirmación.",
+  verTodas = false,
+}: {
+  items: Frecuente[];
+  titulo?: string;
+  id?: string;
+  nota?: string | null;
+  verTodas?: boolean;
+}) {
   return (
-    <section aria-labelledby="tarifas" className="aparecer">
-      <h2 id="tarifas" className="scroll-mt-6 text-2xl font-extrabold tracking-tight">
+    <section aria-labelledby={id} className="aparecer">
+      <h2 id={id} className="scroll-mt-6 text-2xl font-extrabold tracking-tight">
         {titulo}
       </h2>
       <ul className="mt-4 divide-y divide-linea border-y border-linea">
@@ -103,9 +116,12 @@ export function Tarifas({ items, titulo = "Tarifas aproximadas" }: { items: Frec
           </li>
         ))}
       </ul>
-      <p className="mt-3 text-sm text-apagado">
-        Precios de referencia desde CABA con peajes incluidos, sujetos a confirmación.
-      </p>
+      {nota && <p className="mt-3 text-sm text-apagado">{nota}</p>}
+      {verTodas && (
+        <Link href="/tarifas" className="mt-4 inline-block text-[15px] font-semibold underline underline-offset-4">
+          Ver todas las tarifas
+        </Link>
+      )}
     </section>
   );
 }

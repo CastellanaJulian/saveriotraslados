@@ -77,6 +77,11 @@ const faqs = [
       "Sí. Para ida y vuelta en el día, avisanos cuánto dura la reunión y sumamos la espera al precio. Todos los precios incluyen peajes.",
   },
   {
+    pregunta: "¿Y si viajan más de 4 personas?",
+    respuesta:
+      "Sumamos otro chofer con su auto propio, así viajan todos juntos al mismo horario. Escribinos por WhatsApp con la cantidad de pasajeros y te pasamos el precio.",
+  },
+  {
     pregunta: "¿Cómo se paga?",
     respuesta: `${sitio.pagos} ${sitio.pagosNota}`,
   },
@@ -195,7 +200,7 @@ export default function Empresas() {
           </ol>
         </section>
 
-        <Tarifas items={frecuentes} />
+        <Tarifas items={frecuentes.slice(0, 3)} verTodas />
         <Chofer />
         <ViajesSeguros />
         <Resenas />

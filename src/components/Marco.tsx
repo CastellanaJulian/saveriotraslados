@@ -29,7 +29,7 @@ export function Encabezado() {
               </Link>
             </li>
             <li>
-              <Link href="/#tarifas" className="hover:text-white">
+              <Link href="/tarifas" className="hover:text-white">
                 Tarifas
               </Link>
             </li>
