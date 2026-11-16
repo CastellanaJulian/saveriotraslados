@@ -20,7 +20,7 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 - **Nombre definido (2026-11-15): "Saverio Traslados".** Usar exactamente este nombre en el sitio, el Perfil de Empresa de Google, Instagram y WhatsApp Business (consistencia de nombre, dirección y teléfono).
   - Por qué: "traslados" cubre aeropuerto, empresas y media distancia; "viajes" compite con agencias de turismo y "remis" implica una habilitación de remis. El nombre real del negocio puede llevar la palabra clave en la ficha de Google; agregarla como relleno está prohibido.
   - No incluir la ciudad en el nombre: va en el contenido de las páginas y en la ficha de Google.
-- **Dominio principal: `saveriotraslados.com.ar`**, con `saveriotraslados.com` redirigiendo con 301. **Comprado en NIC.ar (2026-11-15), delegado a Vercel y funcionando (2026-11-15)**: http y sin www redirigen a https://www.saveriotraslados.com.ar. Falta redirigir saveriotraslados-gold.vercel.app (hoy responde igual, con canonical a www). (la gestión de dominio, redes y ficha de Google se hace más adelante).
+- **Dominio principal: `saveriotraslados.com.ar`**, con `saveriotraslados.com` redirigiendo con 301. **Comprado en NIC.ar (2026-11-15), delegado a Vercel y funcionando (2026-11-15)**: http y sin www redirigen a https://www.saveriotraslados.com.ar. La URL de prueba saveriotraslados-gold.vercel.app se borró en Vercel (Julian, 2026-11-15).
 - Antes de registrar: chequear que no exista otro "Saverio Traslados" en Google Maps ni en Instagram.
 - Chequeo whois del 2026-11-15 (no es reserva, puede cambiar):
   - Libres: `viajessaverio.com.ar`, `saverioviajes.com.ar`, `saveriotraslados.com.ar`, `trasladossaverio.com.ar`, `viajessaverio.com`, `saveriotraslados.com`, `trasladossaverio.com`
@@ -86,7 +86,7 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 
 ## Implementación (estado al 2026-11-15)
 - Next.js 16 (App Router, TypeScript, Tailwind 4), **sitio estático** (sin Cache Components). Repo: github.com/CastellanaJulian/saveriotraslados.
-- Publicado en Vercel (conectado al repo, cada push a `main` publica): https://saveriotraslados-gold.vercel.app. `sitio.url` toma el dominio de producción de Vercel solo; al conectar saveriotraslados.com.ar se actualiza canonical y sitemap.
+- Publicado en Vercel (conectado al repo, cada push a `main` publica): https://www.saveriotraslados.com.ar. `sitio.url` toma el dominio de producción de Vercel solo (canonical y sitemap).
 - Antes de tocar APIs de Next, leer la doc local en `node_modules/next/dist/docs/` (ver AGENTS.md).
 - Configuración editable en `src/config/` (tarifas, datos del sitio, páginas por destino). Valores marcados EJEMPLO.
 - Cotizador: `src/components/Cotizador.tsx` (cliente). APIs: `/api/lugares` (Photon) y `/api/ruta` (ORS con `ORS_API_KEY`, si no OSRM demo).
@@ -117,7 +117,7 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 - Sale desde Castelar, pero **no se publica** (Julian, 2026-11-15): sin página por zona de salida ni mención en el sitio. El precio siempre se calcula desde donde se busca al pasajero; el acercamiento no se cobra.
 - Carpeta `impresos/` (tarjeta y flyer) no es del sitio: no commitear sin preguntar.
 - Dirección del negocio: **no se publica**, es negocio con zona de servicio (Julian, 2026-11-15). En JSON-LD solo región; en el Perfil de Google, zona de servicio con dirección oculta.
-- Dominio en Vercel: www.saveriotraslados.com.ar es el de producción y el dominio sin www redirige a www (canonical y sitemap usan www, vía VERCEL_PROJECT_PRODUCTION_URL). Cuando el DNS funcione: redirigir saveriotraslados-gold.vercel.app al dominio.
+- Dominio en Vercel: www.saveriotraslados.com.ar es el de producción y el dominio sin www redirige a www (canonical y sitemap usan www, vía VERCEL_PROJECT_PRODUCTION_URL). Search Console verificado (propiedad de dominio) y sitemap enviado con la URL completa (2026-11-15).
 - Header (2026-11-15): logo, links Ezeiza / Aeroparque / Tarifas (desde md) y píldora blanca "WhatsApp" + teléfono (en celu solo "WhatsApp").
 - Choferes: foto, nombre, auto y link "Escribir por WhatsApp". Sin chips de condiciones (Julian: repetían info). Se eliminó `sitio.condiciones`.
 - Animación al bajar: clase `.aparecer` (CSS scroll-driven, sin JS; respeta "reducir movimiento").
