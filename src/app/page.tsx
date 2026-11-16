@@ -17,7 +17,8 @@ export default function Inicio() {
             Traslados a Ezeiza, Aeroparque y el interior
           </h1>
           <p className="mt-4 text-[17px] text-apagado">
-            Desde {sitio.zonaCompleta} · Hasta {sitio.auto.pasajeros} pasajeros
+            <span className="whitespace-nowrap">Desde {sitio.zonaCompleta}</span> ·{" "}
+            <span className="whitespace-nowrap">Hasta {sitio.auto.pasajeros} pasajeros</span>
           </p>
         </div>
         <div className="lg:row-span-2">
