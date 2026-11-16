@@ -25,7 +25,7 @@ export const faqsGenerales = [
   },
   {
     pregunta: "¿Cuántas personas y valijas entran?",
-    respuesta: `Viajamos en una ${sitio.auto.modelo} para hasta ${sitio.auto.pasajeros} pasajeros. Si llevan mucho equipaje, avisanos al reservar.`,
+    respuesta: `Viajamos en un ${sitio.auto.modelo} para hasta ${sitio.auto.pasajeros} pasajeros. Si llevan mucho equipaje, avisanos al reservar.`,
   },
   {
     pregunta: "¿Cómo confirmo la reserva?",
@@ -42,7 +42,7 @@ export function jsonLdNegocio() {
     name: sitio.nombre,
     alternateName: "Saverio",
     description:
-      "Traslados a Ezeiza, Aeroparque y viajes de media distancia desde CABA y Gran Buenos Aires, en Chevrolet Spin para hasta 4 pasajeros.",
+      "Traslados a Ezeiza, Aeroparque y viajes de media distancia desde CABA y Gran Buenos Aires, en auto 0 km para hasta 4 pasajeros.",
     url: sitio.url,
     logo: `${sitio.url}/apple-icon`,
     image: [`${sitio.url}/opengraph-image`, ...sitio.choferes.flatMap((c) => (c.foto ? [`${sitio.url}${c.foto}`] : []))],

@@ -31,7 +31,7 @@ export const rutas: Ruta[] = [
     tarifaFijaId: "ezeiza",
     title: "Traslado a Ezeiza desde CABA y Gran Buenos Aires",
     description:
-      "Traslado al Aeropuerto de Ezeiza desde CABA y Gran Buenos Aires. Cotizá al instante, Chevrolet Spin para 4 pasajeros, vuelos de madrugada y espera sin cargo si se atrasa el vuelo.",
+      "Traslado al Aeropuerto de Ezeiza desde CABA y Gran Buenos Aires. Cotizá al instante, auto 0 km para 4 pasajeros, vuelos de madrugada y espera sin cargo si se atrasa el vuelo.",
     intro: [
       "Te buscamos en tu casa o en la oficina y te dejamos en la terminal que corresponda a tu vuelo. Desde CABA tiene una tarifa de referencia con el peaje incluido; desde el resto del Gran Buenos Aires se calcula por kilómetro, también con peajes incluidos. Te confirmamos el precio por WhatsApp.",
       "Para vuelos internacionales conviene salir con tres horas de margen. Si salís temprano a la mañana, reservá el día anterior y te confirmamos por WhatsApp con el auto y la patente.",
@@ -51,7 +51,7 @@ export const rutas: Ruta[] = [
       {
         pregunta: "¿Entran las valijas de cuatro personas?",
         respuesta:
-          "Viajamos hasta 4 pasajeros en una Chevrolet Spin. Si llevan muchas valijas grandes, avisanos cuántas al reservar.",
+          "Viajamos hasta 4 pasajeros en un auto 0 km. Si llevan muchas valijas grandes, avisanos cuántas al reservar.",
       },
     ],
   },
@@ -213,7 +213,7 @@ export const rutas: Ruta[] = [
     minutos: 75,
     title: "Traslado a Luján desde CABA y Gran Buenos Aires",
     description:
-      "Viaje a Luján y la Basílica desde CABA y Gran Buenos Aires, ida y vuelta en el día. Chevrolet Spin para 4 pasajeros, peajes incluidos.",
+      "Viaje a Luján y la Basílica desde CABA y Gran Buenos Aires, ida y vuelta en el día. Auto 0 km para 4 pasajeros, peajes incluidos.",
     intro: [
       "Por Acceso Oeste, unos 78 km desde el centro de CABA. Viajes a la Basílica, visitas familiares, trámites o trabajo en Luján y alrededores.",
       "Si querés ir y volver en el día, reservá los dos tramos juntos: te llevamos, te esperamos el tiempo que necesites y lo sumamos al precio.",
@@ -239,7 +239,7 @@ export const rutas: Ruta[] = [
     minutos: 270,
     title: "Traslado a Mar del Plata en auto particular",
     description:
-      "Viaje de Buenos Aires a Mar del Plata puerta a puerta en Chevrolet Spin para hasta 4 pasajeros. Cotizá el precio al instante y reservá por WhatsApp.",
+      "Viaje de Buenos Aires a Mar del Plata puerta a puerta en auto 0 km para hasta 4 pasajeros. Cotizá el precio al instante y reservá por WhatsApp.",
     intro: [
       "Puerta a puerta por Ruta 2, sin escalas en terminales ni horarios de micro. Son unas cuatro horas y media de viaje, con parada si la necesitás.",
       "Sirve para viajes de trabajo, para llegar con todo el equipaje a la costa o para volver con la familia completa en un solo auto.",
@@ -287,7 +287,7 @@ export const rutas: Ruta[] = [
     minutos: 210,
     title: "Traslado a Rosario en auto particular",
     description:
-      "Viaje de Buenos Aires a Rosario puerta a puerta para trabajo o familia. Chevrolet Spin para 4 pasajeros, precio al instante.",
+      "Viaje de Buenos Aires a Rosario puerta a puerta para trabajo o familia. Auto 0 km para 4 pasajeros, precio al instante.",
     intro: [
       "Por autopista Buenos Aires–Rosario, unas tres horas y media puerta a puerta. Una opción cómoda para viajes de trabajo de ida y vuelta en el día.",
     ],

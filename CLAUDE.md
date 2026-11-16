@@ -1,7 +1,7 @@
 # Saverio Traslados — Sitio web de traslados
 
 ## Contexto
-- Negocio familiar: el papá de Julian maneja una **Chevrolet Spin** (hasta 6 pasajeros + equipaje) y hoy la usa como taxi.
+- Negocio familiar: el papá de Julian maneja una Chevrolet Spin y hoy la usa como taxi. **En el sitio no se nombra el modelo: se dice "auto 0 km"** (Julian, 2026-11-15).
 - Objetivo: sumar **viajes de media distancia** y **traslados empresariales**.
 - El sitio cumple tres funciones: **hacer conocer el servicio (SEO)**, **cotizar** y **reservar**.
 - Hosting: **Vercel**.

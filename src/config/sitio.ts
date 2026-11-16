@@ -25,7 +25,8 @@ export const sitio = {
   // foto: archivo en /public (null = sin foto).
   choferes: [{ nombre: "Javier Castellana", foto: "/javier-castellana.jpg" as string | null }],
   auto: {
-    modelo: "Chevrolet Spin",
+    // No se nombra el modelo en el sitio (Julian, 2026-11-15): se dice "auto 0 km".
+    modelo: "auto 0 km",
     color: "gris", // EJEMPLO
     patente: "AB 123 CD", // EJEMPLO
     pasajeros: 4,
