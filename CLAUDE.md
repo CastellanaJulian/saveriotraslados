@@ -130,7 +130,7 @@ Etapas: Descubrimiento → Diseño (wireframes → alta fidelidad → prototipo 
 ## Tarifas y grupos (2026-11-15)
 - Página `/tarifas` con la lista completa (Aeropuertos / Ciudades e interior) y FAQ de precios. En la home, empresas y destinos va una lista corta (3) con link "Ver todas las tarifas" (Julian: en celu la lista era enorme). Header "Tarifas" → /tarifas.
 - Más de 4 pasajeros: se suma otro chofer con su auto propio (Julian). Nota bajo "Pasajeros" en el cotizador con link a WhatsApp, FAQ general y de empresas. El precio del segundo auto se pasa por WhatsApp (no definido).
-- Máximo de equipaje por auto: **pendiente que Julian pase el número** (hoy `sitio.auto.valijas` = 4, EJEMPLO).
+- Equipaje máximo por auto: **3 valijas grandes y 4 de mano** (estimado prudente para la Spin con 4 pasajeros, baúl ~550 L; Julian no lo sabía exacto, conviene confirmarlo cargando el auto). En `sitio.auto` (valijas, valijasMano, equipaje). La reserva avisa si eligen más de 3 grandes (puede hacer falta otro auto).
 
 ## Métricas
 - Vercel Analytics (`@vercel/analytics`, componente en `layout.tsx`): visitas por página, sin cookies. Hay que activarlo en Vercel → proyecto → Analytics. Eventos propios (Ver precio, Reservar) requieren plan Pro.

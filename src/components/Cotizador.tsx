@@ -607,8 +607,8 @@ function FormReserva(props: {
       {a?.sentido === "ida" && (
         <p className="text-sm text-apagado">Con el horario del vuelo te confirmamos a qué hora te buscamos.</p>
       )}
-      <Campo etiqueta="Valijas">
-        <div className="grid grid-cols-5 gap-2" role="radiogroup" aria-label="Cantidad de valijas">
+      <Campo etiqueta="Valijas grandes">
+        <div className="grid grid-cols-5 gap-2" role="radiogroup" aria-label="Cantidad de valijas grandes">
           {[0, 1, 2, 3, 4].map((n) => (
             <button
               key={n}
@@ -624,6 +624,11 @@ function FormReserva(props: {
             </button>
           ))}
         </div>
+        <p className="mt-2 text-sm text-apagado">
+          {valijas > sitio.auto.valijas
+            ? `Con más de ${sitio.auto.valijas} valijas grandes puede hacer falta otro auto. Te confirmamos por WhatsApp.`
+            : `Entran hasta ${sitio.auto.equipaje}.`}
+        </p>
       </Campo>
       <Campo etiqueta="Comentarios (opcional)">
         <textarea

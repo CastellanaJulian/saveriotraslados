@@ -49,9 +49,9 @@ export const rutas: Ruta[] = [
           "Seguimos el vuelo con el número que nos pasás al reservar. Si se atrasa, esperamos sin costo extra.",
       },
       {
-        pregunta: "¿Entran las valijas de cuatro personas?",
+        pregunta: "¿Cuántas valijas entran?",
         respuesta:
-          "Viajamos hasta 4 pasajeros en un auto 0 km. Si llevan muchas valijas grandes, avisanos cuántas al reservar.",
+          "Con 4 pasajeros entran hasta 3 valijas grandes y 4 de mano. Si llevan más, avisanos al reservar y sumamos otro auto si hace falta.",
       },
     ],
   },

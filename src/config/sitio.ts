@@ -30,7 +30,10 @@ export const sitio = {
     color: "gris", // EJEMPLO
     patente: "AB 123 CD", // EJEMPLO
     pasajeros: 4,
-    valijas: 4, // EJEMPLO: confirmar cuántas entran
+    // Estimado prudente con 4 pasajeros (baúl de ~550 L). Confirmar cargando el auto.
+    valijas: 3, // valijas grandes (despachadas)
+    valijasMano: 4, // de mano / mochilas
+    equipaje: "3 valijas grandes y 4 de mano",
   },
   // Se acepta cualquier medio de pago; con tarjeta (en cuotas o no) puede haber interés.
   pagos: "Aceptamos todos los medios de pago: efectivo, transferencia, Mercado Pago y tarjetas.",
